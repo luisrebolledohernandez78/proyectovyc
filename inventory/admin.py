@@ -5,13 +5,16 @@ from core.utils import clp
 
 @admin.register(InventoryItem)
 class InventoryItemAdmin(admin.ModelAdmin):
-    list_display = ("sku", "name", "stock", "unit_cost")
+    list_display = ("sku", "name", "stock", "unit_cost_admin")
     search_fields = ("sku", "name")
     ordering = ("name",)
 
+    def unit_cost_admin(self, obj):
+        return clp(obj.unit_cost)
+    unit_cost_admin.short_description = "Costo unitario"    
 @admin.register(PartUsage)
 class PartUsageAdmin(admin.ModelAdmin):
-    list_display = ("work_order", "item", "quantity", "unit_price_admin", "total")
+    list_display = ("work_order", "item", "quantity", "unit_price_admin", "total_admin")
     search_fields = ("work_order__number", "item__name")
     autocomplete_fields = ("work_order", "item")
 

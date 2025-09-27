@@ -32,13 +32,13 @@ def quote_pdf(request, pk):
     y -= 18
     p.setFont("Helvetica", 10)
     for r in quote.work_order.repairs.all():
-        line = f"- {r.description} | Técnico: {r.technician or '-'} | Horas: {r.hours} x ${clp(r.labor_rate)} = ${clp(r.labor_cost)}"
+        line = f"- {r.description} | Técnico: {r.technician or '-'} | Horas: {r.hours} x {clp(r.labor_rate)} = {clp(r.labor_cost)}"
         p.drawString(50, y, line)
         y -= 14
 
     y -= 10
     p.setFont("Helvetica-Bold", 11)
-    p.drawString(50, y, f"Subtotal Mano de Obra: ${clp(quote.total_labor()):,.0f}")
+    p.drawString(50, y, f"Subtotal Mano de Obra: {clp(quote.total_labor())}")
     y -= 24
 
     # Repuestos
@@ -47,18 +47,18 @@ def quote_pdf(request, pk):
     y -= 18
     p.setFont("Helvetica", 10)
     for part in quote.work_order.parts_used.all():
-        line = f"- {part.item.name} | Cant: {part.quantity} x ${clp(part.unit_price)} = ${clp(part.total)}"
+        line = f"- {part.item.name} | Cant: {part.quantity} x {clp(part.unit_price)} = {clp(part.total)}"
         p.drawString(50, y, line)
         y -= 14
 
     y -= 10
     p.setFont("Helvetica-Bold", 11)
-    p.drawString(50, y, f"Subtotal Repuestos: ${clp(quote.total_parts()):,.0f}")
+    p.drawString(50, y, f"Subtotal Repuestos: {clp(quote.total_parts())}")
     y -= 24
 
     # Total
     p.setFont("Helvetica-Bold", 12)
-    p.drawString(40, y, f"TOTAL: ${clp(quote.grand_total()):,.0f}")
+    p.drawString(40, y, f"TOTAL: {clp(quote.grand_total())}")
     y -= 30
 
     if quote.notes:
