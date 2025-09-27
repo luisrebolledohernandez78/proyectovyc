@@ -4,6 +4,7 @@ from .models import Appointment, WorkOrder, Diagnostic, RepairAction
 from billing.models import Quote  # importa el modelo
 from django.urls import reverse
 from django.utils.html import format_html
+from core.utils import clp
 
 class QuoteInline(admin.StackedInline):
     model = Quote
@@ -29,10 +30,10 @@ class WorkOrderAdmin(admin.ModelAdmin):
     inlines = [QuoteInline]
 
     # ya tienes search, filters, etc.
-    def total_labor_admin(self, obj): return obj.total_labor()
-    def total_parts_admin(self, obj): return obj.total_parts()
-    def grand_total_admin(self, obj): return obj.grand_total()
-
+    def total_labor_admin(self, obj): return clp(obj.total_labor())
+    def total_parts_admin(self, obj): return clp(obj.total_parts())
+    def grand_total_admin(self, obj): return clp(obj.grand_total())
+    
     total_labor_admin.short_description = "Mano de obra"
     total_parts_admin.short_description = "Repuestos"
     grand_total_admin.short_description = "Total OT"
@@ -56,6 +57,9 @@ class RepairActionAdmin(admin.ModelAdmin):
     search_fields = ("work_order__number", "description", "technician__full_name")
     list_filter = ("technician",)
     autocomplete_fields = ("work_order", "technician")
+
+    def labor_cost_admin(self, obj): return clp(obj.labor_cost)
+    labor_cost_admin.short_description = "Costo mano de obra"
 
 def cerrar_ot(modeladmin, request, queryset):
     updated = 0

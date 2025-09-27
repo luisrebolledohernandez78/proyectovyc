@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 from .models import Quote
+from core.utils import clp
+
 
 @admin.register(Quote)
 class QuoteAdmin(admin.ModelAdmin):
@@ -16,9 +18,9 @@ class QuoteAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "pdf_link")  # ← visible en el formulario
 
     # Totales
-    def total_labor_admin(self, obj): return obj.total_labor()
-    def total_parts_admin(self, obj): return obj.total_parts()
-    def grand_total_admin(self, obj): return obj.grand_total()
+    def total_labor_admin(self, obj): return clp(obj.total_labor())
+    def total_parts_admin(self, obj): return clp(obj.total_parts())
+    def grand_total_admin(self, obj): return clp(obj.grand_total())
     total_labor_admin.short_description = "Total mano de obra"
     total_parts_admin.short_description = "Total repuestos"
     grand_total_admin.short_description = "Total cotización"
