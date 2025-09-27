@@ -16,7 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from workshop.api_views import WorkOrderListCreate, RepairActionCreate
+from inventory.api_views import PartUsageCreate
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+     # API
+    path('api/workorders/', WorkOrderListCreate.as_view(), name='api_workorders'),
+    path('api/repairs/', RepairActionCreate.as_view(), name='api_repairs_create'),
+    path('api/parts/', PartUsageCreate.as_view(), name='api_parts_create'),
 ]
