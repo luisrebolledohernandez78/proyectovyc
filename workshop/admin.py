@@ -1,5 +1,11 @@
 from django.contrib import admin
 from .models import Appointment, WorkOrder, Diagnostic, RepairAction
+from billing.models import Quote  # importa el modelo
+
+class QuoteInline(admin.StackedInline):
+    model = Quote
+    extra = 0
+    can_delete = False
 
 @admin.register(Appointment)
 class AppointmentAdmin(admin.ModelAdmin):
@@ -17,6 +23,8 @@ class WorkOrderAdmin(admin.ModelAdmin):
     date_hierarchy = "opened_at"
     autocomplete_fields = ("client", "vehicle", "responsible_technician")
     readonly_fields = ("number", "opened_at", "closed_at")
+    inlines = [QuoteInline]
+
     # ya tienes search, filters, etc.
     def total_labor_admin(self, obj): return obj.total_labor()
     def total_parts_admin(self, obj): return obj.total_parts()

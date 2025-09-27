@@ -86,7 +86,7 @@ DATABASES = {
         'PASSWORD': os.getenv('DB_PASSWORD', 'TuClaveFuerte123!'),
         'HOST': os.getenv('DB_HOST', '127.0.0.1'),
         'PORT': os.getenv('DB_PORT', '3306'),
-        'OPTIONS': {'charset': 'utf8mb4'},
+        'OPTIONS': {'charset': 'utf8mb4'}, 'init_command': "SET time_zone='-03:00'"
     }
 }
 
