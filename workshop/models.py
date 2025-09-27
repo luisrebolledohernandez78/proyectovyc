@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from core.models import Client, Vehicle, Technician
+from django.db.models import Sum, F, DecimalField, ExpressionWrapper
+
 
 class Appointment(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='appointments', verbose_name="Vehículo")
@@ -28,6 +30,18 @@ class WorkOrder(models.Model):
         (DONE, "Cerrada"),
         (CANCELED, "Cancelada"),
     ]
+    def total_labor(self):
+        expr = ExpressionWrapper(F('hours') * F('labor_rate'),
+                                 output_field=DecimalField(max_digits=12, decimal_places=2))
+        return self.repairs.aggregate(total=Sum(expr))['total'] or 0
+
+    def total_parts(self):
+        expr = ExpressionWrapper(F('quantity') * F('unit_price'),
+                                 output_field=DecimalField(max_digits=12, decimal_places=2))
+        return self.parts_used.aggregate(total=Sum(expr))['total'] or 0
+
+    def grand_total(self):
+        return (self.total_labor() or 0) + (self.total_parts() or 0)
 
     client = models.ForeignKey(Client, on_delete=models.PROTECT, related_name='work_orders', verbose_name="Cliente")
     vehicle = models.ForeignKey(Vehicle, on_delete=models.PROTECT, related_name='work_orders', verbose_name="Vehículo")
