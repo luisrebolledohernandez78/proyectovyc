@@ -44,7 +44,19 @@ INSTALLED_APPS = [
     'workshop',
     'inventory',
     'billing',
+    'drf_spectacular',
 ]
+# Configuración de drf-spectacular
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'API Proyecto VyC',
+    'DESCRIPTION': 'Documentación de la API de Proyecto VyC',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
