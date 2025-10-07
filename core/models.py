@@ -1,13 +1,14 @@
-from django.db import models
 from django.core.exceptions import ValidationError
+from django.db import models
+
 
 # ------------------------------
-# Validador sencillo de RUT (Chile)
+# Validacion sencilla de RUT (Chile)
 # ------------------------------
 def validar_rut(rut: str) -> bool:
     """
-    Acepta formatos con o sin puntos/guión. Ej: 12.345.678-5 o 12345678-5
-    Retorna True si el dígito verificador es correcto.
+    Acepta formatos con o sin puntos/guion. Ej: 12.345.678-5 o 12345678-5.
+    Retorna True si el digito verificador es correcto.
     """
     if not rut:
         return False
@@ -18,7 +19,7 @@ def validar_rut(rut: str) -> bool:
     if not cuerpo.isdigit():
         return False
 
-    # Cálculo DV
+    # Calculo del DV
     factores = [2, 3, 4, 5, 6, 7]
     suma = 0
     for i, c in enumerate(reversed(cuerpo)):
@@ -33,24 +34,32 @@ def validar_rut(rut: str) -> bool:
         dv_calc = str(dig)
     return dv == dv_calc
 
+
 def normalizar_rut(rut: str) -> str:
-    """Devuelve RUT normalizado sin puntos y con guión. Ej: 12345678-5"""
+    """Devuelve RUT normalizado sin puntos y con guion. Ej: 12345678-5."""
     r = rut.replace(".", "").replace("-", "").upper()
     return f"{r[:-1]}-{r[-1]}" if len(r) > 1 else rut
 
 
 class Client(models.Model):
-    NATURAL = 'NAT'
-    LEGAL = 'LEG'
-    TYPES = [(NATURAL, 'Persona Natural'), (LEGAL, 'Persona Jurídica')]
+    NATURAL = "NAT"
+    LEGAL = "LEG"
+    TYPES = [
+        (NATURAL, "Persona Natural"),
+        (LEGAL, "Persona Juridica"),
+    ]
 
-    name = models.CharField("Nombre/Razón Social", max_length=150)
-    rut = models.CharField("RUT", max_length=12, unique=True,
-                           help_text="Formato: 12345678-5 (sin puntos)")
+    name = models.CharField("Nombre/Razon Social", max_length=150)
+    rut = models.CharField(
+        "RUT",
+        max_length=12,
+        unique=True,
+        help_text="Formato: 12345678-5 (sin puntos)",
+    )
     client_type = models.CharField("Tipo", max_length=3, choices=TYPES, default=NATURAL)
     email = models.EmailField("Email", blank=True, null=True)
-    phone = models.CharField("Teléfono", max_length=30, blank=True, null=True)
-    address = models.CharField("Dirección", max_length=200, blank=True, null=True)
+    phone = models.CharField("Telefono", max_length=30, blank=True, null=True)
+    address = models.CharField("Direccion", max_length=200, blank=True, null=True)
     created_at = models.DateTimeField("Creado", auto_now_add=True)
 
     class Meta:
@@ -62,7 +71,7 @@ class Client(models.Model):
         if self.rut:
             rut_norm = normalizar_rut(self.rut)
             if not validar_rut(rut_norm):
-                raise ValidationError({"rut": "RUT inválido."})
+                raise ValidationError({"rut": "RUT invalido."})
             self.rut = rut_norm
 
     def __str__(self):
@@ -76,8 +85,8 @@ class Technician(models.Model):
     hired_at = models.DateField("Fecha de ingreso", blank=True, null=True)
 
     class Meta:
-        verbose_name = "Técnico"
-        verbose_name_plural = "Técnicos"
+        verbose_name = "Tecnico"
+        verbose_name_plural = "Tecnicos"
         ordering = ["full_name"]
 
     def __str__(self):
@@ -85,18 +94,26 @@ class Technician(models.Model):
 
 
 class Vehicle(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='vehicles',
-                               verbose_name="Cliente")
-    plate = models.CharField("Patente", max_length=12, unique=True,
-                             help_text="Ej: ABCD12 o XX-YY-11 (sin espacios)")
+    client = models.ForeignKey(
+        Client,
+        on_delete=models.CASCADE,
+        related_name="vehicles",
+        verbose_name="Cliente",
+    )
+    plate = models.CharField(
+        "Patente",
+        max_length=12,
+        unique=True,
+        help_text="Ej: ABCD12 o XX-YY-11 (sin espacios)",
+    )
     brand = models.CharField("Marca", max_length=60, blank=True, null=True)
     model = models.CharField("Modelo", max_length=60, blank=True, null=True)
-    year = models.PositiveIntegerField("Año", blank=True, null=True)
+    year = models.PositiveIntegerField("Ano", blank=True, null=True)
     vin = models.CharField("VIN", max_length=30, blank=True, null=True)
 
     class Meta:
-        verbose_name = "Vehículo"
-        verbose_name_plural = "Vehículos"
+        verbose_name = "Vehiculo"
+        verbose_name_plural = "Vehiculos"
         ordering = ["plate"]
 
     def __str__(self):

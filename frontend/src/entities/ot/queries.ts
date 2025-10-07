@@ -1,164 +1,60 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../../shared/api/client";
-import { PaginatedOT } from "./types"; // (ok si aún no lo usas)
+import { z } from "zod";
 
-export type OTListParams = { page?: number; search?: string };
+import { api } from "../../shared/api/client";
+import {
+  OTDetail,
+  OTListItem,
+  PaginatedOT,
+  TOTDetail,
+  TOTListItem,
+  TPaginatedOT,
+} from "./types";
+
+export type OTListParams = { page?: number; search?: string; number?: string };
+
+const ListResponseSchema = z.union([PaginatedOT, z.array(OTListItem)]);
 
 export function useOTs(params: OTListParams) {
-  const search = new URLSearchParams();
-  if (params.page) search.set("page", String(params.page));
-  if (params.search) search.set("search", params.search);
+  const searchParams = new URLSearchParams();
+  if (params.page) searchParams.set("page", String(params.page));
+  if (params.search) searchParams.set("search", params.search);
+  if (params.number) searchParams.set("number", params.number);
 
-  const path = `/workorders/`; // tu endpoint real
-  const url = search.toString() ? `${path}?${search.toString()}` : path;
+  const path = "/workorders/";
+  const url = searchParams.toString() ? `${path}?${searchParams.toString()}` : path;
 
   return useQuery({
     queryKey: ["ots", params],
     queryFn: async () => {
       const { data } = await api.get(url);
-      return data as any;
+      const parsed = ListResponseSchema.safeParse(data);
+      if (!parsed.success) {
+        throw new Error("Respuesta de OTs con formato inesperado");
+      }
+      return parsed.data;
     },
   });
 }
 
-// Detalle de una OT — intenta /id/, /id; si no hay endpoint de detalle,
-// busca en la lista el item que coincida EXACTO por id o number.
-export function useOT(idOrNumber: number | string) {
+export function useOT(identifier: number | string) {
   return useQuery({
-    queryKey: ["ot", idOrNumber],
+    queryKey: ["ot", identifier],
     queryFn: async () => {
-      const idStr = String(idOrNumber);
-
-      // 1) Endpoints de detalle (si existen)
-      for (const p of [`/workorders/${idStr}/`, `/workorders/${idStr}`]) {
-        try {
-          const { data } = await api.get(p);
-          // Verificación defensiva por si algún endpoint devuelve otro item
-          if (data && (String(data.id) === idStr || data.number === idStr)) {
-            return data as any;
-          }
-        } catch {
-          /* sigue intentando */
-        }
+      const { data } = await api.get(`/workorders/${identifier}/`);
+      const parsed = OTDetail.safeParse(data);
+      if (!parsed.success) {
+        throw new Error("Respuesta de detalle OT con formato inesperado");
       }
-
-      // 2) Búsqueda por number exacto (si parece "OT-xxxxx")
-      if (idStr.startsWith("OT-")) {
-        try {
-          const { data } = await api.get(`/workorders/?number=${encodeURIComponent(idStr)}`);
-          const list = Array.isArray(data) ? data : (data?.results ?? []);
-          const found = list.find((x: any) => x?.number === idStr);
-          if (found) return found;
-        } catch {
-          /* sigue intentando */
-        }
-      }
-
-      // 3) Fallback: traer lista y FILTRAR por id/number exactos
-      // (Si tu API no soporta page_size, igual funcionará sin él)
-      try {
-        const { data } = await api.get(`/workorders/?page_size=1000`);
-        const list = Array.isArray(data) ? data : (data?.results ?? []);
-        const found =
-          list.find((x: any) => String(x?.id) === idStr) ??
-          list.find((x: any) => x?.number === idStr);
-        if (found) return found;
-      } catch {
-        /* ignoramos, lanzamos error genérico abajo */
-      }
-
-      throw new Error(`No se encontró la OT ${idStr}`);
+      return parsed.data;
     },
-    enabled: !!idOrNumber,
+    enabled: !!identifier,
     retry: false,
   });
 }
 
-/* ----------------- Helpers de normalización ----------------- */
-function normalizeArray(data: any): any[] {
+export function unwrapList(data: TPaginatedOT | TOTListItem[]): TOTListItem[] {
   if (Array.isArray(data)) return data;
-  if (data?.results && Array.isArray(data.results)) return data.results;
+  if (Array.isArray(data.results)) return data.results;
   return [];
-}
-
-function normalizeRepairs(items: any[]) {
-  return items.map((a) => ({
-    id: a.id,
-    description: a.description ?? a.detail ?? a.name ?? "-",
-    qty: a.hours ?? a.quantity ?? a.qty ?? a.cantidad ?? null,
-    total_fmt:
-      a.total_fmt ??
-      a.amount_fmt ??
-      a.subtotal_fmt ??
-      (typeof a.total === "number" ? `$${a.total}` : a.total) ??
-      "-",
-  }));
-}
-
-function normalizeParts(items: any[]) {
-  return items.map((p) => ({
-    id: p.id,
-    part_name: p.part_name ?? p.part ?? p.name ?? "-",
-    quantity: p.quantity ?? p.qty ?? p.cantidad ?? null,
-    total_fmt:
-      p.total_fmt ??
-      p.amount_fmt ??
-      p.subtotal_fmt ??
-      (typeof p.total === "number" ? `$${p.total}` : p.total) ??
-      "-",
-  }));
-}
-
-/* ----------------- Listas dependientes de OT ----------------- */
-
-// Actividades por OT: prueba varios nombres de query (?workorder, ?workorder_id, ?ot)
-export function useOTRepairs(otId: number | string) {
-  return useQuery({
-    queryKey: ["ot-repairs", otId],
-    queryFn: async () => {
-      const candidates = [
-        `/repairs/?workorder=${otId}`,
-        `/repairs/?workorder_id=${otId}`,
-        `/repairs/?ot=${otId}`,
-      ];
-      let lastErr: any = null;
-      for (const url of candidates) {
-        try {
-          const { data } = await api.get(url);
-          return normalizeRepairs(normalizeArray(data));
-        } catch (e) {
-          lastErr = e;
-        }
-      }
-      throw lastErr ?? new Error("No se pudieron cargar las actividades");
-    },
-    enabled: !!otId,
-    retry: false,
-  });
-}
-
-// Repuestos por OT: prueba varios nombres de query (?workorder, ?workorder_id, ?ot)
-export function useOTParts(otId: number | string) {
-  return useQuery({
-    queryKey: ["ot-parts", otId],
-    queryFn: async () => {
-      const candidates = [
-        `/parts/?workorder=${otId}`,
-        `/parts/?workorder_id=${otId}`,
-        `/parts/?ot=${otId}`,
-      ];
-      let lastErr: any = null;
-      for (const url of candidates) {
-        try {
-          const { data } = await api.get(url);
-          return normalizeParts(normalizeArray(data));
-        } catch (e) {
-          lastErr = e;
-        }
-      }
-      throw lastErr ?? new Error("No se pudieron cargar los repuestos");
-    },
-    enabled: !!otId,
-    retry: false,
-  });
 }

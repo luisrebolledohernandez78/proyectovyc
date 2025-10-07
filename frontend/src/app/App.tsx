@@ -1,9 +1,9 @@
-import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+
 import Nav from "./components/Nav";
 import IndexPage from "./routes/index";
-import OTListPage from "./routes/ot/OTListPage";
 import OTDetailPage from "./routes/ot/OTDetailPage";
+import OTListPage from "./routes/ot/OTListPage";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<IndexPage />} />
           <Route path="/ot" element={<OTListPage />} />
-          <Route path="/ot/:id" element={<OTDetailPage />} />  {/* 👈 ESTA RUTA */}
+          <Route path="/ot/:id" element={<OTDetailPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
@@ -22,4 +22,3 @@ function App() {
 }
 
 export default App;
-

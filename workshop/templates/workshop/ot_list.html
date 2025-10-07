@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}Ordenes de Trabajo - VyC{% endblock %}
+{% block page_title %}Ordenes de Trabajo{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Codigo</th>
+        <th>Cliente</th>
+        <th>Vehiculo</th>
+        <th>Estado</th>
+        <th>Total</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ot in object_list %}
+      <tr>
+        <td>{{ ot.number }}</td>
+        <td>{{ ot.client }}</td>
+        <td class="muted">{{ ot.vehicle }}</td>
+        <td><span class="badge">{{ ot.get_status_display }}</span></td>
+        <td>${{ ot.grand_total|floatformat:0|intcomma }}</td>
+        <td>
+          <a href="{% url 'workshop:ot_detail' ot.pk %}" class="btn-3d">Ver detalles</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6">No hay ordenes registradas.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

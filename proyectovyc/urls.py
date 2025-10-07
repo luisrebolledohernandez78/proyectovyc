@@ -18,7 +18,7 @@ from django.contrib import admin
 
 from django.urls import path, include
 from billing.views import quote_pdf
-from workshop.api_views import WorkOrderListCreate, RepairActionCreate
+from workshop.api_views import WorkOrderListCreate, WorkOrderDetail, RepairActionCreate
 from inventory.api_views import PartUsageCreate
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
@@ -35,6 +35,7 @@ urlpatterns = [
 
      # API
     path('api/workorders/', WorkOrderListCreate.as_view(), name='api_workorders'),
+    path('api/workorders/<str:identifier>/', WorkOrderDetail.as_view(), name='api_workorders_detail'),
     path('api/repairs/', RepairActionCreate.as_view(), name='api_repairs_create'),
     path('api/parts/', PartUsageCreate.as_view(), name='api_parts_create'),
 ]

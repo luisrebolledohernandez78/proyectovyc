@@ -7,10 +7,14 @@ export default function Nav() {
   return (
     <header className="border-b border-neutral-800">
       <div className="mx-auto max-w-6xl flex items-center justify-between p-4">
-        <Link to="/" className="font-semibold">Proyecto VyC</Link>
+        <Link to="/" className="font-semibold">
+          VyC - Sistema de control de mantenimiento y reparacion
+        </Link>
         <nav className="flex gap-2">
-          <NavLink to="/ot" className={linkClass}>OTs</NavLink>
-          {/* agrega más: inventario, clientes, etc. */}
+          <NavLink to="/ot" className={linkClass}>
+            Ordenes de Trabajo
+          </NavLink>
+          {/* agrega mas: inventario, clientes, etc. */}
         </nav>
       </div>
     </header>

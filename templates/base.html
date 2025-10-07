@@ -1,0 +1,23 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}VyC - Sistema de control de mantenimiento y reparacion{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body>
+    <div class="vyc-container">
+      <header>
+        <h1 class="vyc-title">{% block page_title %}Ordenes de Trabajo{% endblock %}</h1>
+      </header>
+
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+    {% block extra_scripts %}{% endblock %}
+  </body>
+</html>

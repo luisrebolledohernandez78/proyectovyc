@@ -1,0 +1,101 @@
+/* ====== Paleta ====== */
+:root{
+  --imperial-blue:#002395;
+  --grid-gray:#e0e0e0;
+  --text-white:#ffffff;
+  --ink:#0b1220;
+  --btn-shadow:#0b1a40;
+  --btn-face:#fdfdfd;
+}
+
+/* ====== Base ====== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
+  color:var(--text-white);
+  background:
+    linear-gradient(transparent 31px, rgba(255,255,255,.06) 32px),
+    linear-gradient(90deg, transparent 31px, rgba(255,255,255,.06) 32px),
+    var(--imperial-blue);
+  background-size:32px 32px, 32px 32px, cover; /* grilla sutil */
+}
+
+/* Contenedor */
+.vyc-container{
+  max-width:1200px;
+  margin-inline:auto;
+  padding:28px 20px;
+}
+
+/* Header */
+.vyc-title{
+  font-size:clamp(24px, 3vw, 40px);
+  font-weight:800;
+  letter-spacing:.2px;
+  text-shadow:0 2px 12px rgba(0,0,0,.25);
+  margin:0 0 20px 0;
+}
+
+/* Cards/Grilla */
+.vyc-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+  gap:18px;
+}
+.vyc-card{
+  background:var(--grid-gray);
+  color:var(--imperial-blue);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 10px 22px rgba(0,0,0,.25);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.vyc-card:hover{ transform:translateY(-2px); box-shadow:0 16px 28px rgba(0,0,0,.35); }
+.vyc-card h3{ margin:0 0 6px 0; font-size:18px; font-weight:800; }
+.vyc-card p{ margin:0 0 12px 0; color:#2c3e50; }
+
+/* Tablas (listas de OT) */
+.table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  background:rgba(255,255,255,.06);
+  border-radius:14px;
+  overflow:hidden;
+  backdrop-filter: blur(4px);
+}
+.table th, .table td{ padding:12px 14px; }
+.table th{
+  text-align:left; 
+  background:rgba(255,255,255,.12);
+  color:#f5f7ff;
+  font-weight:700;
+}
+.table tr + tr td{ border-top:1px solid rgba(255,255,255,.12); }
+.table tr:hover td{ background:rgba(255,255,255,.08); }
+
+/* Botón 3D */
+.btn-3d{
+  appearance:none; border:none; cursor:pointer;
+  background:var(--btn-face); color:var(--imperial-blue);
+  font-weight:800; letter-spacing:.2px;
+  padding:10px 14px; border-radius:14px;
+  box-shadow:0 6px 0 var(--btn-shadow), 0 12px 22px rgba(0,0,0,.35);
+  transform:translateY(0);
+  transition:transform .08s ease, box-shadow .08s ease, filter .2s ease;
+}
+.btn-3d:hover{ filter:brightness(1.03); }
+.btn-3d:active{
+  transform:translateY(2px);
+  box-shadow:0 4px 0 var(--btn-shadow), 0 6px 12px rgba(0,0,0,.35);
+}
+
+/* Utilidades */
+.muted{ opacity:.85 }
+.badge{
+  display:inline-block; font-size:12px; font-weight:700;
+  background:#ffffff; color:var(--imperial-blue);
+  padding:3px 8px; border-radius:999px;
+}
