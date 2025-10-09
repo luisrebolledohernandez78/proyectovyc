@@ -28,7 +28,7 @@ export default function OTListPage() {
             setPage(1);
             refetch();
           }}
-          className="px-3 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700"
+          className="btn-3d text-sm"
         >
           Buscar
         </button>
@@ -87,7 +87,7 @@ export default function OTListPage() {
               <button
                 disabled={page <= 1 || isFetching}
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="px-3 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 font-semibold shadow-md disabled:opacity-50"
+                className="btn-3d text-sm"
               >
                 Anterior
               </button>
@@ -95,7 +95,7 @@ export default function OTListPage() {
               <button
                 disabled={isFetching || rows.length === 0}
                 onClick={() => setPage((p) => p + 1)}
-                className="px-3 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 font-semibold shadow-md disabled:opacity-50"
+                className="btn-3d text-sm"
               >
                 Siguiente
               </button>

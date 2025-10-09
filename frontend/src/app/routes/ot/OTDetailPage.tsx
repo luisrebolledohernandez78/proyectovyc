@@ -27,7 +27,7 @@ export default function OTDetailPage() {
         <pre className="text-xs opacity-80">
 {status ? `HTTP ${status} - ${url}\n` : ""}{msg}
         </pre>
-        <Link to="/ot" className="inline-block mt-2 px-3 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700">
+        <Link to="/ot" className="btn-3d mt-2 inline-flex text-sm">
           Volver
         </Link>
       </section>
@@ -43,7 +43,7 @@ export default function OTDetailPage() {
         <h2 className="text-xl font-semibold">
           {ot.number} <span className="text-sm opacity-70">({ot.status_display})</span>
         </h2>
-        <Link to="/ot" className="px-3 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700">
+        <Link to="/ot" className="btn-3d text-sm">
           Volver
         </Link>
       </div>
@@ -159,10 +159,10 @@ function Tab({
 }) {
   return (
     <button
+      type="button"
+      aria-pressed={active}
       onClick={onClick}
-      className={`px-3 py-2 rounded-lg border ${
-        active ? "bg-neutral-800 border-neutral-700" : "bg-neutral-900 border-neutral-800 hover:bg-neutral-800/60"
-      }`}
+      className={`btn-3d text-xs ${active ? "" : "opacity-80"}`}
     >
       {children}
     </button>

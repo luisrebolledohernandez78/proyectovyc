@@ -3,7 +3,7 @@
 
 :root {
   color-scheme: light dark;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Candara, Tahoma, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #fff;
@@ -38,7 +38,7 @@ h1 {
 
   :root {
     color-scheme: light dark;
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: Candara, Tahoma, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
     color: #fff;

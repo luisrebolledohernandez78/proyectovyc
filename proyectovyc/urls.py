@@ -15,14 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-
-from django.urls import path, include
+from django.contrib.auth.views import LogoutView, LoginView
+from django.urls import path
 from billing.views import quote_pdf
 from workshop.api_views import WorkOrderListCreate, WorkOrderDetail, RepairActionCreate
 from inventory.api_views import PartUsageCreate
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from core.views import UserManagementView, login_api, logout_api
 
 urlpatterns = [
+    path('', LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('usuarios/', UserManagementView.as_view(), name='user-management'),
+    path('api/auth/login/', login_api, name='api_login'),
+    path('api/auth/logout/', logout_api, name='api_logout'),
     path('admin/', admin.site.urls),
 
     # Esquema OpenAPI y Swagger UI

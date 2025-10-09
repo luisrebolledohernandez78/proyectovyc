@@ -1,4 +1,4 @@
-/* ====== Paleta ====== */
+﻿/* ====== Paleta ====== */
 :root{
   --imperial-blue:#002395;
   --grid-gray:#e0e0e0;
@@ -13,7 +13,7 @@
 html,body{height:100%}
 body{
   margin:0;
-  font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
+  font-family:Candara, Tahoma, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
   color:var(--text-white);
   background:
     linear-gradient(transparent 31px, rgba(255,255,255,.06) 32px),
@@ -76,20 +76,52 @@ body{
 .table tr + tr td{ border-top:1px solid rgba(255,255,255,.12); }
 .table tr:hover td{ background:rgba(255,255,255,.08); }
 
-/* Botón 3D */
+/* Boton 3D */
 .btn-3d{
-  appearance:none; border:none; cursor:pointer;
-  background:var(--btn-face); color:var(--imperial-blue);
-  font-weight:800; letter-spacing:.2px;
-  padding:10px 14px; border-radius:14px;
-  box-shadow:0 6px 0 var(--btn-shadow), 0 12px 22px rgba(0,0,0,.35);
+  --btn-bg:var(--imperial-blue);
+  --btn-hover-bg:#0033cc;
+  --btn-shadow-color:rgba(0,0,0,.35);
+  appearance:none;
+  border:none;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.4rem;
+  background:var(--btn-bg);
+  color:var(--text-white);
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:12px 20px;
+  border-radius:8px;
+  box-shadow:3px 3px 0 var(--btn-shadow-color);
   transform:translateY(0);
-  transition:transform .08s ease, box-shadow .08s ease, filter .2s ease;
+  transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease, filter .2s ease;
 }
-.btn-3d:hover{ filter:brightness(1.03); }
+.btn-3d:hover{
+  background:var(--btn-hover-bg);
+  box-shadow:4px 4px 0 var(--btn-shadow-color);
+}
 .btn-3d:active{
-  transform:translateY(2px);
-  box-shadow:0 4px 0 var(--btn-shadow), 0 6px 12px rgba(0,0,0,.35);
+  transform:translate(2px,2px);
+  box-shadow:0 0 0 var(--btn-shadow-color);
+}
+.btn-3d:focus-visible{
+  outline:2px solid rgba(255,255,255,.6);
+  outline-offset:3px;
+}
+.btn-3d[disabled],
+.btn-3d.disabled{
+  cursor:not-allowed;
+  opacity:.55;
+  box-shadow:3px 3px 0 var(--btn-shadow-color);
+  transform:none;
+}
+.btn-3d--danger{
+  --btn-bg:#dc2626;
+  --btn-hover-bg:#f87171;
+  --btn-shadow-color:rgba(153,27,27,.55);
 }
 
 /* Utilidades */
@@ -99,3 +131,8 @@ body{
   background:#ffffff; color:var(--imperial-blue);
   padding:3px 8px; border-radius:999px;
 }
+
+
+
+
+

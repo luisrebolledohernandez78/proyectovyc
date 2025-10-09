@@ -1,0 +1,148 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestion de Usuarios | Proyecto VyC</title>
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-[#001133] via-[#000820] to-[#001b47] text-neutral-100">
+    <div class="min-h-screen flex">
+      <aside class="w-72 bg-white/10 backdrop-blur-xl border-r border-white/10 flex flex-col">
+        <div class="px-6 py-8 space-y-2 border-b border-white/10">
+          <p class="text-xs uppercase tracking-[0.4em] text-blue-200">Proyecto VyC</p>
+          <h1 class="text-2xl font-bold text-white">Panel de Usuarios</h1>
+        </div>
+        <nav class="flex-1 px-6 py-6 space-y-4">
+          <a href="#crear" class="block rounded-2xl bg-white/10 border border-white/10 px-4 py-3 font-semibold hover:bg-white/20 transition-colors">
+            ➕ Crear usuario
+          </a>
+          <a href="#listado" class="block rounded-2xl bg-white/10 border border-white/10 px-4 py-3 font-semibold hover:bg-white/20 transition-colors">
+            👥 Listado y edición
+          </a>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-3d w-full text-sm">
+              Salir
+            </button>
+          </form>
+        </nav>
+      </aside>
+
+      <main class="flex-1 overflow-y-auto p-8 md:p-12">
+        {% if messages %}
+          <div class="space-y-3 mb-6">
+            {% for message in messages %}
+              <div class="{% if message.tags == 'error' %}border-red-500/60 bg-red-500/20 text-red-100{% else %}border-blue-400/60 bg-blue-400/20 text-blue-50{% endif %} rounded-2xl border px-6 py-4 text-sm shadow-lg">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <section id="crear" class="rounded-3xl border border-white/10 bg-white/10 backdrop-blur-xl shadow-2xl p-8 space-y-6">
+          <header>
+            <h2 class="text-2xl font-bold text-white">Crear nuevo usuario</h2>
+            <p class="text-sm text-blue-200">
+              Define usuarios internos o personal administrativo. Las cuentas pueden convertirse en staff para acceso al admin.
+            </p>
+          </header>
+          <form method="post" class="grid gap-4 md:grid-cols-2">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="create">
+            <div class="space-y-2">
+              <label class="text-sm font-semibold text-blue-100 uppercase tracking-wide">Usuario</label>
+              <input name="username" required class="w-full rounded-xl border border-blue-500/40 bg-black/20 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400/60">
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-semibold text-blue-100 uppercase tracking-wide">Correo</label>
+              <input name="email" type="email" class="w-full rounded-xl border border-blue-500/40 bg-black/20 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400/60">
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-semibold text-blue-100 uppercase tracking-wide">Contraseña</label>
+              <input name="password" type="password" required class="w-full rounded-xl border border-blue-500/40 bg-black/20 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400/60">
+            </div>
+            <div class="space-y-4">
+              <label class="flex items-center gap-3 text-sm text-blue-100">
+                <input type="checkbox" name="is_staff" class="h-4 w-4 rounded border-blue-400 bg-black/30 text-blue-400 focus:ring-blue-300">
+                Con acceso a panel de administración
+              </label>
+              <button type="submit" class="btn-3d w-full text-base">Crear usuario</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="listado" class="mt-12 space-y-6">
+          <header class="space-y-2">
+            <h2 class="text-2xl font-bold text-white">Usuarios existentes</h2>
+            <p class="text-sm text-blue-200">
+              Edita permisos, estado y restablece contraseñas directamente desde este panel.
+            </p>
+          </header>
+
+          <div class="grid gap-6">
+            {% for user in users %}
+              <article class="rounded-3xl border border-white/10 bg-white/10 backdrop-blur-xl shadow-xl p-6">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div>
+                    <h3 class="text-xl font-semibold text-white">@{{ user.username }}</h3>
+                    <p class="text-sm text-blue-200">{{ user.email|default:"Sin correo" }}</p>
+                    <p class="text-xs text-blue-300 mt-1">
+                      {% if user.is_superuser %}Superusuario{% elif user.is_staff %}Staff{% else %}Usuario estándar{% endif %}
+                      • {% if user.is_active %}Activo{% else %}Inactivo{% endif %}
+                    </p>
+                  </div>
+                  <div class="flex flex-wrap gap-3">
+                    <form method="post" class="space-y-3 bg-black/20 border border-white/10 rounded-2xl p-4 min-w-[260px]">
+                      {% csrf_token %}
+                      <input type="hidden" name="action" value="update">
+                      <input type="hidden" name="user_id" value="{{ user.id }}">
+                      <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-wide text-blue-200">Correo</label>
+                        <input name="email" value="{{ user.email }}" class="w-full rounded-lg border border-blue-500/40 bg-black/20 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-400/60">
+                      </div>
+                      <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-wide text-blue-200">Nueva contraseña</label>
+                        <input name="new_password" type="password" placeholder="Mantener actual" class="w-full rounded-lg border border-blue-500/40 bg-black/20 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-400/60">
+                      </div>
+                      <label class="flex items-center gap-3 text-sm text-blue-100">
+                        <input type="checkbox" name="is_staff" {% if user.is_staff %}checked{% endif %} class="h-4 w-4 rounded border-blue-400 bg-black/20 text-blue-400 focus:ring-blue-300">
+                        Staff
+                      </label>
+                      <label class="flex items-center gap-3 text-sm text-blue-100">
+                        <input type="checkbox" name="is_active" {% if user.is_active %}checked{% endif %} class="h-4 w-4 rounded border-blue-400 bg-black/20 text-blue-400 focus:ring-blue-300">
+                        Activo
+                      </label>
+                      <button type="submit" class="btn-3d w-full text-sm">
+                        Guardar cambios
+                      </button>
+                    </form>
+
+                    <form method="post" class="self-end">
+                      {% csrf_token %}
+                      <input type="hidden" name="action" value="delete">
+                      <input type="hidden" name="user_id" value="{{ user.id }}">
+                      {% if user.is_superuser %}
+                        <button type="button" disabled class="btn-3d">
+                          Eliminar
+                        </button>
+                      {% else %}
+                        <button type="submit" class="btn-3d btn-3d--danger">
+                          Eliminar
+                        </button>
+                      {% endif %}
+                    </form>
+                  </div>
+                </div>
+              </article>
+            {% empty %}
+              <p class="text-sm text-blue-200">No hay usuarios registrados.</p>
+            {% endfor %}
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+﻿{% load static %}
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acceso restringido | Proyecto VyC</title>
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-[#001133] via-[#000820] to-[#001b47] text-neutral-100 flex items-center justify-center p-6">
+    <div class="w-full max-w-lg">
+      <div class="rounded-3xl bg-white/10 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden">
+        <div class="px-8 py-10 space-y-5 text-center">
+          <p class="text-sm tracking-[0.3em] uppercase text-blue-200">Proyecto VyC</p>
+          <h1 class="text-3xl font-bold text-white">Acceso restringido</h1>
+          <p class="text-sm text-blue-100">
+            Tu cuenta no tiene privilegios de administrador para ingresar a este panel.
+            Si crees que es un error, contacta al responsable del sistema.
+          </p>
+          <div class="text-left bg-white/10 border border-white/10 rounded-2xl p-4 text-sm text-blue-100">
+            <p class="font-semibold text-blue-50">Recomendaciones:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li>Usa el portal principal para gestionar Ã³rdenes de trabajo.</li>
+              <li>Solicita a un administrador que actualice tus permisos si lo requieres.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="bg-white/10 px-8 py-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-center">
+          <a href="http://localhost:5173/ot" class="btn-3d text-center text-lg w-full md:w-auto">
+            Ir al portal
+          </a>
+          <form method="post" action="{% url 'logout' %}" class="w-full md:w-auto">
+            {% csrf_token %}
+            <button type="submit" class="btn-3d btn-3d--danger w-full md:w-auto text-lg">
+              Cerrar sesiÃ³n
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
