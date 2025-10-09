@@ -13,7 +13,7 @@ export default function OTDetailPage() {
   const { data: ot, isLoading, isError, error } = useOT(id ?? "");
 
   if (isLoading) {
-    return <section className="p-4">Cargando...</section>;
+    return <section className="p-6 text-sm text-cyan-100/80">Cargando...</section>;
   }
 
   if (isError || !ot) {
@@ -22,12 +22,12 @@ export default function OTDetailPage() {
     const url = err?.config?.url;
     const msg = err?.message ?? "Error desconocido";
     return (
-      <section className="p-4 text-red-400 space-y-2">
+      <section className="space-y-3 rounded-2xl border border-red-500/40 bg-red-500/10 p-6 text-sm text-red-100 backdrop-blur-md">
         <p>No pudimos cargar la orden solicitada.</p>
-        <pre className="text-xs opacity-80">
+        <pre className="max-h-48 overflow-auto text-xs opacity-80">
 {status ? `HTTP ${status} - ${url}\n` : ""}{msg}
         </pre>
-        <Link to="/ot" className="btn-3d mt-2 inline-flex text-sm">
+        <Link to="/ot" className="btn-3d inline-flex text-xs">
           Volver
         </Link>
       </section>
@@ -38,12 +38,13 @@ export default function OTDetailPage() {
   const parts = ot.parts;
 
   return (
-    <section className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold">
-          {ot.number} <span className="text-sm opacity-70">({ot.status_display})</span>
+    <section className="space-y-5">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h2 className="text-2xl font-semibold text-cyan-100">
+          {ot.number}{" "}
+          <span className="text-sm font-normal text-cyan-100/70">({ot.status_display})</span>
         </h2>
-        <Link to="/ot" className="btn-3d text-sm">
+        <Link to="/ot" className="btn-3d text-xs">
           Volver
         </Link>
       </div>
@@ -63,88 +64,85 @@ export default function OTDetailPage() {
       {tab === "datos" && <DatosTab ot={ot} />}
 
       {tab === "actividades" && (
-        <div className="w-full flex justify-center items-center">
-          <div className="w-full max-w-3xl mx-auto rounded-2xl border border-blue-950 overflow-x-auto shadow-2xl bg-white/95">
-            <Table
-              headers={["Descripcion", "Tecnico", "Horas", "Tarifa", "Total"]}
-              rows={repairs.map((item) => [
-                item.description,
-                item.technician_name ?? "Sin asignar",
-                item.hours.toFixed(2),
-                `$${item.labor_rate.toFixed(0)}`,
-                item.labor_cost_fmt,
-              ])}
-            />
-          </div>
-        </div>
+        <GlassTable
+          headers={["Descripción", "Técnico", "Horas", "Tarifa", "Total"]}
+          rows={repairs.map((item) => [
+            item.description,
+            item.technician_name ?? "Sin asignar",
+            item.hours.toFixed(2),
+            `$${item.labor_rate.toFixed(0)}`,
+            item.labor_cost_fmt,
+          ])}
+        />
       )}
 
       {tab === "repuestos" && (
-        <div className="w-full flex justify-center items-center">
-          <div className="w-full max-w-3xl mx-auto rounded-2xl border border-blue-950 overflow-x-auto shadow-2xl bg-white/95">
-            <Table
-              headers={["Repuesto", "SKU", "Cantidad", "Precio", "Total"]}
-              rows={parts.map((item) => [
-                item.item_name,
-                item.sku,
-                item.quantity,
-                item.unit_price_fmt,
-                item.total_fmt,
-              ])}
-            />
-          </div>
-        </div>
+        <GlassTable
+          headers={["Repuesto", "SKU", "Cantidad", "Precio", "Total"]}
+          rows={parts.map((item) => [
+            item.item_name,
+            item.sku,
+            item.quantity,
+            item.unit_price_fmt,
+            item.total_fmt,
+          ])}
+        />
       )}
     </section>
   );
 }
 
 function DatosTab({ ot }: { ot: TOTDetail }) {
+  const rows: Array<{ label: string; value: string }> = [
+    { label: "Estado", value: ot.status_display },
+    { label: "Cliente", value: `${ot.client.name} (${ot.client.rut})` },
+    { label: "Contacto", value: ot.client.phone ?? "Sin teléfono" },
+    { label: "Vehículo", value: `${ot.vehicle.plate} - ${ot.vehicle.model ?? "Sin modelo"}` },
+    { label: "Técnico responsable", value: ot.responsible_technician?.full_name ?? "Sin asignar" },
+    { label: "Apertura", value: ot.opened_at.slice(0, 10) },
+    { label: "Cierre", value: ot.closed_at ? ot.closed_at.slice(0, 10) : "Abierta" },
+    { label: "Total Mano de Obra", value: ot.total_labor_fmt },
+    { label: "Total Repuestos", value: ot.total_parts_fmt },
+    { label: "Total General", value: ot.grand_total_fmt },
+    { label: "Descripción", value: ot.description ?? "Sin descripción" },
+    {
+      label: "Cotización",
+      value: ot.quote ? `${ot.quote.status_display} · ${ot.quote.grand_total_fmt}` : "Sin cotización asociada",
+    },
+  ];
+
   return (
-    <div className="w-full flex justify-center items-center">
-      <div className="w-full max-w-2xl mx-auto rounded-2xl border border-blue-950 overflow-x-auto shadow-2xl bg-white/95">
-        <table className="min-w-[520px] mx-auto text-sm border border-blue-900">
-          <thead className="bg-[#002366] text-white">
-            <tr>
-              <th className="px-4 py-3 border-b border-blue-900">Campo</th>
-              <th className="px-4 py-3 border-b border-blue-900">Valor</th>
+    <div
+      className="overflow-hidden rounded-3xl border border-cyan-300/25 shadow-[0_32px_70px_-50px_rgba(34,211,238,0.6)]"
+      style={{
+        background:
+          "linear-gradient(150deg, rgba(34,211,238,0.16) 0%, rgba(5,20,51,0.78) 60%, rgba(250,204,21,0.14) 100%)",
+      }}
+    >
+      <div className="overflow-x-auto">
+        <table className="min-w-[520px] w-full text-sm text-cyan-50/85">
+          <thead className="bg-cyan-500/15 text-cyan-50">
+            <tr className="[&>th]:px-5 [&>th]:py-3 [&>th]:text-xs [&>th]:uppercase [&>th]:tracking-[0.3em]">
+              <th>Campo</th>
+              <th>Valor</th>
             </tr>
           </thead>
           <tbody>
-            <Row label="Estado" value={ot.status_display} index={0} />
-            <Row label="Cliente" value={`${ot.client.name} (${ot.client.rut})`} index={1} />
-            <Row label="Contacto" value={ot.client.phone ?? "Sin telefono"} index={2} />
-            <Row label="Vehiculo" value={`${ot.vehicle.plate} - ${ot.vehicle.model ?? "Sin modelo"}`} index={3} />
-            <Row label="Tecnico responsable" value={ot.responsible_technician?.full_name ?? "Sin asignar"} index={4} />
-            <Row label="Apertura" value={ot.opened_at.slice(0, 10)} index={5} />
-            <Row label="Cierre" value={ot.closed_at ? ot.closed_at.slice(0, 10) : "Abierta"} index={6} />
-            <Row label="Total Mano de Obra" value={ot.total_labor_fmt} index={7} />
-            <Row label="Total Repuestos" value={ot.total_parts_fmt} index={8} />
-            <Row label="Total General" value={ot.grand_total_fmt} index={9} />
-            <Row label="Descripcion" value={ot.description ?? "Sin descripcion"} index={10} />
-            <Row
-              label="Cotizacion"
-              value={
-                ot.quote
-                  ? `${ot.quote.status_display} • ${ot.quote.grand_total_fmt}`
-                  : "Sin cotizacion asociada"
-              }
-              index={11}
-            />
+            {rows.map((item, index) => (
+              <tr
+                key={item.label}
+                className={`transition-colors [&>td]:px-5 [&>td]:py-3 ${
+                  index % 2 === 0 ? "bg-white/5" : "bg-white/10"
+                }`}
+              >
+                <td className="font-semibold text-cyan-100">{item.label}</td>
+                <td className="text-cyan-50/85">{item.value}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
     </div>
-  );
-}
-
-function Row({ label, value, index }: { label: string; value: string; index: number }) {
-  const isEven = index % 2 === 0;
-  return (
-    <tr className={`border-b border-blue-900 ${isEven ? "bg-blue-50/80" : "bg-white/80"}`}>
-      <td className="px-4 py-3 font-semibold text-blue-900">{label}</td>
-      <td className="px-4 py-3">{value}</td>
-    </tr>
   );
 }
 
@@ -162,42 +160,58 @@ function Tab({
       type="button"
       aria-pressed={active}
       onClick={onClick}
-      className={`btn-3d text-xs ${active ? "" : "opacity-80"}`}
+      className={`btn-3d text-xs ${active ? "" : "opacity-85"}`}
     >
       {children}
     </button>
   );
 }
 
-function Table({ headers, rows }: { headers: string[]; rows: React.ReactNode[][] }) {
+function GlassTable({ headers, rows }: { headers: string[]; rows: React.ReactNode[][] }) {
   return (
-    <div className="rounded-xl border border-neutral-800 overflow-hidden">
-      <table className="w-full text-sm">
-        <thead className="bg-neutral-900">
-          <tr className="[&>th]:text-left [&>th]:px-4 [&>th]:py-3">
-            {headers.map((header) => (
-              <th key={header}>{header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.length === 0 ? (
-            <tr>
-              <td colSpan={headers.length} className="px-4 py-6 opacity-70">
-                Sin datos
-              </td>
+    <div
+      className="overflow-hidden rounded-3xl border border-cyan-300/25 shadow-[0_32px_70px_-50px_rgba(34,211,238,0.6)]"
+      style={{
+        background:
+          "linear-gradient(150deg, rgba(34,211,238,0.16) 0%, rgba(5,20,51,0.78) 60%, rgba(250,204,21,0.14) 100%)",
+      }}
+    >
+      <div className="overflow-x-auto">
+        <table className="min-w-[520px] w-full text-sm text-cyan-50/85">
+          <thead className="bg-cyan-500/15 text-cyan-50">
+            <tr className="[&>th]:px-5 [&>th]:py-3 [&>th]:text-xs [&>th]:uppercase [&>th]:tracking-[0.3em]">
+              {headers.map((header) => (
+                <th key={header}>{header}</th>
+              ))}
             </tr>
-          ) : (
-            rows.map((row, rowIndex) => (
-              <tr key={rowIndex} className="border-t border-neutral-800 [&>td]:px-4 [&>td]:py-3">
-                {row.map((cell, cellIndex) => (
-                  <td key={cellIndex}>{cell}</td>
-                ))}
+          </thead>
+          <tbody>
+            {rows.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={headers.length}
+                  className="px-5 py-6 text-center text-sm text-cyan-100/70"
+                >
+                  Sin datos disponibles.
+                </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              rows.map((row, rowIndex) => (
+                <tr
+                  key={rowIndex}
+                  className={`transition-colors [&>td]:px-5 [&>td]:py-3 ${
+                    rowIndex % 2 === 0 ? "bg-white/5" : "bg-white/10"
+                  } hover:bg-amber-300/20`}
+                >
+                  {row.map((cell, cellIndex) => (
+                    <td key={cellIndex}>{cell}</td>
+                  ))}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

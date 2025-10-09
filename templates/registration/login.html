@@ -7,88 +7,291 @@
     <title>Ingresar | Proyecto VyC</title>
     <link rel="stylesheet" href="{% static 'css/theme.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .rounded-sm { border-radius: 0.0625rem !important; }
+      .rounded { border-radius: 0.125rem !important; }
+      .rounded-md { border-radius: 0.1875rem !important; }
+      .rounded-lg { border-radius: 0.25rem !important; }
+      .rounded-xl { border-radius: 0.375rem !important; }
+      .rounded-2xl { border-radius: 0.5rem !important; }
+      .rounded-3xl { border-radius: 0.75rem !important; }
+      .rounded-full { border-radius: 9999px !important; }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.15;
+        }
+        25% {
+          opacity: 0.35;
+        }
+        45% {
+          opacity: 0.05;
+        }
+        65% {
+          opacity: 0.4;
+        }
+        85% {
+          opacity: 0.12;
+        }
+      }
+
+      .stars-layer {
+        background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+        mix-blend-mode: screen;
+        filter: brightness(170%);
+        opacity: 0.2;
+        animation: twinkle 8s ease-in-out infinite;
+      }
+
+      .stars-layer.alt-speed {
+        animation-duration: 6s;
+        opacity: 0.18;
+      }
+
+      .stars-layer.slow-speed {
+        animation-duration: 11s;
+        opacity: 0.22;
+      }
+
+      .turquoise-glow {
+        background: radial-gradient(circle at 20% 25%, rgba(34, 211, 238, 0.28) 0%, rgba(34, 211, 238, 0.12) 28%, transparent 60%);
+        mix-blend-mode: screen;
+      }
+
+      .amber-glow {
+        background: radial-gradient(circle at 78% 72%, rgba(250, 204, 21, 0.18) 0%, rgba(250, 204, 21, 0.08) 32%, transparent 65%);
+        mix-blend-mode: screen;
+      }
+
+      .feature-card {
+        border: 1px solid rgba(103, 232, 249, 0.32);
+        background: linear-gradient(140deg, rgba(34, 211, 238, 0.16) 0%, rgba(20, 31, 68, 0.65) 55%, rgba(47, 91, 164, 0.12) 100%);
+        box-shadow: 0 28px 60px -45px rgba(13, 148, 136, 0.65);
+      }
+
+      .form-shell {
+        border: 1px solid rgba(103, 232, 249, 0.28);
+        background: linear-gradient(155deg, rgba(17, 24, 39, 0.9) 0%, rgba(13, 148, 136, 0.12) 52%, rgba(59, 130, 246, 0.35) 100%);
+        box-shadow: 0 45px 95px -60px rgba(6, 182, 212, 0.65);
+      }
+
+      .neon-border {
+        position: relative;
+      }
+
+      .neon-border::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(120deg, rgba(34, 211, 238, 0.85), rgba(250, 204, 21, 0.65), rgba(34, 211, 238, 0.95));
+        -webkit-mask:
+          linear-gradient(#000, #000) content-box,
+          linear-gradient(#000, #000);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        pointer-events: none;
+        filter: saturate(0.65);
+        transition: opacity 0.55s ease, filter 0.65s ease;
+      }
+
+      .neon-border::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        box-shadow:
+          0 0 20px rgba(34, 211, 238, 0.25),
+          0 0 35px rgba(250, 204, 21, 0.15);
+        opacity: 0;
+        pointer-events: none;
+        filter: blur(1.2px);
+        transition: opacity 0.55s ease, filter 0.65s ease, box-shadow 0.65s ease;
+      }
+
+      .neon-border:hover::before,
+      .neon-border:focus-within::before {
+        opacity: 1;
+        filter: saturate(1.15);
+        animation: neonBorderPulse 5.5s ease-in-out infinite;
+      }
+
+      .neon-border:hover::after,
+      .neon-border:focus-within::after {
+        opacity: 0.8;
+        filter: blur(0.45px);
+        box-shadow:
+          0 0 28px rgba(34, 211, 238, 0.45),
+          0 0 55px rgba(250, 204, 21, 0.3);
+        animation: neonGlow 6s ease-in-out infinite;
+      }
+
+      @keyframes neonBorderPulse {
+        0%, 100% {
+          opacity: 0.65;
+          filter: saturate(1);
+        }
+        40% {
+          opacity: 1;
+          filter: saturate(1.2);
+        }
+        70% {
+          opacity: 0.8;
+          filter: saturate(0.9);
+        }
+      }
+
+      @keyframes neonGlow {
+        0%, 100% {
+          opacity: 0.55;
+          filter: blur(0px);
+        }
+        45% {
+          opacity: 0.9;
+          filter: blur(1.5px);
+        }
+        70% {
+          opacity: 0.7;
+          filter: blur(0.5px);
+        }
+      }
+    </style>
   </head>
-  <body class="min-h-screen bg-[#001133] text-neutral-100 flex items-center justify-center py-12 px-4">
-    <div class="w-full max-w-md">
-      <div class="rounded-xl bg-white/10 shadow-2xl backdrop-blur-xl border border-white/10 overflow-hidden">
-        <div class="px-8 py-10 space-y-6">
-          <header class="space-y-2 text-center">
-            <p class="text-sm tracking-wide uppercase text-blue-200">Proyecto VyC</p>
-            <h1 class="text-3xl font-bold text-white">Portal de Acceso</h1>
-            <p class="text-sm text-blue-100">
-              Ingresa con tu cuenta de administrador o usuario autorizado
-            </p>
-          </header>
-
-          {% if form.non_field_errors %}
-            <div class="rounded-lg border border-red-500/60 bg-red-500/20 px-4 py-3 text-sm text-red-100">
-              {% for error in form.non_field_errors %}
-                <p>{{ error }}</p>
-              {% endfor %}
+  <body class="min-h-screen bg-gradient-to-br from-[#001b4e] via-[#001133] to-[#04091f] text-cyan-50">
+    <div class="relative isolate overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#001b4e] via-[#001133] to-[#04091f]"></div>
+      <div class="absolute inset-0 turquoise-glow"></div>
+      <div class="absolute inset-0 amber-glow"></div>
+      <div class="absolute inset-0 stars-layer"></div>
+      <div class="absolute inset-0 stars-layer alt-speed"></div>
+      <div class="absolute inset-0 stars-layer slow-speed"></div>
+      <div class="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center px-6 py-16 lg:px-12">
+        <div class="grid gap-12 lg:grid-cols-[1.1fr_minmax(0,1fr)] lg:items-center">
+          <section class="space-y-10">
+            <div class="space-y-4">
+              <div class="inline-flex items-center gap-3 rounded-full border border-cyan-300/50 bg-cyan-500/10 px-4 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-cyan-100/90 shadow-[0_0_25px_rgba(34,211,238,0.25)]">
+                <span class="h-1.5 w-1.5 rounded-full bg-yellow-300 shadow-[0_0_12px_rgba(250,204,21,0.8)]"></span>
+                Proyecto VyC
+              </div>
+              <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 md:text-5xl">
+                Unifica el control de tus operaciones
+              </h1>
+              <p class="max-w-xl text-base text-cyan-100/90 md:text-lg">
+                Organiza &oacute;rdenes, inventario y procesos de taller con un panel que combina
+                visibilidad, trazabilidad y acceso r&aacute;pido para tu equipo autorizado.
+              </p>
             </div>
-          {% endif %}
 
-          <form method="post" class="space-y-5">
-            {% csrf_token %}
-            <div class="space-y-2">
-              <label for="{{ form.username.id_for_label }}" class="text-sm font-semibold text-blue-100 uppercase tracking-wide">
-                Usuario
-              </label>
-              <input
-                type="text"
-                name="{{ form.username.name }}"
-                id="{{ form.username.id_for_label }}"
-                value="{{ form.username.value|default_if_none:'' }}"
-                autocomplete="username"
-                required
-                class="w-full rounded-lg border border-blue-500/30 bg-white/10 px-4 py-1.5 text-base text-white placeholder:text-blue-200 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400/60"
-              />
-              {% if form.username.errors %}
-                <p class="text-xs text-red-200">{{ form.username.errors|join:", " }}</p>
+            <dl class="grid gap-6 sm:grid-cols-2">
+              <div class="feature-card rounded-2xl p-6 backdrop-blur">
+                <dt class="text-sm font-semibold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200">
+                  Panel inteligente
+                </dt>
+                <dd class="mt-3 text-sm text-cyan-50/90">
+                  Visualiza indicadores cr&iacute;ticos y accede a los m&oacute;dulos clave desde un
+                  mismo lugar.
+                </dd>
+              </div>
+              <div class="feature-card rounded-2xl p-6 backdrop-blur">
+                <dt class="text-sm font-semibold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200">
+                  Accesos seguros
+                </dt>
+                <dd class="mt-3 text-sm text-cyan-50/90">
+                  Gestor de usuarios y auditor&iacute;a integrados para mantener la operaci&oacute;n
+                  bajo control.
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="form-shell neon-border rounded-3xl backdrop-blur-xl">
+            <div class="border-b border-white/10 px-10 py-8 text-center">
+              <h2 class="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200">Inicia sesi&oacute;n</h2>
+              <div class="mx-auto mt-3 h-px w-16 bg-gradient-to-r from-transparent via-yellow-300/80 to-transparent"></div>
+              <p class="mt-3 text-sm text-cyan-100/80">
+                Usa tus credenciales corporativas para ingresar al Centro de Control.
+              </p>
+            </div>
+            <div class="px-10 py-9">
+              {% if form.non_field_errors %}
+                <div class="mb-6 rounded-xl border border-red-500/40 bg-red-500/15 px-4 py-3 text-sm text-red-100 shadow-inner">
+                  {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                  {% endfor %}
+                </div>
               {% endif %}
+
+              <form method="post" class="space-y-6">
+                {% csrf_token %}
+                <div class="space-y-2">
+                  <label for="{{ form.username.id_for_label }}" class="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-100/90">
+                    Usuario
+                  </label>
+                  <div class="relative">
+                    <input
+                      type="text"
+                      name="{{ form.username.name }}"
+                      id="{{ form.username.id_for_label }}"
+                      value="{{ form.username.value|default_if_none:'' }}"
+                      autocomplete="username"
+                      required
+                      class="w-full rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-base text-white placeholder:text-blue-200/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400/70"
+                    />
+                  </div>
+                  {% if form.username.errors %}
+                    <p class="text-xs text-red-200">{{ form.username.errors|join:", " }}</p>
+                  {% endif %}
+                </div>
+
+                <div class="space-y-2">
+                  <label for="{{ form.password.id_for_label }}" class="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-100/90">
+                    Contrase&ntilde;a
+                  </label>
+                  <div class="relative">
+                    <input
+                      type="password"
+                      name="{{ form.password.name }}"
+                      id="{{ form.password.id_for_label }}"
+                      autocomplete="current-password"
+                      required
+                      class="w-full rounded-xl border border-white/10 bg-white/10 px-4 py-3 text-base text-white placeholder:text-blue-200/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400/70"
+                    />
+                  </div>
+                  {% if form.password.errors %}
+                    <p class="text-xs text-red-200">{{ form.password.errors|join:", " }}</p>
+                  {% endif %}
+                </div>
+
+                {% if form.next.value %}
+                  <input type="hidden" name="next" value="{{ form.next.value }}">
+                {% endif %}
+
+                <button type="submit" class="btn-3d w-full justify-center text-base uppercase tracking-[0.3em]">
+                  Ingresar
+                </button>
+              </form>
             </div>
-
-            <div class="space-y-2">
-              <label for="{{ form.password.id_for_label }}" class="text-sm font-semibold text-blue-100 uppercase tracking-wide">
-                Contraseña
-              </label>
-              <input
-                type="password"
-                name="{{ form.password.name }}"
-                id="{{ form.password.id_for_label }}"
-                autocomplete="current-password"
-                required
-                class="w-full rounded-lg border border-blue-500/30 bg-white/10 px-4 py-1.5 text-base text-white placeholder:text-blue-200 focus:border-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-400/60"
-              />
-              {% if form.password.errors %}
-                <p class="text-xs text-red-200">{{ form.password.errors|join:", " }}</p>
-              {% endif %}
-            </div>
-
-            {% if form.next.value %}
-              <input type="hidden" name="next" value="{{ form.next.value }}">
-            {% endif %}
-
-            <button type="submit" class="btn-3d mt-8 block w-1/2 text-lg mx-auto">
-              Ingresar
-            </button>
-          </form>
+            <footer class="border-t border-white/10 px-10 py-6 text-center text-sm text-cyan-100/80">
+              &iquest;No tienes acceso? Solic&iacute;talo al administrador.
+            </footer>
+          </section>
         </div>
-
-        <footer class="bg-white/10 px-8 py-5 text-center text-sm text-blue-100">
-          ¿No tienes acceso? Solicítalo al administrador.
-        </footer>
       </div>
-
-      <!-- comentario final consejo -->
-      <!--
-      <div class="mt-6 text-center text-xs text-blue-200">
-        <p>
-          Consejo: crea el superusuario con
-          <code class="bg-white/10 px-2 py-1 rounded-sm">python manage.py createsuperuser</code>
-        </p>
-      </div>
-      -->
     </div>
+    <script>
+      (function () {
+        const layers = document.querySelectorAll(".stars-layer");
+        layers.forEach((layer) => {
+          const offsetX = Math.floor(Math.random() * 500) - 250;
+          const offsetY = Math.floor(Math.random() * 500) - 250;
+          layer.style.backgroundPosition = `${offsetX}px ${offsetY}px`;
+          const delay = -1 * (Math.random() * 4 + 1);
+          layer.style.animationDelay = `${delay.toFixed(2)}s`;
+        });
+      })();
+    </script>
   </body>
 </html>

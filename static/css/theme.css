@@ -1,7 +1,11 @@
 ﻿/* ====== Paleta ====== */
 :root{
   --imperial-blue:#002395;
-  --grid-gray:#e0e0e0;
+  --midnight-blue:#04091f;
+  --deep-navy:#001133;
+  --electric-turquoise:#22d3ee;
+  --amber-flash:#facc15;
+  --frosted-surface:rgba(255,255,255,.08);
   --text-white:#ffffff;
   --ink:#0b1220;
   --btn-shadow:#0b1a40;
@@ -15,11 +19,22 @@ body{
   margin:0;
   font-family:Candara, Tahoma, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
   color:var(--text-white);
-  background:
-    linear-gradient(transparent 31px, rgba(255,255,255,.06) 32px),
-    linear-gradient(90deg, transparent 31px, rgba(255,255,255,.06) 32px),
-    var(--imperial-blue);
-  background-size:32px 32px, 32px 32px, cover; /* grilla sutil */
+  background:radial-gradient(circle at 12% 18%, rgba(34,211,238,.35) 0%, rgba(34,211,238,.11) 32%, transparent 60%),
+             radial-gradient(circle at 82% 78%, rgba(250,204,21,.22) 0%, rgba(250,204,21,.08) 28%, transparent 62%),
+             linear-gradient(145deg, var(--imperial-blue) 0%, #001b4e 48%, var(--midnight-blue) 100%);
+  background-attachment:fixed;
+  position:relative;
+  min-height:100%;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:url("https://www.transparenttextures.com/patterns/stardust.png");
+  mix-blend-mode:screen;
+  opacity:.18;
+  filter:brightness(170%);
 }
 
 /* Contenedor */
@@ -45,36 +60,43 @@ body{
   gap:18px;
 }
 .vyc-card{
-  background:var(--grid-gray);
-  color:var(--imperial-blue);
-  border-radius:18px;
+  background:linear-gradient(140deg, rgba(34,211,238,.16) 0%, rgba(20,31,68,.65) 52%, rgba(71,116,210,.18) 100%);
+  color:var(--text-white);
+  border:1px solid rgba(34,211,238,.32);
+  border-radius:9px;
   padding:18px;
-  box-shadow:0 10px 22px rgba(0,0,0,.25);
-  transition:transform .15s ease, box-shadow .15s ease;
+  backdrop-filter:blur(12px);
+  box-shadow:0 24px 55px -45px rgba(13,148,136,.75);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
-.vyc-card:hover{ transform:translateY(-2px); box-shadow:0 16px 28px rgba(0,0,0,.35); }
+.vyc-card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(250,204,21,.35);
+  box-shadow:0 26px 65px -40px rgba(250,204,21,.5);
+}
 .vyc-card h3{ margin:0 0 6px 0; font-size:18px; font-weight:800; }
-.vyc-card p{ margin:0 0 12px 0; color:#2c3e50; }
+.vyc-card p{ margin:0 0 12px 0; color:rgba(226,242,255,.9); }
 
 /* Tablas (listas de OT) */
 .table{
   width:100%;
   border-collapse:separate;
   border-spacing:0;
-  background:rgba(255,255,255,.06);
-  border-radius:14px;
+  background:rgba(8,17,43,.55);
+  border-radius:7px;
   overflow:hidden;
-  backdrop-filter: blur(4px);
+  border:1px solid rgba(34,211,238,.22);
+  backdrop-filter:blur(8px);
 }
 .table th, .table td{ padding:12px 14px; }
 .table th{
   text-align:left; 
-  background:rgba(255,255,255,.12);
-  color:#f5f7ff;
+  background:rgba(34,211,238,.16);
+  color:#e9fcff;
   font-weight:700;
 }
 .table tr + tr td{ border-top:1px solid rgba(255,255,255,.12); }
-.table tr:hover td{ background:rgba(255,255,255,.08); }
+.table tr:hover td{ background:rgba(250,204,21,.12); }
 
 /* Boton 3D */
 .btn-3d{
@@ -94,7 +116,7 @@ body{
   letter-spacing:.12em;
   text-transform:uppercase;
   padding:12px 20px;
-  border-radius:8px;
+  border-radius:4px;
   box-shadow:3px 3px 0 var(--btn-shadow-color);
   transform:translateY(0);
   transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease, filter .2s ease;
@@ -108,7 +130,7 @@ body{
   box-shadow:0 0 0 var(--btn-shadow-color);
 }
 .btn-3d:focus-visible{
-  outline:2px solid rgba(255,255,255,.6);
+  outline:2px solid rgba(255,255,255,.7);
   outline-offset:3px;
 }
 .btn-3d[disabled],
@@ -127,9 +149,14 @@ body{
 /* Utilidades */
 .muted{ opacity:.85 }
 .badge{
-  display:inline-block; font-size:12px; font-weight:700;
-  background:#ffffff; color:var(--imperial-blue);
-  padding:3px 8px; border-radius:999px;
+  display:inline-block;
+  font-size:12px;
+  font-weight:700;
+  background:rgba(34,211,238,.18);
+  color:var(--text-white);
+  padding:3px 8px;
+  border-radius:999px;
+  border:1px solid rgba(34,211,238,.4);
 }
 
 
