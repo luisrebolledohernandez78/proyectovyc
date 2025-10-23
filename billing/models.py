@@ -39,3 +39,34 @@ class Quote(models.Model):
 
     def grand_total(self):
         return self.work_order.grand_total()
+
+
+class Payment(models.Model):
+    CASH = "CASH"
+    CARD = "CARD"
+    TRANSFER = "BANK"
+    METHODS = [
+        (CASH, "Efectivo"),
+        (CARD, "Tarjeta"),
+        (TRANSFER, "Transferencia"),
+    ]
+
+    work_order = models.ForeignKey(
+        WorkOrder,
+        on_delete=models.CASCADE,
+        related_name="payments",
+        verbose_name="OT",
+    )
+    amount = models.DecimalField("Monto", max_digits=12, decimal_places=2)
+    method = models.CharField("Método", max_length=10, choices=METHODS, default=CASH)
+    paid_at = models.DateTimeField("Fecha pago", auto_now_add=True)
+    receipt_file = models.FileField("Comprobante", upload_to="payments/", null=True, blank=True)
+    notes = models.TextField("Notas", blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Pago"
+        verbose_name_plural = "Pagos"
+        ordering = ["-paid_at"]
+
+    def __str__(self):
+        return f"Pago {self.amount} - {self.work_order.number}"

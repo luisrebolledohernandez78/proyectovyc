@@ -12,6 +12,15 @@ class Appointment(models.Model):
         related_name="appointments",
         verbose_name="Vehiculo",
     )
+    # optional link to a WorkOrder when the appointment is created for a OT
+    work_order = models.ForeignKey(
+        "WorkOrder",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="appointments_for",
+        verbose_name="Orden de Trabajo",
+    )
     scheduled_at = models.DateTimeField("Fecha/Hora agendada")
     notes = models.TextField("Notas", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -65,6 +74,12 @@ class WorkOrder(models.Model):
     closed_at = models.DateTimeField("Cierre", blank=True, null=True)
     status = models.CharField("Estado", max_length=5, choices=STATUS, default=OPEN)
     description = models.TextField("Descripción/solicitud", blank=True, null=True)
+    # process step 1..6 to map the operational flow (Agendamiento -> Entrega)
+    process_step = models.PositiveSmallIntegerField("Paso", default=1)
+    # timestamps for reception and delivery
+    received_at = models.DateTimeField("Recepción", blank=True, null=True)
+    delivered_at = models.DateTimeField("Entrega", blank=True, null=True)
+    delivered_to = models.CharField("Recibido por", max_length=150, blank=True, null=True)
 
     class Meta:
         verbose_name = "Orden de Trabajo"

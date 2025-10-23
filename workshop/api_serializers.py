@@ -4,7 +4,7 @@ from billing.models import Quote
 from core.models import Client, Technician, Vehicle
 from core.utils import clp
 from inventory.models import PartUsage
-from workshop.models import RepairAction, WorkOrder
+from workshop.models import RepairAction, WorkOrder, Appointment, Diagnostic
 
 
 class WorkOrderListSerializer(serializers.ModelSerializer):
@@ -224,6 +224,21 @@ class RepairActionCreateSerializer(serializers.ModelSerializer):
             "created_at",
         ]
         read_only_fields = ["id", "created_at"]
+
+
+    class AppointmentSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Appointment
+            fields = ["id", "vehicle", "work_order", "scheduled_at", "notes", "created_at"]
+            read_only_fields = ["id", "created_at"]
+
+
+    class DiagnosticCreateSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Diagnostic
+            fields = ["id", "work_order", "details", "created_at"]
+            read_only_fields = ["id", "created_at"]
+
 
 
 class AppointmentSlotSerializer(serializers.Serializer):

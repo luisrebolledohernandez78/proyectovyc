@@ -2,17 +2,23 @@ from django.db.models import Q
 from django.http import Http404
 from rest_framework import generics
 
-from workshop.models import RepairAction, WorkOrder
+from workshop.models import RepairAction, WorkOrder, Appointment, Diagnostic
+from billing.models import Payment as BillingPayment
 from .api_serializers import (
     RepairActionCreateSerializer,
     WorkOrderDetailSerializer,
     WorkOrderListSerializer,
     AppointmentSlotSerializer,
+    AppointmentSerializer,
+    DiagnosticCreateSerializer,
 )
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from datetime import date, timedelta
 import calendar
+from rest_framework import generics, status
+from rest_framework.parsers import MultiPartParser, FormParser
+from billing.api_serializers import PaymentSerializer
 
 
 class WorkOrderListCreate(generics.ListCreateAPIView):
@@ -92,3 +98,46 @@ class AppointmentSlots(APIView):
 
         serializer = AppointmentSlotSerializer(results, many=True)
         return Response(serializer.data)
+
+
+class AppointmentListCreate(generics.ListCreateAPIView):
+    serializer_class = AppointmentSerializer
+
+    def get_queryset(self):
+        qs = Appointment.objects.select_related("vehicle", "work_order").order_by("-scheduled_at")
+        vehicle = self.request.query_params.get("vehicle")
+        if vehicle:
+            qs = qs.filter(vehicle_id=vehicle)
+        return qs
+
+
+class DiagnosticCreate(generics.CreateAPIView):
+    serializer_class = DiagnosticCreateSerializer
+
+
+class PaymentCreate(generics.CreateAPIView):
+    # Use billing serializer
+    parser_classes = [MultiPartParser, FormParser]
+    serializer_class = PaymentSerializer
+    queryset = BillingPayment.objects.all()
+
+
+class WorkOrderDeliver(APIView):
+    def post(self, request, pk):
+        try:
+            wo = WorkOrder.objects.get(pk=pk)
+        except WorkOrder.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        delivered_at = request.data.get("delivered_at")
+        delivered_to = request.data.get("delivered_to")
+        notes = request.data.get("notes")
+
+        if delivered_at:
+            wo.delivered_at = delivered_at
+        if delivered_to:
+            wo.delivered_to = delivered_to
+        wo.status = WorkOrder.DONE
+        wo.closed_at = wo.closed_at or None
+        wo.save()
+        return Response({"ok": True})
