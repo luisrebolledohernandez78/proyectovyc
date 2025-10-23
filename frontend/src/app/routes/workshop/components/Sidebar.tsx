@@ -22,10 +22,8 @@ export default function Sidebar() {
           </nav>
 
           <div className="mt-6">
-            <a href="/usuarios/" className="inline-flex items-center gap-2 px-4 py-3 bg-transparent border-2 border-amber-300 rounded-lg text-amber-200 w-full justify-center">🏠 Volver al Home</a>
-            <form method="post" action="/logout/" className="mt-3">
-              <button type="submit" className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 btn-3d">🚪 Salir</button>
-            </form>
+            <a href="/usuarios/" className="inline-flex items-center gap-2 px-4 py-2 bg-transparent border-2 border-amber-300 rounded-lg text-amber-200 w-full justify-center">🏠 Volver al Home</a>
+            {/* Removed large logout button per UX request; keep a small link if needed */}
           </div>
         </div>
       </div>
