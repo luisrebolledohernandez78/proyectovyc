@@ -2,9 +2,9 @@ import React from "react";
 
 export default function Sidebar() {
   return (
-    <aside>
+    <aside className="sticky top-8 self-start">
       <div className="space-y-4">
-        <a href="#" className="module-card neon-border block mx-auto">
+        <a href="#" className="module-card neon-border block mx-auto" style={{width:320}}>
           <span className="bg-gradient-to-r from-amber-200 via-amber-300 to-amber-100 bg-clip-text text-[1.05rem] font-extrabold uppercase text-transparent drop-shadow-[0_0_12px_rgba(250,204,21,0.35)]">
             Taller
           </span>
@@ -13,7 +13,7 @@ export default function Sidebar() {
           </span>
         </a>
 
-        <div className="rounded-2xl border border-cyan-300/15 bg-[#071a4c]/90 p-6">
+  <div className="rounded-2xl border border-cyan-300/15 bg-[#071a4c]/90 p-6">
           <h4 className="text-lg font-semibold text-amber-200">Atajos</h4>
           <nav className="mt-4 flex flex-col gap-2">
             <a className="px-4 py-2 rounded-lg bg-transparent border border-cyan-400/10 text-cyan-100/80">Agenda</a>

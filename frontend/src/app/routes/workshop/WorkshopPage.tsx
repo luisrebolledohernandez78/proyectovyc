@@ -14,10 +14,10 @@ export default function WorkshopPage() {
         <div className="absolute bottom-[-25%] left-[18%] h-96 w-96 rounded-full bg-amber-300/18 blur-[220px]" />
       </div>
 
-      <section className="vyc-container grid grid-cols-[320px_1fr] gap-6 p-6">
+      <section className="vyc-container grid grid-cols-[320px_1fr] gap-6">
         <Sidebar />
 
-      <main>
+        <main className="py-8">
         <Hero />
         <StepsRow />
         <InfoCard />
