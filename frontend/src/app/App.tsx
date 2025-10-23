@@ -11,7 +11,9 @@ import BillingPage from "./routes/billing/BillingPage";
 
 function App() {
   const location = useLocation();
-  const showNav = !["/", "/login"].includes(location.pathname);
+  // Hide the global Nav for the login and the workshop landing so the /taller page
+  // can render an entirely blank landing while we rebuild it from scratch.
+  const showNav = !["/", "/login", "/taller"].includes(location.pathname);
 
   const routes = (
     <Routes>
