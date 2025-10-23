@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Hero from "./components/Hero";
 import StepsRow from "./components/StepsRow";
 import InfoCard from "./components/InfoCard";
@@ -6,6 +6,8 @@ import AppointmentsCalendar from "./AppointmentsCalendar";
 import Sidebar from "./components/Sidebar";
 
 export default function WorkshopPage() {
+  const [activeStep, setActiveStep] = useState<number>(1);
+
   return (
     <div className="min-h-screen relative">
       {/* soft decorative blobs similar to backend intranet */}
@@ -18,15 +20,22 @@ export default function WorkshopPage() {
         <Sidebar />
 
         <main className="py-8">
-        <Hero />
-        <StepsRow />
-        <InfoCard />
+          <Hero />
+          {/* steps row with interactive selection */}
+          {/* Track the currently selected step (1..6) */}
+          <StepsRow activeStep={activeStep} onSelect={setActiveStep} />
 
-        <section className="mt-8">
-          <h3 className="text-lg font-semibold text-cyan-100 mb-3">Calendario de Agendamiento</h3>
-          <AppointmentsCalendar />
-        </section>
-      </main>
+          {/* Step content area: when Paso 1 is active show the appointments calendar */}
+          {activeStep === 1 && (
+            <div className="mt-6 vyc-card">
+              <h3 className="text-lg font-semibold text-cyan-100 mb-3">Calendario de Agendamiento</h3>
+              <AppointmentsCalendar />
+            </div>
+          )}
+
+          <InfoCard />
+
+        </main>
       </section>
     </div>
   );
