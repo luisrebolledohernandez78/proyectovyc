@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path
+from django.views.generic import RedirectView
 from billing.views import quote_pdf
 from workshop.api_views import WorkOrderListCreate, WorkOrderDetail, RepairActionCreate
 from workshop.api_views import AppointmentSlots
@@ -40,7 +41,8 @@ urlpatterns = [
     path('usuarios/gestion-interna/', UserManagementView.as_view(), name='user-management'),
     path('usuarios/gestion-interna/gestion/', UserAccessView.as_view(), name='user-management-crud'),
     path('usuarios/accesos/', UserAccessView.as_view(), name='user-access'),
-    path('usuarios/mantenimiento/', VehicleMaintenanceView.as_view(), name='vehicle-maintenance'),
+    # During local development redirect the vehicle maintenance route to the SPA dev server.
+    path('usuarios/mantenimiento/', RedirectView.as_view(url='http://localhost:5173/taller', permanent=False), name='vehicle-maintenance'),
     path('usuarios/clientes/', ClientsModuleView.as_view(), name='clients-module'),
     path('api/auth/login/', login_api, name='api_login'),
     path('api/auth/logout/', logout_api, name='api_logout'),
