@@ -18,7 +18,6 @@ from datetime import date, timedelta
 import calendar
 from rest_framework import generics, status
 from rest_framework.parsers import MultiPartParser, FormParser
-from billing.api_serializers import PaymentSerializer
 
 
 class WorkOrderListCreate(generics.ListCreateAPIView):
@@ -82,6 +81,7 @@ class RepairActionCreate(generics.CreateAPIView):
 
 class AppointmentSlots(APIView):
     """Return available appointment slots: 2 slots per weekday (morning, afternoon)."""
+    serializer_class = AppointmentSlotSerializer
 
     def get(self, request):
         # default range: next 14 days
@@ -96,7 +96,7 @@ class AppointmentSlots(APIView):
             # two slots: '09:00' and '15:00'
             results.append({"date": d, "slots": ["09:00", "15:00"]})
 
-        serializer = AppointmentSlotSerializer(results, many=True)
+        serializer = self.get_serializer(results, many=True)
         return Response(serializer.data)
 
 
@@ -118,25 +118,40 @@ class DiagnosticCreate(generics.CreateAPIView):
 class PaymentCreate(generics.CreateAPIView):
     # Use billing serializer
     parser_classes = [MultiPartParser, FormParser]
-    serializer_class = PaymentSerializer
-    queryset = BillingPayment.objects.all()
+
+    def get_serializer_class(self):
+        # import locally to avoid circular import at module load
+        from billing.api_serializers import PaymentSerializer
+
+        return PaymentSerializer
+
+    def get_queryset(self):
+        from billing.models import Payment
+
+        return Payment.objects.all()
 
 
-class WorkOrderDeliver(APIView):
+class WorkOrderDeliver(generics.GenericAPIView):
+    serializer_class = None
+
     def post(self, request, pk):
         try:
             wo = WorkOrder.objects.get(pk=pk)
         except WorkOrder.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        delivered_at = request.data.get("delivered_at")
-        delivered_to = request.data.get("delivered_to")
-        notes = request.data.get("notes")
+        # validate input with DeliverySerializer
+        from .api_serializers import DeliverySerializer
 
-        if delivered_at:
-            wo.delivered_at = delivered_at
-        if delivered_to:
-            wo.delivered_to = delivered_to
+        serializer = DeliverySerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        if data.get("delivered_at"):
+            wo.delivered_at = data.get("delivered_at")
+        if data.get("delivered_to"):
+            wo.delivered_to = data.get("delivered_to")
+
         wo.status = WorkOrder.DONE
         wo.closed_at = wo.closed_at or None
         wo.save()

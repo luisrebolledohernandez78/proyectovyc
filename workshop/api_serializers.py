@@ -226,21 +226,27 @@ class RepairActionCreateSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "created_at"]
 
 
-    class AppointmentSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = Appointment
-            fields = ["id", "vehicle", "work_order", "scheduled_at", "notes", "created_at"]
-            read_only_fields = ["id", "created_at"]
+class AppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appointment
+        fields = ["id", "vehicle", "work_order", "scheduled_at", "notes", "created_at"]
+        read_only_fields = ["id", "created_at"]
 
 
-    class DiagnosticCreateSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = Diagnostic
-            fields = ["id", "work_order", "details", "created_at"]
-            read_only_fields = ["id", "created_at"]
+class DiagnosticCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Diagnostic
+        fields = ["id", "work_order", "details", "created_at"]
+        read_only_fields = ["id", "created_at"]
 
 
 
 class AppointmentSlotSerializer(serializers.Serializer):
     date = serializers.DateField()
     slots = serializers.ListField(child=serializers.CharField())
+
+
+class DeliverySerializer(serializers.Serializer):
+    delivered_at = serializers.DateTimeField(required=False)
+    delivered_to = serializers.CharField(required=False, allow_blank=True)
+    notes = serializers.CharField(required=False, allow_blank=True)
