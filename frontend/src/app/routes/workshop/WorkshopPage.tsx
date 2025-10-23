@@ -1,6 +1,19 @@
+import React from "react";
+import Hero from "./components/Hero";
+import StepsRow from "./components/StepsRow";
+import InfoCard from "./components/InfoCard";
+import AppointmentsCalendar from "./AppointmentsCalendar";
+
 export default function WorkshopPage() {
   return (
-    <section className="grid grid-cols-[320px_1fr] gap-6 p-6">
+    <div className="min-h-screen relative">
+      {/* soft decorative blobs similar to backend intranet */}
+      <div className="pointer-events-none absolute inset-0 opacity-60 mix-blend-screen">
+        <div className="absolute -top-32 right-[25%] h-80 w-80 rounded-full bg-cyan-400/25 blur-[180px]" />
+        <div className="absolute bottom-[-25%] left-[18%] h-96 w-96 rounded-full bg-amber-300/18 blur-[220px]" />
+      </div>
+
+      <section className="vyc-container grid grid-cols-[320px_1fr] gap-6 p-6">
       <aside>
         {/* Left sidebar: quick module list + logout */}
         <div className="rounded-2xl border border-cyan-300/15 bg-[#071a4c]/90 p-6 h-full">
@@ -31,6 +44,7 @@ export default function WorkshopPage() {
           <AppointmentsCalendar />
         </section>
       </main>
-    </section>
+      </section>
+    </div>
   );
 }
