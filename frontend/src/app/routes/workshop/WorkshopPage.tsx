@@ -17,13 +17,12 @@ export default function WorkshopPage() {
       </div>
 
       <section className="vyc-container grid grid-cols-[320px_1fr] gap-6">
-        <Sidebar />
+  <Sidebar activeStep={activeStep} onSelectStep={setActiveStep} />
 
         <main className="py-8">
           <Hero />
           {/* steps row with interactive selection */}
-          {/* Track the currently selected step (1..6) */}
-          <StepsRow activeStep={activeStep} onSelect={setActiveStep} />
+          {/* Steps are now in the sidebar (vertical). Remove horizontal StepsRow from main. */}
 
           {/* Step content area: when Paso 1 is active show the appointments calendar */}
           {activeStep === 1 && (
