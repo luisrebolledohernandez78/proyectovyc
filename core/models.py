@@ -46,10 +46,10 @@ class Client(models.Model):
     LEGAL = "LEG"
     TYPES = [
         (NATURAL, "Persona Natural"),
-        (LEGAL, "Persona Juridica"),
+        (LEGAL, "Persona Jurídica"),
     ]
 
-    name = models.CharField("Nombre/Razon Social", max_length=150)
+    name = models.CharField("Nombre/Razón Social", max_length=150)
     rut = models.CharField(
         "RUT",
         max_length=12,
@@ -58,8 +58,8 @@ class Client(models.Model):
     )
     client_type = models.CharField("Tipo", max_length=3, choices=TYPES, default=NATURAL)
     email = models.EmailField("Email", blank=True, null=True)
-    phone = models.CharField("Telefono", max_length=30, blank=True, null=True)
-    address = models.CharField("Direccion", max_length=200, blank=True, null=True)
+    phone = models.CharField("Teléfono", max_length=30, blank=True, null=True)
+    address = models.CharField("Dirección", max_length=200, blank=True, null=True)
     created_at = models.DateTimeField("Creado", auto_now_add=True)
 
     class Meta:
@@ -85,8 +85,8 @@ class Technician(models.Model):
     hired_at = models.DateField("Fecha de ingreso", blank=True, null=True)
 
     class Meta:
-        verbose_name = "Tecnico"
-        verbose_name_plural = "Tecnicos"
+        verbose_name = "Técnico"
+        verbose_name_plural = "Técnicos"
         ordering = ["full_name"]
 
     def __str__(self):
@@ -108,12 +108,12 @@ class Vehicle(models.Model):
     )
     brand = models.CharField("Marca", max_length=60, blank=True, null=True)
     model = models.CharField("Modelo", max_length=60, blank=True, null=True)
-    year = models.PositiveIntegerField("Ano", blank=True, null=True)
+    year = models.PositiveIntegerField("Año", blank=True, null=True)
     vin = models.CharField("VIN", max_length=30, blank=True, null=True)
 
     class Meta:
-        verbose_name = "Vehiculo"
-        verbose_name_plural = "Vehiculos"
+        verbose_name = "Vehículo"
+        verbose_name_plural = "Vehículos"
         ordering = ["plate"]
 
     def __str__(self):

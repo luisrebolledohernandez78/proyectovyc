@@ -73,21 +73,23 @@ class ModulePlaceholderView(LoginRequiredMixin, UserPassesTestMixin, TemplateVie
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                "module_name": self.module_name,
-                "module_summary": self.module_summary,
+                "module_name": "Mantenimiento y Reparación de Vehículos",
+                "module_summary": "Coordina diagnósticos, reparaciones y mantenimientos preventivos de la flota."
             }
         )
         return context
 
 
 class VehicleMaintenanceView(ModulePlaceholderView):
-    module_name = "Mantenimiento y Reparacion de Vehiculos"
+    template_name = "admin/vehicle_maintenance.html"
+    module_name = "Mantenimiento y Reparación de Vehículos"
     module_summary = (
-        "Coordina diagnosticos, reparaciones y mantenimientos preventivos de la flota."
+        "Coordina diagnósticos, reparaciones y mantenimientos preventivos de la flota."
     )
 
 
 class ClientsModuleView(ModulePlaceholderView):
+    template_name = "admin/clients_module.html"
     module_name = "Clientes"
     module_summary = (
         "Visualiza los contratos activos, historial de proyectos y datos de contacto."

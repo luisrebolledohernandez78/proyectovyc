@@ -47,7 +47,7 @@ class WorkOrder(models.Model):
         Vehicle,
         on_delete=models.PROTECT,
         related_name="work_orders",
-        verbose_name="Vehiculo",
+        verbose_name="Vehículo",
     )
     responsible_technician = models.ForeignKey(
         Technician,
@@ -55,24 +55,24 @@ class WorkOrder(models.Model):
         null=True,
         blank=True,
         related_name="work_orders",
-        verbose_name="Tecnico responsable",
+        verbose_name="Técnico responsable",
     )
 
-    # Numero legible de OT (se generara como OT-000001)
-    number = models.CharField("Numero OT", max_length=20, unique=True, blank=True)
+    # Número legible de OT (se generará como OT-000001)
+    number = models.CharField("Número OT", max_length=20, unique=True, blank=True)
 
     opened_at = models.DateTimeField("Apertura", auto_now_add=True)
     closed_at = models.DateTimeField("Cierre", blank=True, null=True)
     status = models.CharField("Estado", max_length=5, choices=STATUS, default=OPEN)
-    description = models.TextField("Descripcion/solicitud", blank=True, null=True)
+    description = models.TextField("Descripción/solicitud", blank=True, null=True)
 
     class Meta:
         verbose_name = "Orden de Trabajo"
-        verbose_name_plural = "Ordenes de Trabajo"
+        verbose_name_plural = "Órdenes de Trabajo"
         ordering = ["-opened_at"]
 
     def __str__(self):
-        return self.number or f"OT sin numero - {self.vehicle.plate}"
+        return self.number or f"OT sin número - {self.vehicle.plate}"
 
     def total_labor(self):
         expr = ExpressionWrapper(

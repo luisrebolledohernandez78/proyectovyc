@@ -1,0 +1,183 @@
+{% load static %}
+
+<!doctype html>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mantenimiento y Reparación de Vehículos | VyC Ingeniería</title>
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root { color-scheme: dark; }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+        mix-blend-mode: screen;
+        opacity: 0.18;
+        filter: brightness(1.7);
+      }
+
+      .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.25s ease;
+      }
+
+      .btn-icon--active {
+        transform: translateY(-1px) scale(1.15);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-[#001b4e] via-[#001133] to-[#04091f] text-cyan-50">
+    <div class="relative flex min-h-screen overflow-x-hidden">
+      <div class="pointer-events-none absolute inset-0 opacity-60 mix-blend-screen">
+        <div class="absolute -top-28 right-[15%] h-72 w-72 rounded-full bg-cyan-400/25 blur-[140px]"></div>
+        <div class="absolute bottom-[-22%] left-[12%] h-96 w-96 rounded-full bg-amber-300/18 blur-[180px]"></div>
+      </div>
+
+      <aside class="sticky top-0 flex h-screen w-72 flex-shrink-0 flex-col border-r border-cyan-400/20 bg-gradient-to-b from-[#071a4c]/96 via-[#051433]/94 to-[#04091f]/98">
+        <div class="border-b border-cyan-400/15 px-6 py-8">
+          <div class="inline-flex items-center gap-3 rounded-full border border-cyan-300/40 bg-cyan-500/10 px-4 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-cyan-100/90">
+            <span class="h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(250,204,21,0.8)]"></span>
+            VyC Ingeniería
+          </div>
+          <h1 class="mt-4 bg-gradient-to-r from-amber-200 via-amber-300 to-amber-100 bg-clip-text text-2xl font-extrabold text-transparent drop-shadow-[0_0_14px_rgba(250,204,21,0.35)]">
+            {{ module_name }}
+          </h1>
+          <p class="mt-2 text-sm text-cyan-100/80">
+            {{ module_summary }}
+          </p>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto px-6 py-6">
+          <p class="text-[0.58rem] font-semibold uppercase tracking-[0.35em] text-cyan-100/60">
+            Operaciones
+          </p>
+          <div class="mt-4 space-y-3">
+            <a
+              href="#agendamiento"
+              class="block rounded-xl border border-cyan-300/35 bg-white/10 px-4 py-3 text-left transition-all hover:border-amber-300/40 hover:bg-white/16 hover:text-cyan-50"
+            >
+              <span class="text-[0.72rem] uppercase tracking-[0.25em] text-cyan-100/60">Paso 1</span>
+              <span class="mt-1 block text-sm font-semibold text-cyan-100/90">Agendamiento</span>
+            </a>
+            <a
+              href="#recepcion"
+              class="block rounded-xl border border-cyan-300/35 bg-white/10 px-4 py-3 text-left transition-all hover:border-amber-300/40 hover:bg-white/16 hover:text-cyan-50"
+            >
+              <span class="text-[0.72rem] uppercase tracking-[0.25em] text-cyan-100/60">Paso 2</span>
+              <span class="mt-1 block text-sm font-semibold text-cyan-100/90">Recepci&oacute;n &amp; Diagn&oacute;stico</span>
+            </a>
+            <a
+              href="#presupuesto"
+              class="block rounded-xl border border-cyan-300/35 bg-white/10 px-4 py-3 text-left transition-all hover:border-amber-300/40 hover:bg-white/16 hover:text-cyan-50"
+            >
+              <span class="text-[0.72rem] uppercase tracking-[0.25em] text-cyan-100/60">Paso 3</span>
+              <span class="mt-1 block text-sm font-semibold text-cyan-100/90">Presupuesto</span>
+            </a>
+            <a
+              href="#reparacion"
+              class="block rounded-xl border border-cyan-300/35 bg-white/10 px-4 py-3 text-left transition-all hover:border-amber-300/40 hover:bg-white/16 hover:text-cyan-50"
+            >
+              <span class="text-[0.72rem] uppercase tracking-[0.25em] text-cyan-100/60">Paso 4</span>
+              <span class="mt-1 block text-sm font-semibold text-cyan-100/90">Reparaci&oacute;n</span>
+            </a>
+            <a
+              href="#pago"
+              class="block rounded-xl border border-cyan-300/35 bg-white/10 px-4 py-3 text-left transition-all hover:border-amber-300/40 hover:bg-white/16 hover:text-cyan-50"
+            >
+              <span class="text-[0.72rem] uppercase tracking-[0.25em] text-cyan-100/60">Paso 5</span>
+              <span class="mt-1 block text-sm font-semibold text-cyan-100/90">Pago</span>
+            </a>
+            <a
+              href="#entrega"
+              class="block rounded-xl border border-cyan-300/35 bg-white/10 px-4 py-3 text-left transition-all hover:border-amber-300/40 hover:bg-white/16 hover:text-cyan-50"
+            >
+              <span class="text-[0.72rem] uppercase tracking-[0.25em] text-cyan-100/60">Paso 6</span>
+              <span class="mt-1 block text-sm font-semibold text-cyan-100/90">Entrega</span>
+            </a>
+          </div>
+        </nav>
+
+        <div class="px-6 pb-8">
+          <a
+            href="{% url 'intranet-home' %}"
+            class="btn-3d w-full text-xs uppercase px-4 py-3 inline-flex items-center justify-center gap-2 mb-4 tracking-wide"
+          >
+            <span class="btn-icon" aria-hidden="true" data-icon-default="🏠" data-icon-active="🏡">🏠</span>
+            <span>Volver al Home</span>
+          </a>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-3d w-full text-xs">
+              <span class="btn-icon" aria-hidden="true" data-icon-default="🚪" data-icon-active="🏃">🚪</span>
+              <span>Salir</span>
+            </button>
+          </form>
+        </div>
+      </aside>
+
+      <main class="relative flex-1 px-6 py-10 md:px-10 lg:px-16">
+        <section id="vehiculos" class="relative z-10 flex min-h-full flex-col items-center justify-center text-center">
+          <div class="relative space-y-4">
+            <span class="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-500/10 px-5 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.4em] text-cyan-100/90">
+              <span class="h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(250,204,21,0.8)]"></span>
+              VyC Ingenier&iacute;a
+            </span>
+            <h1 class="bg-gradient-to-r from-amber-200 via-amber-300 to-amber-100 bg-clip-text text-4xl font-extrabold text-transparent drop-shadow-[0_0_18px_rgba(250,204,21,0.35)] md:text-5xl">
+              {{ module_name }}
+            </h1>
+            <p class="mx-auto max-w-xl text-base text-cyan-100/80">
+              {{ module_summary }}
+            </p>
+          </div>
+
+          <div class="relative mt-12 max-w-xl rounded-3xl border border-cyan-300/25 bg-white/5 p-8 text-sm text-cyan-100/80 backdrop-blur-xl">
+            <p>
+              Estamos preparando esta secci&oacute;n de la intranet. Comparte los indicadores o flujos que necesitas
+              y los incorporaremos en la pr&oacute;xima iteraci&oacute;n.
+            </p>
+          </div>
+
+          <div class="relative mt-12 flex justify-center">
+            <a
+              href="{% url 'intranet-home' %}"
+              class="btn-3d inline-flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-[0.3em]"
+            >
+              <span class="btn-icon" aria-hidden="true" data-icon-default="🏠" data-icon-active="🏡">🏠</span>
+              <span>Volver al Home</span>
+            </a>
+          </div>
+        </section>
+        <div id="agendamiento"></div>
+        <div id="recepcion"></div>
+        <div id="presupuesto"></div>
+        <div id="reparacion"></div>
+        <div id="pago"></div>
+        <div id="entrega"></div>
+      </main>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".btn-icon[data-icon-active]").forEach((icon) => {
+          const button = icon.closest("button") || icon.closest("a");
+          if (!button) return;
+          button.addEventListener("click", () => {
+            icon.textContent = icon.dataset.iconActive;
+            icon.classList.add("btn-icon--active");
+            setTimeout(() => {
+              icon.textContent = icon.dataset.iconDefault;
+              icon.classList.remove("btn-icon--active");
+            }, 450);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

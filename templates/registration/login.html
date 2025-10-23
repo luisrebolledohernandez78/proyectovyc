@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ingresar | VyC Ingenier&iacute;a</title>
+  <title>Ingresar | VyC Ingeniería</title>
     <link rel="stylesheet" href="{% static 'css/theme.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -12,9 +12,9 @@
       .rounded { border-radius: 0.125rem !important; }
       .rounded-md { border-radius: 0.1875rem !important; }
       .rounded-lg { border-radius: 0.25rem !important; }
-      .rounded-xl { border-radius: 0.375rem !important; }
-      .rounded-2xl { border-radius: 0.5rem !important; }
-      .rounded-3xl { border-radius: 0.75rem !important; }
+      .rounded-xl { border-radius: 0.3125rem !important; }
+      .rounded-2xl { border-radius: 0.375rem !important; }
+      .rounded-3xl { border-radius: 0.5rem !important; }
       .rounded-full { border-radius: 9999px !important; }
 
       @keyframes twinkle {
@@ -90,6 +90,9 @@
         -webkit-mask:
           linear-gradient(#000, #000) content-box,
           linear-gradient(#000, #000);
+        mask:
+          linear-gradient(#000, #000) content-box,
+          linear-gradient(#000, #000);
         -webkit-mask-composite: xor;
         mask-composite: exclude;
         opacity: 0;
@@ -158,6 +161,17 @@
           filter: blur(0.5px);
         }
       }
+
+      .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.25s ease;
+      }
+
+      .btn-icon--active {
+        transform: translateY(-1px) scale(1.15);
+      }
     </style>
   </head>
   <body class="min-h-screen bg-gradient-to-br from-[#001b4e] via-[#001133] to-[#04091f] text-cyan-50">
@@ -173,10 +187,10 @@
           <section class="space-y-10 lg:pr-12 xl:pr-16">
             <div class="space-y-4">
               <div class="flex items-center gap-4">
-                <img src="{% static 'images/logo-vyc.png' %}" alt="Logo corporativo VyC Ingenier&iacute;a y Mantenimiento" class="h-16 w-auto drop-shadow-[0_12px_30px_rgba(37,99,235,0.35)]" loading="lazy" />
+                <img src="{% static 'images/logo-vyc.png' %}" alt="Logo corporativo VyC Ingeniería y Mantenimiento" class="h-16 w-auto drop-shadow-[0_12px_30px_rgba(37,99,235,0.35)]" loading="lazy" />
                 <div class="inline-flex items-center gap-3 rounded-full border border-cyan-300/50 bg-cyan-500/10 px-4 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-cyan-100/90 shadow-[0_0_25px_rgba(34,211,238,0.25)]">
                   <span class="h-1.5 w-1.5 rounded-full bg-yellow-300 shadow-[0_0_12px_rgba(250,204,21,0.8)]"></span>
-                  VyC Ingenier&iacute;a
+                  VyC Ingeniería
                 </div>
               </div>
               <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 md:text-5xl">
@@ -273,7 +287,8 @@
                 {% endif %}
 
                 <button type="submit" class="btn-3d w-full justify-center text-base uppercase tracking-[0.3em]">
-                  Ingresar
+                  <span class="btn-icon" aria-hidden="true" data-icon-default="🔒" data-icon-active="🔓">🔒</span>
+                  <span>Ingresar</span>
                 </button>
               </form>
             </div>
@@ -284,6 +299,22 @@
         </div>
       </div>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".btn-icon[data-icon-active]").forEach((icon) => {
+          const button = icon.closest("button");
+          if (!button) return;
+          button.addEventListener("click", () => {
+            icon.textContent = icon.dataset.iconActive;
+            icon.classList.add("btn-icon--active");
+            setTimeout(() => {
+              icon.textContent = icon.dataset.iconDefault;
+              icon.classList.remove("btn-icon--active");
+            }, 450);
+          });
+        });
+      });
+    </script>
     <script>
       (function () {
         const layers = document.querySelectorAll(".stars-layer");

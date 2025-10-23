@@ -74,6 +74,9 @@
         -webkit-mask:
           linear-gradient(#000, #000) content-box,
           linear-gradient(#000, #000);
+        mask:
+          linear-gradient(#000, #000) content-box,
+          linear-gradient(#000, #000);
         -webkit-mask-composite: xor;
         mask-composite: exclude;
         opacity: 0;
@@ -142,6 +145,17 @@
           filter: blur(0.5px);
         }
       }
+
+      .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.25s ease;
+      }
+
+      .btn-icon--active {
+        transform: translateY(-1px) scale(1.15);
+      }
     </style>
   </head>
   <body class="min-h-screen bg-gradient-to-br from-[#001b4e] via-[#001133] to-[#04091f] text-cyan-50">
@@ -199,9 +213,26 @@
       <form method="post" action="{% url 'logout' %}" class="relative mt-16">
         {% csrf_token %}
         <button type="submit" class="btn-3d text-sm uppercase tracking-[0.3em] px-7 py-3">
-          Salir
+          <span class="btn-icon" aria-hidden="true" data-icon-default="🚪" data-icon-active="🏃">🚪</span>
+          <span>Salir</span>
         </button>
       </form>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".btn-icon[data-icon-active]").forEach((icon) => {
+          const button = icon.closest("button");
+          if (!button) return;
+          button.addEventListener("click", () => {
+            icon.textContent = icon.dataset.iconActive;
+            icon.classList.add("btn-icon--active");
+            setTimeout(() => {
+              icon.textContent = icon.dataset.iconDefault;
+              icon.classList.remove("btn-icon--active");
+            }, 450);
+          });
+        });
+      });
+    </script>
   </body>
 </html>
