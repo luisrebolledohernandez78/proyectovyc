@@ -15,7 +15,7 @@ export default function StepsRow() {
       {labels.map((label) => (
         <button
           key={label}
-          className="px-6 py-3 text-xs uppercase tracking-wider rounded-lg text-cyan-50 bg-gradient-to-br from-[#0e6aa8] via-[#0b5a8a] to-[#08436a] shadow-inner"
+          className="px-6 py-3 text-xs uppercase tracking-wider rounded-lg text-cyan-50 bg-gradient-to-br from-[#0e6aa8] via-[#0b5a8a] to-[#08436a] shadow-inner border border-cyan-400/10"
           style={{ whiteSpace: "pre-line" }}
         >
           {label}

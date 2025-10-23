@@ -71,6 +71,36 @@ button:active {
   transform: translateY(1px) scale(0.99);
 }
 
+/* Module card and neon border (copied from backend intranet styles) */
+.module-card {
+  border-radius: 12px;
+  border: 1px solid rgba(103, 232, 249, 0.32);
+  background: linear-gradient(155deg, rgba(13,148,136,0.12) 0%, rgba(5,20,51,0.78) 58%, rgba(71,116,210,0.18) 100%);
+  box-shadow: 6px 6px 0 rgba(4,7,18,0.55), 0 30px 65px -45px rgba(34,211,238,0.65);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.5rem 2rem;
+  height: 210px;
+  width: 320px;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+}
+.module-card:hover{ transform: translate(-3px,-3px); filter: brightness(1.05); }
+
+.neon-border{ position: relative; }
+.neon-border::before{ content: ""; position:absolute; inset:0; border-radius:inherit; padding:1px; background: linear-gradient(120deg, rgba(34,211,238,0.85), rgba(250,204,21,0.65), rgba(34,211,238,0.95)); -webkit-mask: linear-gradient(#000,#000) content-box, linear-gradient(#000,#000); mask: linear-gradient(#000,#000) content-box, linear-gradient(#000,#000); -webkit-mask-composite: xor; mask-composite: exclude; opacity:0; pointer-events:none; filter: saturate(0.65); transition: opacity .55s ease, filter .65s ease; }
+.neon-border::after{ content:""; position:absolute; inset:0; border-radius:inherit; box-shadow: 0 0 20px rgba(34,211,238,0.25), 0 0 35px rgba(250,204,21,0.15); opacity:0; pointer-events:none; filter: blur(1.2px); transition: opacity .55s ease, filter .65s ease, box-shadow .65s ease; }
+.neon-border:hover::before, .neon-border:focus-visible::before{ opacity:1; filter: saturate(1.15); animation: neonBorderPulse 5.5s ease-in-out infinite; }
+.neon-border:hover::after, .neon-border:focus-visible::after{ opacity:0.8; filter: blur(0.45px); box-shadow: 0 0 28px rgba(34,211,238,0.45), 0 0 55px rgba(250,204,21,0.3); animation: neonGlow 6s ease-in-out infinite; }
+@keyframes neonBorderPulse{ 0%,100%{ opacity:0.65; filter:saturate(1);} 40%{ opacity:1; filter:saturate(1.2);} 70%{ opacity:0.8; filter:saturate(0.9);} }
+@keyframes neonGlow{ 0%,100%{ opacity:0.55; filter: blur(0px);} 45%{ opacity:0.9; filter: blur(1.5px);} 70%{ opacity:0.7; filter: blur(0.5px);} }
+
+/* Button icon helper */
+.btn-icon{ display:inline-flex; align-items:center; justify-content:center; transition: transform .25s ease; }
+.btn-icon--active{ transform: translateY(-1px) scale(1.15); }
+
 .rounded-sm { border-radius: 0.0625rem !important; }
 .rounded { border-radius: 0.125rem !important; }
 .rounded-md { border-radius: 0.1875rem !important; }

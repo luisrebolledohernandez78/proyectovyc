@@ -13,7 +13,7 @@ export default function Hero() {
       </h1>
 
       <p className="mx-auto max-w-2xl text-base text-cyan-100/80 mt-3">
-        Coordina diagnósticos, reparaciones y mantenimientos preventivos de la flota.
+        Coordina diagnósticos, reparaciones y entregas de la flota desde este panel.
       </p>
     </header>
   );
