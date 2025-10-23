@@ -224,3 +224,8 @@ class RepairActionCreateSerializer(serializers.ModelSerializer):
             "created_at",
         ]
         read_only_fields = ["id", "created_at"]
+
+
+class AppointmentSlotSerializer(serializers.Serializer):
+    date = serializers.DateField()
+    slots = serializers.ListField(child=serializers.CharField())

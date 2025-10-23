@@ -383,7 +383,7 @@
           {% if show_full_management %}
 
 
-          <section id="usuarios-crear" class="glass-panel rounded-3xl px-8 py-10 space-y-6 backdrop-blur-xl">
+          <section id="usuarios-crear" class="glass-panel rounded-3xl px-6 py-6 space-y-4 backdrop-blur-xl">
 
 
             <header class="space-y-2">
@@ -407,141 +407,65 @@
 
 
 
-            <form method="post" class="grid gap-6 md:grid-cols-2">
-
-
+                        <form method="post" class="space-y-3">
               {% csrf_token %}
+              <input type="hidden" name="action" value="update">
+              <input type="hidden" name="user_id" value="{{ user.id }}">
 
-
-              <input type="hidden" name="action" value="create">
-
-
-              <div class="space-y-2">
-
-
-                <label class="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-100/85">
-
-
-                  Usuario
-
-
-                </label>
-
-
-                <input
-
-
-                  name="username"
-
-
-                  required
-
-
-                  class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-2 text-sm text-cyan-50 placeholder:text-cyan-200/60 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
-
-
-                >
-
-
-              </div>
-
-
-              <div class="space-y-2">
-
-
-                <label class="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-100/85">
-
-
+              <div class="flex flex-col gap-1 md:flex-row md:items-center md:gap-4">
+                <label class="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80 md:w-40 md:text-[0.7rem]">
                   Correo
-
-
                 </label>
-
-
                 <input
-
-
                   name="email"
-
-
-                  type="email"
-
-
-                  class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-2 text-sm text-cyan-50 placeholder:text-cyan-200/60 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
-
-
+                  value="{{ user.email }}"
+                  class="flex-1 rounded-md border border-white/10 bg-white/10 px-3 py-1.5 text-sm text-cyan-50 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
                 >
-
-
               </div>
 
-
-              <div class="space-y-2">
-
-
-                <label class="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-100/85">
-
-
-                  Contraseña
-
-
+              <div class="flex flex-col gap-1 md:flex-row md:items-center md:gap-4">
+                <label class="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80 md:w-40 md:text-[0.7rem]">
+                  Nueva contrase&ntilde;a
                 </label>
-
-
                 <input
-
-
-                  name="password"
-
-
+                  name="new_password"
                   type="password"
-
-
-                  required
-
-
-                  class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-2 text-sm text-cyan-50 placeholder:text-cyan-200/60 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
-
-
+                  placeholder="Mantener actual"
+                  class="flex-1 rounded-md border border-white/10 bg-white/10 px-3 py-1.5 text-sm text-cyan-50 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
                 >
-
-
               </div>
 
-
-              <div class="space-y-4">
-
-
-                <label class="flex items-center gap-3 text-xs text-cyan-100/85">
-
-
-                  <input
-
-
-                    type="checkbox"
-
-
-                    name="is_staff"
-
-
-                    class="h-4 w-4 rounded border-cyan-300 bg-white/10 text-cyan-300 focus:ring-cyan-200"
-
-
-                  >
-
-
-                  Con acceso al panel de administración
-
-
-                </label>
-
-
-                <button type="submit" class="btn-3d w-full text-xs">Crear usuario</button>
-
-
+              <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
+                <span class="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80 md:w-40 md:text-[0.7rem]">
+                  Permisos
+                </span>
+                <div class="flex flex-wrap gap-4">
+                  <label class="flex items-center gap-2 text-xs text-cyan-100/80">
+                    <input
+                      type="checkbox"
+                      name="is_staff"
+                      {% if user.is_staff %}checked{% endif %}
+                      class="h-4 w-4 rounded border-cyan-300 bg-white/10 text-cyan-300 focus:ring-cyan-200"
+                    >
+                    Staff
+                  </label>
+                  <label class="flex items-center gap-2 text-xs text-cyan-100/80">
+                    <input
+                      type="checkbox"
+                      name="is_active"
+                      {% if user.is_active %}checked{% endif %}
+                      class="h-4 w-4 rounded border-cyan-300 bg-white/10 text-cyan-300 focus:ring-cyan-200"
+                    >
+                    Activo
+                  </label>
+                </div>
               </div>
 
-
+              <div class="flex justify-end">
+                <button type="submit" class="btn-3d px-6 py-2 text-xs uppercase tracking-[0.3em]">
+                  Guardar cambios
+                </button>
+              </div>
             </form>
 
 
@@ -740,10 +664,10 @@
                                   <input type="hidden" name="user_id" value="{{ user.id }}">
 
 
-                                  <div class="space-y-1">
+                                  <div class="flex flex-col gap-1 md:flex-row md:items-center md:gap-4">
 
 
-                                    <label class="text-[0.6rem] font-semibold uppercase tracking-[0.3em] text-cyan-100/70">
+                                    <label class="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80 md:w-40 md:text-[0.7rem]">
 
 
                                       Correo
@@ -761,7 +685,7 @@
                                       value="{{ user.email }}"
 
 
-                                      class="w-full rounded-md border border-white/10 bg-white/10 px-3 py-2 text-xs text-cyan-50 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
+                                      class="flex-1 rounded-md border border-white/10 bg-white/10 px-3 py-1.5 text-sm text-cyan-50 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
 
 
                                     >
@@ -770,13 +694,13 @@
                                   </div>
 
 
-                                  <div class="space-y-1">
+                                  <div class="flex flex-col gap-1 md:flex-row md:items-center md:gap-4">
 
 
-                                    <label class="text-[0.6rem] font-semibold uppercase tracking-[0.3em] text-cyan-100/70">
+                                    <label class="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80 md:w-40 md:text-[0.7rem]">
 
 
-                                      Nueva contrasena
+                                      Nueva contrase&ntilde;a
 
 
                                     </label>
@@ -794,7 +718,7 @@
                                       placeholder="Mantener actual"
 
 
-                                      class="w-full rounded-md border border-white/10 bg-white/10 px-3 py-2 text-xs text-cyan-50 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
+                                      class="flex-1 rounded-md border border-white/10 bg-white/10 px-3 py-1.5 text-sm text-cyan-50 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
 
 
                                     >
@@ -803,61 +727,94 @@
                                   </div>
 
 
-                                  <label class="flex items-center gap-3 text-xs text-cyan-100/80">
+                                  <div class="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
 
 
-                                    <input
+                                    <span class="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/80 md:w-40 md:text-[0.7rem]">
 
 
-                                      type="checkbox"
+                                      Permisos
 
 
-                                      name="is_staff"
+                                    </span>
 
 
-                                      {% if user.is_staff %}checked{% endif %}
+                                    <div class="flex flex-wrap gap-4">
 
 
-                                      class="h-4 w-4 rounded border-cyan-300 bg-white/10 text-cyan-300 focus:ring-cyan-200"
+                                      <label class="flex items-center gap-2 text-xs text-cyan-100/80">
 
 
-                                    >
+                                        <input
 
 
-                                    Staff
+                                          type="checkbox"
 
 
-                                  </label>
+                                          name="is_staff"
 
 
-                                  <label class="flex items-center gap-3 text-xs text-cyan-100/80">
+                                          {% if user.is_staff %}checked{% endif %}
 
 
-                                    <input
+                                          class="h-4 w-4 rounded border-cyan-300 bg-white/10 text-cyan-300 focus:ring-cyan-200"
 
 
-                                      type="checkbox"
+                                        >
 
 
-                                      name="is_active"
+                                        Staff
 
 
-                                      {% if user.is_active %}checked{% endif %}
+                                      </label>
 
 
-                                      class="h-4 w-4 rounded border-cyan-300 bg-white/10 text-cyan-300 focus:ring-cyan-200"
+                                      <label class="flex items-center gap-2 text-xs text-cyan-100/80">
 
 
-                                    >
+                                        <input
 
 
-                                    Activo
+                                          type="checkbox"
 
 
-                                  </label>
+                                          name="is_active"
 
 
-                                  <button type="submit" class="btn-3d w-full text-xs">Guardar cambios</button>
+                                          {% if user.is_active %}checked{% endif %}
+
+
+                                          class="h-4 w-4 rounded border-cyan-300 bg-white/10 text-cyan-300 focus:ring-cyan-200"
+
+
+                                        >
+
+
+                                        Activo
+
+
+                                      </label>
+
+
+                                    </div>
+
+
+                                  </div>
+
+
+                                  <div class="flex justify-end">
+
+
+                                    <button type="submit" class="btn-3d px-6 py-2 text-xs uppercase tracking-[0.3em]">
+
+
+                                      Guardar cambios
+
+
+                                    </button>
+
+
+                                  </div>
 
 
                                 </form>

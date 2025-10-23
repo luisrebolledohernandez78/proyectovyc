@@ -64,3 +64,10 @@ Dependencias principales (ver `requirements.txt`):
    ```bash
    git clone https://github.com/TU-USUARIO/proyectovyc.git
    cd proyectovyc
+
+## Documentación del flujo de mantenimiento
+
+El flujo de mantenimiento y reparación (pasos 1..6) está documentado en `docs/MAINTENANCE_WORKFLOW.md`.
+
+API adicional:
+- `GET /api/appointments/slots/` devuelve los slots de agendamiento (09:00 y 15:00) para los próximos 14 días por defecto.

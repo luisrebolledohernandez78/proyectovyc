@@ -7,7 +7,12 @@ from .api_serializers import (
     RepairActionCreateSerializer,
     WorkOrderDetailSerializer,
     WorkOrderListSerializer,
+    AppointmentSlotSerializer,
 )
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from datetime import date, timedelta
+import calendar
 
 
 class WorkOrderListCreate(generics.ListCreateAPIView):
@@ -67,3 +72,23 @@ class WorkOrderDetail(generics.RetrieveAPIView):
 class RepairActionCreate(generics.CreateAPIView):
     queryset = RepairAction.objects.all()
     serializer_class = RepairActionCreateSerializer
+
+
+class AppointmentSlots(APIView):
+    """Return available appointment slots: 2 slots per weekday (morning, afternoon)."""
+
+    def get(self, request):
+        # default range: next 14 days
+        days = int(request.query_params.get("days", 14))
+        today = date.today()
+        results = []
+        for i in range(days):
+            d = today + timedelta(days=i)
+            # skip weekends
+            if d.weekday() >= 5:
+                continue
+            # two slots: '09:00' and '15:00'
+            results.append({"date": d, "slots": ["09:00", "15:00"]})
+
+        serializer = AppointmentSlotSerializer(results, many=True)
+        return Response(serializer.data)
