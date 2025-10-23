@@ -32,6 +32,31 @@ export default function Sidebar({ activeStep, onSelectStep }: Props) {
           </div>
         </div>
 
+        <div className="mb-4">
+          <div className="text-xs text-cyan-200 font-semibold mb-2">PASOS</div>
+          <div className="flex flex-col gap-2">
+            {stepLabels.map((label, idx) => {
+              const step = idx + 1;
+              const isActive = activeStep === step;
+              return (
+                <button
+                  key={label}
+                  onClick={() => onSelectStep(step)}
+                  className={
+                    "text-left px-3 py-2 rounded-md w-full text-cyan-100 transition-all " +
+                    (isActive
+                      ? "bg-gradient-to-r from-[#0fb4e0] via-[#0b93c2] to-[#0a6a9d] shadow-md"
+                      : "hover:bg-sky-900/20")
+                  }
+                  style={{ whiteSpace: "pre-line" }}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         <nav className="mt-auto flex flex-col gap-3">
           <a href="#agenda" className="text-sm text-cyan-100 hover:text-amber-200">Agenda</a>
           <a href="#ots" className="text-sm text-cyan-100 hover:text-amber-200">OTs</a>
