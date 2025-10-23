@@ -36,10 +36,10 @@ export default function OperationsSidebar({ current = 1 }: { current?: number })
         </div>
       </nav>
 
-      <div className="px-2 pb-4">
-        <a href="/usuarios/" className="btn-3d w-full inline-flex items-center justify-center gap-2 mb-3">🏠 Volver al Home</a>
+      <div className="px-4 pb-6">
+        <a href="/usuarios/" className="w-full inline-flex items-center justify-center gap-2 mb-3 px-4 py-3 bg-transparent border-2 border-amber-300 rounded-lg text-amber-200">🏠 Volver al Home</a>
         <form method="post" action="/logout/">{`{% csrf_token %}`}
-          <button type="submit" className="btn-3d w-full">� Salir</button>
+          <button type="submit" className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-br from-[#062b73] via-[#083069] to-[#0a2150] border-2 border-amber-300 rounded-lg text-cyan-50">🚪 Salir</button>
         </form>
       </div>
     </aside>
