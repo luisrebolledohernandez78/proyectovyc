@@ -21,12 +21,25 @@ from billing.views import quote_pdf
 from workshop.api_views import WorkOrderListCreate, WorkOrderDetail, RepairActionCreate
 from inventory.api_views import PartUsageCreate
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
-from core.views import UserManagementView, login_api, logout_api
+from core.views import (
+    ClientsModuleView,
+    IntranetHomeView,
+    UserAccessView,
+    UserManagementView,
+    VehicleMaintenanceView,
+    login_api,
+    logout_api,
+)
 
 urlpatterns = [
     path('', LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
-    path('usuarios/', UserManagementView.as_view(), name='user-management'),
+    path('usuarios/', IntranetHomeView.as_view(), name='intranet-home'),
+    path('usuarios/gestion-interna/', UserManagementView.as_view(), name='user-management'),
+    path('usuarios/gestion-interna/gestion/', UserAccessView.as_view(), name='user-management-crud'),
+    path('usuarios/accesos/', UserAccessView.as_view(), name='user-access'),
+    path('usuarios/mantenimiento/', VehicleMaintenanceView.as_view(), name='vehicle-maintenance'),
+    path('usuarios/clientes/', ClientsModuleView.as_view(), name='clients-module'),
     path('api/auth/login/', login_api, name='api_login'),
     path('api/auth/logout/', logout_api, name='api_logout'),
     path('admin/', admin.site.urls),

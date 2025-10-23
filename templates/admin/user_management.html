@@ -1,17 +1,16 @@
 {% load static %}
+
 <!doctype html>
+
 <html lang="es">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gestión de Usuarios | Proyecto VyC</title>
+    <title>Gestion de Personal | Proyecto VyC</title>
     <link rel="stylesheet" href="{% static 'css/theme.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      :root {
-        color-scheme: dark;
-      }
-
+      :root { color-scheme: dark; }
       body::before {
         content: "";
         position: fixed;
@@ -22,79 +21,64 @@
         opacity: 0.18;
         filter: brightness(1.7);
       }
-
-      .rounded-sm { border-radius: 0.0625rem !important; }
-      .rounded { border-radius: 0.125rem !important; }
-      .rounded-md { border-radius: 0.1875rem !important; }
-      .rounded-lg { border-radius: 0.25rem !important; }
-      .rounded-xl { border-radius: 0.375rem !important; }
-      .rounded-2xl { border-radius: 0.5rem !important; }
-      .rounded-3xl { border-radius: 0.75rem !important; }
-      .rounded-full { border-radius: 9999px !important; }
-
-      .glass-panel {
-        border: 1px solid rgba(103, 232, 249, 0.28);
-        background: linear-gradient(
-          150deg,
-          rgba(34, 211, 238, 0.12) 0%,
-          rgba(5, 20, 51, 0.78) 58%,
-          rgba(250, 204, 21, 0.12) 100%
-        );
-        box-shadow: 0 45px 95px -60px rgba(6, 182, 212, 0.65);
-      }
-
-      .glass-card {
-        border: 1px solid rgba(103, 232, 249, 0.26);
-        background: linear-gradient(
-          150deg,
-          rgba(34, 211, 238, 0.16) 0%,
-          rgba(5, 20, 51, 0.82) 60%,
-          rgba(71, 116, 210, 0.14) 100%
-        );
-        box-shadow: 0 32px 70px -50px rgba(34, 211, 238, 0.58);
-      }
     </style>
   </head>
   <body class="min-h-screen bg-gradient-to-br from-[#001b4e] via-[#001133] to-[#04091f] text-cyan-50">
-    <div class="relative flex min-h-screen overflow-hidden">
+    <div class="relative flex min-h-screen overflow-x-hidden">
       <div class="pointer-events-none absolute inset-0 opacity-60 mix-blend-screen">
         <div class="absolute -top-28 right-[15%] h-72 w-72 rounded-full bg-cyan-400/25 blur-[140px]"></div>
         <div class="absolute bottom-[-22%] left-[12%] h-96 w-96 rounded-full bg-amber-300/18 blur-[180px]"></div>
       </div>
 
-      <aside class="relative flex w-72 flex-col border-r border-cyan-400/20 bg-gradient-to-b from-[#071a4c]/96 via-[#051433]/94 to-[#04091f]/98">
+      <aside class="sticky top-0 flex h-screen w-72 flex-shrink-0 flex-col border-r border-cyan-400/20 bg-gradient-to-b from-[#071a4c]/96 via-[#051433]/94 to-[#04091f]/98">
         <div class="border-b border-cyan-400/15 px-6 py-8">
           <div class="inline-flex items-center gap-3 rounded-full border border-cyan-300/40 bg-cyan-500/10 px-4 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-cyan-100/90">
             <span class="h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(250,204,21,0.8)]"></span>
-            Proyecto VyC
+            VyC Ingenier&iacute;a
           </div>
-          <h1 class="mt-4 text-2xl font-bold text-cyan-50">Panel de Usuarios</h1>
+          <h1 class="mt-4 bg-gradient-to-r from-amber-200 via-amber-300 to-amber-100 bg-clip-text text-2xl font-extrabold text-transparent drop-shadow-[0_0_14px_rgba(250,204,21,0.35)]">
+            Panel de Control
+          </h1>
           <p class="mt-2 text-sm text-cyan-100/80">
-            Administra credenciales, accesos y estados desde un único lugar.
+            Administra credenciales, accesos y estados desde un unico lugar.
           </p>
         </div>
 
-        <nav class="flex-1 px-6 py-6 space-y-3">
+        <nav class="flex-1 space-y-5 overflow-y-auto px-6 py-6">
+          <div class="space-y-2">
+            <p class="text-[0.58rem] font-semibold uppercase tracking-[0.35em] text-cyan-100/60">
+              Operaciones
+            </p>
+            <a
+              href="#personal"
+              class="block rounded-2xl border border-cyan-300/35 bg-white/10 px-4 py-2 text-sm font-semibold text-cyan-100/85 transition-all hover:border-amber-300/40 hover:bg-white/16 hover:text-cyan-50"
+            >
+              Personal
+            </a>
+            <div class="rounded-2xl border border-cyan-300/30 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.35em] text-cyan-100/60">
+              Solo Personal
+            </div>
+          </div>
+
           <a
-            href="#crear"
-            class="block rounded-2xl border border-cyan-300/35 bg-white/10 px-4 py-2 text-sm font-semibold text-cyan-100/85 transition-all hover:border-amber-300/40 hover:bg-white/16 hover:text-cyan-50"
+            href="{% url 'user-access' %}"
+            class="btn-3d mt-4 w-full text-xs uppercase tracking-[0.3em] px-4 py-3 inline-flex items-center justify-center"
           >
-            Crear usuario
+            Usuarios
           </a>
-          <a
-            href="#listado"
-            class="block rounded-2xl border border-cyan-300/35 bg-white/10 px-4 py-2 text-sm font-semibold text-cyan-100/85 transition-all hover:border-amber-300/40 hover:bg-white/16 hover:text-cyan-50"
-          >
-            Listado y edición
-          </a>
+
+          
+        </nav>
+
+        <div class="px-6 pb-8">
           <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit" class="btn-3d mt-4 w-full text-xs">Salir</button>
           </form>
-        </nav>
+        </div>
       </aside>
 
-      <main class="relative flex-1 overflow-y-auto px-6 py-10 md:px-10 lg:px-16">
+      <main class="relative flex-1 px-6 py-10 md:px-10 lg:px-16">
         {% if messages %}
           <div class="mb-8 space-y-3">
             {% for message in messages %}
@@ -107,156 +91,67 @@
           </div>
         {% endif %}
 
-        <section id="crear" class="glass-panel rounded-3xl px-8 py-10 space-y-6 backdrop-blur-xl">
+        <div class="mb-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div class="inline-flex items-center gap-2 rounded-full border border-cyan-300/30 bg-white/10 px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-cyan-100/75">
+            <span class="h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(250,204,21,0.8)]"></span>
+            Gesti&oacute;n Interna
+          </div>
+          <a
+            href="{% url 'intranet-home' %}"
+            class="btn-3d inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-2 text-sm"
+          >
+            Volver al Home
+          </a>
+        </div>
+
+        <section id="personal" class="space-y-12">
           <header class="space-y-2">
-            <h2 class="text-2xl font-bold text-cyan-100">Crear nuevo usuario</h2>
+            <h2 class="bg-gradient-to-r from-amber-200 via-amber-300 to-amber-100 bg-clip-text text-3xl font-extrabold text-transparent drop-shadow-[0_0_18px_rgba(250,204,21,0.35)]">
+              Personal
+            </h2>
             <p class="text-sm text-cyan-100/75">
-              Define cuentas internas o personal administrativo. Puedes otorgar acceso al panel de
-              administración cuando sea necesario.
+              Coordina la informaci&oacute;n del personal, asigna funciones y mantente al d&iacute;a con las necesidades del equipo en terreno.
             </p>
           </header>
 
-          <form method="post" class="grid gap-4 md:grid-cols-2">
-            {% csrf_token %}
-            <input type="hidden" name="action" value="create">
-            <div class="space-y-2">
-              <label class="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-100/85">
-                Usuario
-              </label>
-              <input
-                name="username"
-                required
-                class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-2 text-sm text-cyan-50 placeholder:text-cyan-200/60 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
-              >
+          <div class="glass-panel flex flex-col gap-6 rounded-3xl px-6 py-7 backdrop-blur-xl md:flex-row md:items-center md:justify-between">
+            <div class="space-y-2 text-sm text-cyan-100/80">
+              <p class="font-semibold text-cyan-100">Plan en desarrollo</p>
+              <p class="text-cyan-100/70">
+                Estamos preparando la gestion de personal para centralizar dotaciones, turnos y asignaciones internas en un solo lugar.
+              </p>
             </div>
-            <div class="space-y-2">
-              <label class="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-100/85">
-                Correo
-              </label>
-              <input
-                name="email"
-                type="email"
-                class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-2 text-sm text-cyan-50 placeholder:text-cyan-200/60 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
-              >
-            </div>
-            <div class="space-y-2">
-              <label class="text-xs font-semibold uppercase tracking-[0.35em] text-cyan-100/85">
-                Contraseña
-              </label>
-              <input
-                name="password"
-                type="password"
-                required
-                class="w-full rounded-lg border border-white/10 bg-white/10 px-4 py-2 text-sm text-cyan-50 placeholder:text-cyan-200/60 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
-              >
-            </div>
-            <div class="space-y-4">
-              <label class="flex items-center gap-3 text-xs text-cyan-100/85">
-                <input
-                  type="checkbox"
-                  name="is_staff"
-                  class="h-4 w-4 rounded border-cyan-300 bg-white/10 text-cyan-300 focus:ring-cyan-200"
-                >
-                Con acceso al panel de administración
-              </label>
-              <button type="submit" class="btn-3d w-full text-xs">Crear usuario</button>
-            </div>
-          </form>
-        </section>
+            <span class="inline-flex items-center gap-2 rounded-full border border-cyan-300/35 bg-white/10 px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-cyan-100/70">
+              <span class="h-1.5 w-1.5 rounded-full bg-amber-300"></span>
+              Pr&oacute;ximamente
+            </span>
+          </div>
 
-        <section id="listado" class="mt-14 space-y-6">
-          <header class="space-y-2">
-            <h2 class="text-2xl font-bold text-cyan-100">Usuarios existentes</h2>
-            <p class="text-sm text-cyan-100/75">
-              Edita permisos, estado y restablece contraseñas directamente desde este panel.
-            </p>
-          </header>
-
-          <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {% for user in users %}
-              <article class="glass-card rounded-2xl p-5 backdrop-blur-xl">
-                <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <h3 class="text-xl font-semibold text-cyan-100">@{{ user.username }}</h3>
-                    <p class="text-sm text-cyan-100/75">{{ user.email|default:"Sin correo" }}</p>
-                    <p class="mt-1 text-xs text-cyan-100/65">
-                      {% if user.is_superuser %}Superusuario{% elif user.is_staff %}Staff{% else %}Usuario estándar{% endif %}
-                      · {% if user.is_active %}Activo{% else %}Inactivo{% endif %}
-                    </p>
-                  </div>
-
-                  <div class="flex flex-wrap gap-3">
-                    <form method="post" class="min-w-[260px] space-y-3 rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur">
-                      {% csrf_token %}
-                      <input type="hidden" name="action" value="update">
-                      <input type="hidden" name="user_id" value="{{ user.id }}">
-                      <div class="space-y-2">
-                        <label class="text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-cyan-100/75">
-                          Correo
-                        </label>
-                        <input
-                          name="email"
-                          value="{{ user.email }}"
-                          class="w-full rounded-md border border-white/10 bg-white/10 px-3 py-2 text-xs text-cyan-50 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
-                        >
-                      </div>
-                      <div class="space-y-2">
-                        <label class="text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-cyan-100/75">
-                          Nueva contraseña
-                        </label>
-                        <input
-                          name="new_password"
-                          type="password"
-                          placeholder="Mantener actual"
-                          class="w-full rounded-md border border-white/10 bg-white/10 px-3 py-2 text-xs text-cyan-50 focus:border-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
-                        >
-                      </div>
-                      <label class="flex items-center gap-3 text-xs text-cyan-100/80">
-                        <input
-                          type="checkbox"
-                          name="is_staff"
-                          {% if user.is_staff %}checked{% endif %}
-                          class="h-4 w-4 rounded border-cyan-300 bg-white/10 text-cyan-300 focus:ring-cyan-200"
-                        >
-                        Staff
-                      </label>
-                      <label class="flex items-center gap-3 text-xs text-cyan-100/80">
-                        <input
-                          type="checkbox"
-                          name="is_active"
-                          {% if user.is_active %}checked{% endif %}
-                          class="h-4 w-4 rounded border-cyan-300 bg-white/10 text-cyan-300 focus:ring-cyan-200"
-                        >
-                        Activo
-                      </label>
-                      <button type="submit" class="btn-3d w-full text-xs">
-                        Guardar cambios
-                      </button>
-                    </form>
-
-                    <form method="post" class="self-end">
-                      {% csrf_token %}
-                      <input type="hidden" name="action" value="delete">
-                      <input type="hidden" name="user_id" value="{{ user.id }}">
-                      {% if user.is_superuser %}
-                        <button type="button" disabled class="btn-3d text-xs">
-                          Eliminar
-                        </button>
-                      {% else %}
-                        <button type="submit" class="btn-3d btn-3d--danger text-xs">
-                          Eliminar
-                        </button>
-                      {% endif %}
-                    </form>
-                  </div>
-                </div>
-              </article>
-            {% empty %}
-              <p class="text-sm text-cyan-100/70">No hay usuarios registrados.</p>
-            {% endfor %}
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <article class="glass-card space-y-3 rounded-3xl px-6 py-6">
+              <h3 class="text-lg font-semibold text-cyan-50">Centraliza perfiles</h3>
+              <p class="text-sm text-cyan-100/75">
+                Consolida fichas del personal operativo y administrativo con datos de contacto, certificaciones y vigencias.
+              </p>
+            </article>
+            <article class="glass-card space-y-3 rounded-3xl px-6 py-6">
+              <h3 class="text-lg font-semibold text-cyan-50">Gestiona turnos</h3>
+              <p class="text-sm text-cyan-100/75">
+                Programa turnos, controles de asistencia y asignaciones por proyecto sin perder la trazabilidad.
+              </p>
+            </article>
+            <article class="glass-card space-y-3 rounded-3xl px-6 py-6">
+              <h3 class="text-lg font-semibold text-cyan-50">Sincroniza recursos</h3>
+              <p class="text-sm text-cyan-100/75">
+                Vincula personas con vehiculos, maquinaria y bodegas para equilibrar cargas y responsabilidades.
+              </p>
+            </article>
           </div>
         </section>
       </main>
     </div>
   </body>
 </html>
+
+
+

@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
+from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.http import HttpRequest
@@ -51,6 +52,48 @@ def logout_api(request: HttpRequest):
     return JsonResponse({"detail": "Sesion finalizada"})
 
 
+class IntranetHomeView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = "admin/intranet_home.html"
+    login_url = "login"
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+class ModulePlaceholderView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = "admin/module_placeholder.html"
+    module_name = ""
+    module_summary = ""
+    login_url = "login"
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "module_name": self.module_name,
+                "module_summary": self.module_summary,
+            }
+        )
+        return context
+
+
+class VehicleMaintenanceView(ModulePlaceholderView):
+    module_name = "Mantenimiento y Reparacion de Vehiculos"
+    module_summary = (
+        "Coordina diagnosticos, reparaciones y mantenimientos preventivos de la flota."
+    )
+
+
+class ClientsModuleView(ModulePlaceholderView):
+    module_name = "Clientes"
+    module_summary = (
+        "Visualiza los contratos activos, historial de proyectos y datos de contacto."
+    )
+
+
 class UserManagementView(LoginRequiredMixin, UserPassesTestMixin, View):
     template_name = "admin/user_management.html"
     permission_denied_template = "admin/user_forbidden.html"
@@ -66,7 +109,16 @@ class UserManagementView(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def get(self, request):
         users = User.objects.order_by("username")
-        return render(request, self.template_name, {"users": users})
+        resolver = getattr(request, "resolver_match", None)
+        show_full_management = resolver and resolver.url_name in {
+            "user-management-crud",
+            "user-access",
+        }
+        context = {
+            "users": users,
+            "show_full_management": show_full_management,
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request):
         action = request.POST.get("action")
@@ -83,7 +135,7 @@ class UserManagementView(LoginRequiredMixin, UserPassesTestMixin, View):
         except Exception as exc:
             messages.error(request, f"Ocurrio un problema: {exc}")
 
-        return redirect("user-management")
+        return redirect(request.path)
 
     # --- helpers ---------------------------------------------------------
     def _create_user(self, request):
@@ -135,3 +187,7 @@ class UserManagementView(LoginRequiredMixin, UserPassesTestMixin, View):
         username = user.username
         user.delete()
         messages.success(request, f"Usuario {username} eliminado.")
+
+
+class UserAccessView(UserManagementView):
+    template_name = "admin/user_access.html"
