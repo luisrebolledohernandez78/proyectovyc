@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Intranet VyC IngenierÃ­a</title>
+    <title>Intranet VyC Ingeniería</title>
     <link rel="stylesheet" href="{% static 'css/theme.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -154,14 +154,14 @@
       <div class="relative space-y-6">
         <span class="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-500/10 px-5 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.4em] text-cyan-100/90">
           <span class="h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(250,204,21,0.8)]"></span>
-          VyC IngenierÃ­a
+          VyC Ingeniería
         </span>
         <h1 class="bg-gradient-to-r from-amber-200 via-amber-300 to-amber-100 bg-clip-text text-4xl font-extrabold text-transparent drop-shadow-[0_0_18px_rgba(250,204,21,0.35)] md:text-5xl">
           Bienvenido a la Intranet Corporativa
         </h1>
         <p class="mx-auto max-w-2xl text-base text-cyan-100/80 md:text-lg">
-          Elige el Ã¡rea que deseas gestionar. Cada mÃ³dulo te dirige a las herramientas y reportes
-          necesarios para operar el dÃ­a a dÃ­a de VyC IngenierÃ­a.
+          Elige el área que deseas gestionar. Cada módulo te dirige a las herramientas y reportes
+          necesarios para operar el día a día de VyC Ingeniería.
         </p>
       </div>
       <div class="relative mt-10 flex flex-col items-center gap-6 md:flex-row">
@@ -170,7 +170,7 @@
             Clientes
           </span>
           <span class="mt-4 text-[0.78rem] font-normal tracking-normal text-cyan-100/75">
-            Proyectos, contratos y relaciÃ³n comercial
+            Proyectos, contratos y relación comercial
           </span>
         </a>
         <a href="{% url 'vehicle-maintenance' %}" class="module-card neon-border">
@@ -178,20 +178,20 @@
             Mantenimiento y Reparaci&oacute;n de Veh&iacute;culos
           </span>
           <span class="mt-4 text-[0.78rem] font-normal tracking-normal text-cyan-100/75">
-            Agendamiento, recepci&oacute;n, presupuesto, reparaci&oacute;n, pago y entrega integrados en un mismo flujo.
+            Agendamiento, recepción, presupuesto, reparación, pago y entrega integrados en un mismo flujo.
           </span>
         </a>
         <a href="{% url 'user-management' %}" class="module-card neon-border">
           <span class="bg-gradient-to-r from-amber-200 via-amber-300 to-amber-100 bg-clip-text text-[1.35rem] font-extrabold uppercase text-transparent drop-shadow-[0_0_16px_rgba(250,204,21,0.4)]">
-            GestiÃ³n Interna
+            Gestión Interna
           </span>
           <span class="mt-4 text-[0.78rem] font-normal tracking-normal text-cyan-100/75">
-            Personal, vehÃ­culos, maquinaria, bodega
+            Personal, vehículos, maquinaria, bodega
           </span>
         </a>
       </div>
       <div class="relative mt-12 text-xs uppercase tracking-[0.35em] text-cyan-100/60">
-        Selecciona un mÃ³dulo para continuar
+        Selecciona un módulo para continuar
       </div>
       <form method="post" action="{% url 'logout' %}" class="relative mt-16">
         {% csrf_token %}
