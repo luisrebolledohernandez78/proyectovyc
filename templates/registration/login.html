@@ -33,7 +33,7 @@
       
       /* Tema Claro */
       .theme-light {
-        --bg-primary: #e1f5fe;
+        --bg-primary: radial-gradient(ellipse at top right, #fff9c4 0%, #fef3c7 15%, #e1f5fe 35%, #b3e5fc 65%, #81d4fa 100%);
         --bg-secondary: #b3e5fc;
         --bg-tertiary: #81d4fa;
         --text-primary: #1e3a8a;
@@ -207,6 +207,58 @@
         mix-blend-mode: soft-light;
         animation: gentle-glow 10s ease-in-out infinite reverse;
         transition: var(--transition-theme);
+      }
+
+      /* Elemento Sol para tema claro */
+      .sun-element {
+        position: absolute;
+        top: 8%;
+        right: 12%;
+        width: 120px;
+        height: 120px;
+        background: radial-gradient(circle, 
+          rgba(255, 235, 59, 0.9) 0%, 
+          rgba(255, 193, 7, 0.7) 30%, 
+          rgba(255, 152, 0, 0.5) 60%, 
+          transparent 100%);
+        border-radius: 50%;
+        filter: blur(2px);
+        opacity: 0;
+        pointer-events: none;
+        transition: var(--transition-theme);
+      }
+
+      .theme-light .sun-element {
+        opacity: 0.8;
+      }
+
+      .sun-element::before {
+        content: '';
+        position: absolute;
+        inset: -20px;
+        background: conic-gradient(
+          from 45deg,
+          rgba(255, 235, 59, 0.2) 0deg,
+          rgba(255, 193, 7, 0.3) 60deg,
+          rgba(255, 152, 0, 0.25) 120deg,
+          rgba(255, 235, 59, 0.2) 180deg,
+          rgba(255, 193, 7, 0.15) 240deg,
+          rgba(255, 152, 0, 0.25) 300deg,
+          rgba(255, 235, 59, 0.2) 360deg
+        );
+        border-radius: 50%;
+        animation: sun-rays 20s linear infinite;
+        opacity: 0;
+        transition: var(--transition-theme);
+      }
+
+      .theme-light .sun-element::before {
+        opacity: 1;
+      }
+
+      @keyframes sun-rays {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
       .feature-card {
         border: 1px solid var(--card-border);
@@ -471,7 +523,7 @@
       }
     </style>
   </head>
-  <body class="min-h-screen transition-all duration-[4000ms] ease-in-out" style="background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%); color: var(--text-primary);">
+  <body class="min-h-screen transition-all duration-[4000ms] ease-in-out" style="background: var(--bg-primary); color: var(--text-primary);">
     
     <!-- Theme Toggle -->
     <div class="theme-toggle">
@@ -486,7 +538,7 @@
 
     <div class="relative isolate overflow-hidden">
       <!-- Fondo base adaptativo -->
-      <div class="absolute inset-0 transition-all duration-[4000ms]" style="background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);"></div>
+      <div class="absolute inset-0 transition-all duration-[4000ms]" style="background: var(--bg-primary);"></div>
       
       <!-- Efectos atmosféricos -->
       <div class="absolute inset-0 turquoise-glow"></div>
@@ -494,6 +546,9 @@
       <div class="absolute inset-0 stars-layer"></div>
       <div class="absolute inset-0 stars-layer alt-speed"></div>
       <div class="absolute inset-0 stars-layer slow-speed"></div>
+      
+      <!-- Elemento Sol (tema claro) -->
+      <div class="sun-element"></div>
       <div class="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center px-6 py-16 lg:px-12">
         <div class="grid gap-16 lg:grid-cols-[1.1fr_minmax(0,1fr)] lg:items-center">
           <section class="space-y-10 lg:pr-12 xl:pr-16">
