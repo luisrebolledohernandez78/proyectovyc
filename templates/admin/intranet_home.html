@@ -16,7 +16,7 @@
       
       /* Tema Oscuro (por defecto) */
       .theme-dark {
-        --bg-primary: #001b4e;
+        --bg-primary: radial-gradient(ellipse at top right, #001b4e 0%, #001133 50%, #04091f 100%);
         --bg-secondary: #001133;
         --bg-tertiary: #04091f;
         --text-primary: rgb(236, 254, 255);
@@ -34,7 +34,7 @@
       
       /* Tema Claro */
       .theme-light {
-        --bg-primary: radial-gradient(ellipse at top right, #fff9c4 0%, #fef3c7 15%, #e1f5fe 35%, #b3e5fc 65%, #0891b2 100%);
+        --bg-primary: radial-gradient(ellipse at top right, #fbbf24 0%, #f59e0b 25%, #06b6d4 60%, #0891b2 100%);
         --bg-secondary: #b3e5fc;
         --bg-tertiary: #81d4fa;
         --text-primary: #1e3a8a;
@@ -152,6 +152,59 @@
           opacity: 0.25; 
           transform: rotate(270deg) scale(1.05);
         }
+      }
+
+      /* Efecto de Amanecer - Transición oscuro a claro */
+      @keyframes sunrise-transition {
+        0% {
+          background: radial-gradient(ellipse at top right, #001b4e 0%, #001133 50%, #04091f 100%);
+        }
+        20% {
+          background: radial-gradient(ellipse at top right, #1a1a2e 0%, #16213e 30%, #0f0f23 100%);
+        }
+        40% {
+          background: radial-gradient(ellipse at top right, #2c1810 0%, #3d2914 40%, #1a1a2e 100%);
+        }
+        60% {
+          background: radial-gradient(ellipse at top right, #8b4513 0%, #cd853f 30%, #4682b4 70%, #2f4f4f 100%);
+        }
+        80% {
+          background: radial-gradient(ellipse at top right, #daa520 0%, #ff8c00 20%, #87ceeb 50%, #4682b4 100%);
+        }
+        100% {
+          background: radial-gradient(ellipse at top right, #fbbf24 0%, #f59e0b 25%, #06b6d4 60%, #0891b2 100%);
+        }
+      }
+
+      /* Efecto de Ocaso - Transición claro a oscuro */
+      @keyframes sunset-transition {
+        0% {
+          background: radial-gradient(ellipse at top right, #fbbf24 0%, #f59e0b 25%, #06b6d4 60%, #0891b2 100%);
+        }
+        20% {
+          background: radial-gradient(ellipse at top right, #ff6b35 0%, #f7931e 30%, #4682b4 70%, #2f4f4f 100%);
+        }
+        40% {
+          background: radial-gradient(ellipse at top right, #8b0000 0%, #cd5c5c 40%, #483d8b 80%, #2f4f4f 100%);
+        }
+        60% {
+          background: radial-gradient(ellipse at top right, #4b0082 0%, #663399 50%, #191970 100%);
+        }
+        80% {
+          background: radial-gradient(ellipse at top right, #1a1a2e 0%, #16213e 60%, #0f0f23 100%);
+        }
+        100% {
+          background: radial-gradient(ellipse at top right, #001b4e 0%, #001133 50%, #04091f 100%);
+        }
+      }
+
+      /* Aplicar animaciones según la dirección del cambio */
+      .theme-transition-to-light {
+        animation: sunrise-transition 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      .theme-transition-to-dark {
+        animation: sunset-transition 4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
       }
 
       /* Efectos atmosféricos - Modo Oscuro */
@@ -548,19 +601,44 @@
       // Función para cambiar el tema
       function toggleTheme() {
         const html = document.documentElement;
+        const body = document.body;
         const themeIcon = document.querySelector('.theme-icon');
         const isDark = html.classList.contains('theme-dark');
         
+        // Limpiar animaciones previas
+        body.classList.remove('theme-transition-to-light', 'theme-transition-to-dark');
+        
         if (isDark) {
-          html.classList.remove('theme-dark');
-          html.classList.add('theme-light');
-          themeIcon.textContent = '☀️';
-          localStorage.setItem('theme', 'light');
+          // Transición de oscuro a claro (amanecer)
+          body.classList.add('theme-transition-to-light');
+          
+          setTimeout(() => {
+            html.classList.remove('theme-dark');
+            html.classList.add('theme-light');
+            themeIcon.textContent = '☀️';
+            localStorage.setItem('theme', 'light');
+            
+            // Limpiar la clase de animación después de la transición
+            setTimeout(() => {
+              body.classList.remove('theme-transition-to-light');
+            }, 4000);
+          }, 100);
+          
         } else {
-          html.classList.remove('theme-light');
-          html.classList.add('theme-dark');
-          themeIcon.textContent = '🌙';
-          localStorage.setItem('theme', 'dark');
+          // Transición de claro a oscuro (ocaso)
+          body.classList.add('theme-transition-to-dark');
+          
+          setTimeout(() => {
+            html.classList.remove('theme-light');
+            html.classList.add('theme-dark');
+            themeIcon.textContent = '🌙';
+            localStorage.setItem('theme', 'dark');
+            
+            // Limpiar la clase de animación después de la transición
+            setTimeout(() => {
+              body.classList.remove('theme-transition-to-dark');
+            }, 4000);
+          }, 100);
         }
       }
 
