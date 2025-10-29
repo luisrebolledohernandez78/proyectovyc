@@ -2,14 +2,12 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from django.http import JsonResponse
+from django.http import HttpRequest, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
-from django.http import HttpRequest
+from django.views.generic import TemplateView
 import json
 
 
@@ -34,7 +32,6 @@ def login_api(request: HttpRequest):
         return JsonResponse({"detail": "Credenciales invalidas"}, status=400)
 
     login(request, user)
-
     return JsonResponse(
         {
             "username": user.username,
@@ -73,8 +70,9 @@ class ModulePlaceholderView(LoginRequiredMixin, UserPassesTestMixin, TemplateVie
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                "module_name": "Mantenimiento y Reparación de Vehículos",
-                "module_summary": "Coordina diagnósticos, reparaciones y mantenimientos preventivos de la flota."
+                "module_name": self.module_name or "Mantenimiento y Reparacion de Vehiculos",
+                "module_summary": self.module_summary
+                or "Coordina diagnosticos, reparaciones y mantenimientos preventivos de la flota.",
             }
         )
         return context
@@ -82,9 +80,17 @@ class ModulePlaceholderView(LoginRequiredMixin, UserPassesTestMixin, TemplateVie
 
 class VehicleMaintenanceView(ModulePlaceholderView):
     template_name = "admin/vehicle_maintenance.html"
-    module_name = "Mantenimiento y Reparación de Vehículos"
+    module_name = "Mantenimiento y Reparacion de Vehiculos"
     module_summary = (
-        "Coordina diagnósticos, reparaciones y mantenimientos preventivos de la flota."
+        "Coordina diagnosticos, reparaciones y mantenimientos preventivos de la flota."
+    )
+
+
+class VehicleMaintenanceStep1View(ModulePlaceholderView):
+    template_name = "admin/vehicle_maintenance_step1.html"
+    module_name = "Mantenimiento y Reparacion de Vehiculos"
+    module_summary = (
+        "Coordina diagnosticos, reparaciones y mantenimientos preventivos de la flota."
     )
 
 
@@ -147,7 +153,7 @@ class UserManagementView(LoginRequiredMixin, UserPassesTestMixin, View):
         is_staff = request.POST.get("is_staff") == "on"
 
         if not username or not password:
-            messages.error(request, "Debes indicar usuario y contraseña.")
+            messages.error(request, "Debes indicar usuario y contrasena.")
             return
 
         if User.objects.filter(username=username).exists():

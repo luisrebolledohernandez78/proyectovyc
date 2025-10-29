@@ -79,9 +79,12 @@ class RepairActionCreate(generics.CreateAPIView):
     serializer_class = RepairActionCreateSerializer
 
 
-class AppointmentSlots(APIView):
+class AppointmentSlots(generics.GenericAPIView):
     """Return available appointment slots: 2 slots per weekday (morning, afternoon)."""
     serializer_class = AppointmentSlotSerializer
+    # GenericAPIView expects a queryset attribute or get_queryset override.
+    # This view doesn't use a queryset for DB reads, so provide an empty one to satisfy DRF.
+    queryset = Appointment.objects.none()
 
     def get(self, request):
         # default range: next 14 days
@@ -96,6 +99,7 @@ class AppointmentSlots(APIView):
             # two slots: '09:00' and '15:00'
             results.append({"date": d, "slots": ["09:00", "15:00"]})
 
+        # GenericAPIView provides get_serializer
         serializer = self.get_serializer(results, many=True)
         return Response(serializer.data)
 

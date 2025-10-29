@@ -30,6 +30,7 @@ from core.views import (
     UserAccessView,
     UserManagementView,
     VehicleMaintenanceView,
+    VehicleMaintenanceStep1View,
     login_api,
     logout_api,
 )
@@ -37,13 +38,13 @@ from core.views import (
 urlpatterns = [
     path('', LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
-    path('usuarios/', IntranetHomeView.as_view(), name='intranet-home'),
-    path('usuarios/gestion-interna/', UserManagementView.as_view(), name='user-management'),
-    path('usuarios/gestion-interna/gestion/', UserAccessView.as_view(), name='user-management-crud'),
-    path('usuarios/accesos/', UserAccessView.as_view(), name='user-access'),
-    # During local development redirect the vehicle maintenance route to the SPA dev server.
-    path('usuarios/mantenimiento/', RedirectView.as_view(url='http://localhost:5173/taller', permanent=False), name='vehicle-maintenance'),
-    path('usuarios/clientes/', ClientsModuleView.as_view(), name='clients-module'),
+    path('home/', IntranetHomeView.as_view(), name='intranet-home'),
+    path('gestion-interna/', UserManagementView.as_view(), name='user-management'),
+    path('gestion-interna/gestion/', UserAccessView.as_view(), name='user-management-crud'),
+    path('gestion-interna/usuarios/', UserAccessView.as_view(), name='user-access'),
+    path('mantenimiento/', VehicleMaintenanceView.as_view(), name='vehicle-maintenance'),
+    path('mantenimiento/paso1agendamiento/', VehicleMaintenanceStep1View.as_view(), name='vehicle-maintenance-step1'),
+    path('clientes/', ClientsModuleView.as_view(), name='clients-module'),
     path('api/auth/login/', login_api, name='api_login'),
     path('api/auth/logout/', logout_api, name='api_logout'),
     path('admin/', admin.site.urls),
