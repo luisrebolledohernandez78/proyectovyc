@@ -34,20 +34,20 @@
       
       /* Tema Claro */
       .theme-light {
-        --bg-primary: #e1f5fe;
+        --bg-primary: radial-gradient(ellipse at top right, #fff9c4 0%, #fef3c7 15%, #e1f5fe 35%, #b3e5fc 65%, #81d4fa 100%);
         --bg-secondary: #b3e5fc;
         --bg-tertiary: #81d4fa;
         --text-primary: #263238;
         --text-secondary: #37474f;
         --text-muted: #546e7a;
         --accent-primary: #0277bd;
-        --accent-secondary: #ff8f00;
-        --card-bg: rgba(255, 255, 255, 0.75);
+        --accent-secondary: #fbbf24;
+        --card-bg: rgba(255, 255, 255, 0.8);
         --card-border: rgba(2, 119, 189, 0.15);
-        --module-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.8) 0%, rgba(225, 245, 254, 0.7) 58%, rgba(179, 229, 252, 0.6) 100%);
-        --module-shadow: 6px 6px 0 rgba(38, 50, 56, 0.15), 0 30px 65px -45px rgba(2, 119, 189, 0.3);
-        --module-shadow-hover: 9px 9px 0 rgba(38, 50, 56, 0.2), 0 40px 80px -50px rgba(2, 119, 189, 0.4);
-        --shadow-color: rgba(2, 119, 189, 0.2);
+        --module-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.85) 0%, rgba(254, 243, 199, 0.4) 25%, rgba(225, 245, 254, 0.7) 75%, rgba(179, 229, 252, 0.6) 100%);
+        --module-shadow: 6px 6px 0 rgba(38, 50, 56, 0.12), 0 30px 65px -45px rgba(251, 191, 36, 0.25);
+        --module-shadow-hover: 9px 9px 0 rgba(38, 50, 56, 0.15), 0 40px 80px -50px rgba(251, 191, 36, 0.35);
+        --shadow-color: rgba(251, 191, 36, 0.2);
       }
 
       /* Toggle Switch Styles */
@@ -135,6 +135,25 @@
         50% { opacity: 0.6; filter: blur(15px); }
       }
 
+      @keyframes sun-rays {
+        0%, 100% { 
+          opacity: 0.1; 
+          transform: rotate(0deg) scale(1);
+        }
+        25% { 
+          opacity: 0.2; 
+          transform: rotate(90deg) scale(1.1);
+        }
+        50% { 
+          opacity: 0.15; 
+          transform: rotate(180deg) scale(0.9);
+        }
+        75% { 
+          opacity: 0.25; 
+          transform: rotate(270deg) scale(1.05);
+        }
+      }
+
       /* Efectos atmosféricos - Modo Oscuro */
       .theme-dark .atmospheric-layer {
         background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
@@ -147,11 +166,11 @@
 
       /* Efectos atmosféricos - Modo Claro */
       .theme-light .atmospheric-layer {
-        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.25'%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Ccircle cx='49' cy='29' r='1.5'/%3E%3Ccircle cx='29' cy='49' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        mix-blend-mode: soft-light;
-        filter: brightness(110%);
-        opacity: 0.2;
-        animation: float-clouds 12s ease-in-out infinite;
+        background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23fbbf24' fill-opacity='0.15'%3E%3Ccircle cx='15' cy='15' r='3'/%3E%3Ccircle cx='65' cy='35' r='2'/%3E%3Ccircle cx='35' cy='65' r='1.5'/%3E%3Ccircle cx='55' cy='15' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        mix-blend-mode: overlay;
+        filter: brightness(120%);
+        opacity: 0.15;
+        animation: float-clouds 15s ease-in-out infinite;
         transition: var(--transition-theme);
       }
 
@@ -351,7 +370,10 @@
       }
     </style>
   </head>
-  <body class="min-h-screen transition-all duration-[4000ms] ease-in-out" style="background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%); color: var(--text-primary);">
+  <body class="min-h-screen transition-all duration-[4000ms] ease-in-out" style="color: var(--text-primary);">
+    <!-- Fondo base adaptativo -->
+    <div class="fixed inset-0 transition-all duration-[4000ms] -z-10 theme-dark:bg-gradient-to-br theme-dark:from-[var(--bg-primary)] theme-dark:via-[var(--bg-secondary)] theme-dark:to-[var(--bg-tertiary)]" 
+         style="background: var(--bg-primary);"></div>
     
     <!-- Theme Toggle -->
     <div class="theme-toggle">
@@ -367,11 +389,24 @@
     <!-- Efectos atmosféricos -->
     <div class="atmospheric-layer"></div>
     
+    <!-- Rayos de sol (solo modo claro) -->
+    <div class="theme-light:block theme-dark:hidden fixed -top-24 -right-24 w-96 h-96 pointer-events-none transition-all duration-[4000ms]" 
+         style="background: conic-gradient(from 0deg, transparent 0deg, rgba(251, 191, 36, 0.08) 45deg, transparent 90deg, rgba(254, 243, 199, 0.06) 135deg, transparent 180deg, rgba(251, 191, 36, 0.08) 225deg, transparent 270deg, rgba(254, 243, 199, 0.06) 315deg, transparent 360deg); animation: sun-rays 20s linear infinite; filter: blur(2px);"></div>
+    
     <div class="relative flex min-h-screen flex-col items-center justify-center px-6 py-12 text-center">
       <!-- Efectos de luz atmosférica -->
-      <div class="pointer-events-none absolute inset-0 opacity-60 transition-all duration-[4000ms]" style="mix-blend-mode: screen;">
-        <div class="absolute -top-32 right-[25%] h-80 w-80 rounded-full blur-[180px] transition-all duration-[4000ms]" style="background: var(--accent-primary); opacity: 0.25;"></div>
-        <div class="absolute bottom-[-25%] left-[18%] h-96 w-96 rounded-full blur-[220px] transition-all duration-[4000ms]" style="background: var(--accent-secondary); opacity: 0.18;"></div>
+      <div class="pointer-events-none absolute inset-0 transition-all duration-[4000ms]" style="opacity: 0.6;">
+        <!-- Sol en esquina superior derecha (modo claro) -->
+        <div class="theme-light:block theme-dark:hidden absolute -top-20 -right-20 h-96 w-96 rounded-full transition-all duration-[4000ms]" 
+             style="background: radial-gradient(circle, rgba(251, 191, 36, 0.4) 0%, rgba(254, 243, 199, 0.3) 30%, rgba(255, 255, 196, 0.2) 50%, transparent 70%); filter: blur(40px);"></div>
+        
+        <!-- Efectos modo oscuro -->
+        <div class="theme-dark:block theme-light:hidden absolute -top-32 right-[25%] h-80 w-80 rounded-full blur-[180px] transition-all duration-[4000ms]" style="background: var(--accent-primary); opacity: 0.25;"></div>
+        <div class="theme-dark:block theme-light:hidden absolute bottom-[-25%] left-[18%] h-96 w-96 rounded-full blur-[220px] transition-all duration-[4000ms]" style="background: var(--accent-secondary); opacity: 0.18;"></div>
+        
+        <!-- Efectos modo claro - luz solar difusa -->
+        <div class="theme-light:block theme-dark:hidden absolute top-[10%] right-[15%] h-72 w-72 rounded-full blur-[140px] transition-all duration-[4000ms]" style="background: var(--accent-secondary); opacity: 0.15;"></div>
+        <div class="theme-light:block theme-dark:hidden absolute bottom-[20%] left-[20%] h-80 w-80 rounded-full blur-[200px] transition-all duration-[4000ms]" style="background: var(--accent-primary); opacity: 0.12;"></div>
       </div>
       <div class="relative space-y-6">
         <span class="theme-badge inline-flex items-center gap-2 rounded-full px-5 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.4em]">
