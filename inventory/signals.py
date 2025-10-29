@@ -56,3 +56,4 @@ def partusage_return_stock_on_delete(sender, instance: PartUsage, **kwargs):
     item.stock += instance.quantity
     item.save(update_fields=["stock"])
 
+

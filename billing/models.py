@@ -69,3 +69,4 @@ class Payment(models.Model):
     def __str__(self):
         return f"Pago {self.amount} - {self.work_order.number}"
 
+

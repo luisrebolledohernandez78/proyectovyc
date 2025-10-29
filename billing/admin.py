@@ -48,3 +48,4 @@ class QuoteAdmin(admin.ModelAdmin):
 
     pdf_link.short_description = "PDF"
 
+

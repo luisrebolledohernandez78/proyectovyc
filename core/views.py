@@ -191,3 +191,4 @@ class UserManagementView(LoginRequiredMixin, UserPassesTestMixin, View):
 class UserAccessView(UserManagementView):
     template_name = "admin/user_access.html"
 
+

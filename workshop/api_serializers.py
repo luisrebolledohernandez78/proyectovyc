@@ -237,3 +237,4 @@ class DeliverySerializer(serializers.Serializer):
     delivered_to = serializers.CharField(required=False, allow_blank=True)
     notes = serializers.CharField(required=False, allow_blank=True)
 
+

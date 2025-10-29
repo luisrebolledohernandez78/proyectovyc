@@ -44,3 +44,4 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - Tests automáticos (Pytest/Django).
 - Dockerización del entorno.
 
+

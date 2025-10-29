@@ -69,3 +69,4 @@ urlpatterns = [
     path('api/workorders/<int:pk>/deliver/', WorkOrderDeliver.as_view(), name='api_workorder_deliver'),
 ]
 
+

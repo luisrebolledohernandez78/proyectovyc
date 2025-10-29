@@ -11,3 +11,4 @@ def set_workorder_number(sender, instance: WorkOrder, created, **kwargs):
         # update_fields evita recursiones de la senal
         WorkOrder.objects.filter(pk=instance.pk).update(number=instance.number)
 
+

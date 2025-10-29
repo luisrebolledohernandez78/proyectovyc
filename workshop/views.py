@@ -34,3 +34,4 @@ class WorkshopHomeView(LoginRequiredMixin, TemplateView):
         )
         return context
 
+

@@ -156,3 +156,4 @@ class RepairAction(models.Model):
     def labor_cost(self):
         return (self.hours or 0) * (self.labor_rate or 0)
 
+

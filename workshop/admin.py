@@ -92,3 +92,4 @@ def cerrar_ot(modeladmin, request, queryset):
 cerrar_ot.short_description = "Cerrar OT seleccionadas"
 WorkOrderAdmin.actions = [cerrar_ot]
 
+

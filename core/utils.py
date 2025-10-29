@@ -14,3 +14,4 @@ def clp(value) -> str:
     groups = f"{entero:,}".replace(",", ".")
     return f"-${groups[1:]}" if groups.startswith("-") else f"${groups}"
 
+
