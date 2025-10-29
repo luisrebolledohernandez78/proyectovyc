@@ -33,7 +33,7 @@
       
       /* Tema Claro */
       .theme-light {
-        --bg-primary: radial-gradient(ellipse at top right, #fff9c4 0%, #fef3c7 15%, #e1f5fe 35%, #b3e5fc 65%, #81d4fa 100%);
+        --bg-primary: radial-gradient(ellipse at top right, #fff9c4 0%, #fef3c7 15%, #e1f5fe 35%, #b3e5fc 65%, #0891b2 100%);
         --bg-secondary: #b3e5fc;
         --bg-tertiary: #81d4fa;
         --text-primary: #1e3a8a;
@@ -214,46 +214,46 @@
         position: absolute;
         top: 8%;
         right: 12%;
-        width: 120px;
-        height: 120px;
+        width: 90px;
+        height: 90px;
         background: radial-gradient(circle, 
-          rgba(255, 235, 59, 0.9) 0%, 
-          rgba(255, 193, 7, 0.7) 30%, 
-          rgba(255, 152, 0, 0.5) 60%, 
+          rgba(255, 235, 59, 0.4) 0%, 
+          rgba(255, 193, 7, 0.3) 30%, 
+          rgba(255, 152, 0, 0.2) 60%, 
           transparent 100%);
         border-radius: 50%;
-        filter: blur(2px);
+        filter: blur(3px);
         opacity: 0;
         pointer-events: none;
         transition: var(--transition-theme);
       }
 
       .theme-light .sun-element {
-        opacity: 0.8;
+        opacity: 0.5;
       }
 
       .sun-element::before {
         content: '';
         position: absolute;
-        inset: -20px;
+        inset: -15px;
         background: conic-gradient(
           from 45deg,
-          rgba(255, 235, 59, 0.2) 0deg,
-          rgba(255, 193, 7, 0.3) 60deg,
-          rgba(255, 152, 0, 0.25) 120deg,
-          rgba(255, 235, 59, 0.2) 180deg,
-          rgba(255, 193, 7, 0.15) 240deg,
-          rgba(255, 152, 0, 0.25) 300deg,
-          rgba(255, 235, 59, 0.2) 360deg
+          rgba(255, 235, 59, 0.1) 0deg,
+          rgba(255, 193, 7, 0.15) 60deg,
+          rgba(255, 152, 0, 0.12) 120deg,
+          rgba(255, 235, 59, 0.1) 180deg,
+          rgba(255, 193, 7, 0.08) 240deg,
+          rgba(255, 152, 0, 0.12) 300deg,
+          rgba(255, 235, 59, 0.1) 360deg
         );
         border-radius: 50%;
-        animation: sun-rays 20s linear infinite;
+        animation: sun-rays 25s linear infinite;
         opacity: 0;
         transition: var(--transition-theme);
       }
 
       .theme-light .sun-element::before {
-        opacity: 1;
+        opacity: 0.6;
       }
 
       @keyframes sun-rays {
