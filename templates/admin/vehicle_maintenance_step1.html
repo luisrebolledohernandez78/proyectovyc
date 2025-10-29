@@ -99,7 +99,7 @@
               class="btn-3d w-full px-4 py-2 text-left flex flex-col gap-1 rounded-lg items-start bg-gradient-to-br from-[#062b73] via-[#083069] to-[#0a2150] text-cyan-50/90"
             >
               <span class="text-[0.64rem] uppercase tracking-[0.25em] text-cyan-100/80">Paso 2</span>
-              <span class="text-[0.82rem] font-semibold text-cyan-50 uppercase tracking-wide leading-tight">RecepciÃ³n & DiagnÃ³stico</span>
+              <span class="text-[0.82rem] font-semibold text-cyan-50 uppercase tracking-wide leading-tight">Recepción & Diagnóstico</span>
             </a>
             <a
               href="#"
@@ -113,14 +113,14 @@
               class="btn-3d w-full px-4 py-2 text-left flex flex-col gap-1 rounded-lg items-start bg-gradient-to-br from-[#062b73] via-[#083069] to-[#0a2150] text-cyan-50/90"
             >
               <span class="text-[0.64rem] uppercase tracking-[0.25em] text-cyan-100/80">Paso 4</span>
-              <span class="text-[0.82rem] font-semibold text-cyan-50 uppercase tracking-wide leading-tight">ReparaciÃ³n</span>
+              <span class="text-[0.82rem] font-semibold text-cyan-50 uppercase tracking-wide leading-tight">Reparación</span>
             </a>
             <a
               href="#"
               class="btn-3d w-full px-4 py-2 text-left flex flex-col gap-1 rounded-lg items-start bg-gradient-to-br from-[#062b73] via-[#083069] to-[#0a2150] text-cyan-50/90"
             >
               <span class="text-[0.64rem] uppercase tracking-[0.25em] text-cyan-100/80">Paso 5</span>
-              <span class="text-[0.82rem] font-semibold text-cyan-50 uppercase tracking-wide leading-tight">Pago & documentaciÃ³n</span>
+              <span class="text-[0.82rem] font-semibold text-cyan-50 uppercase tracking-wide leading-tight">Pago & documentación</span>
             </a>
             <a
               href="#"
@@ -137,7 +137,7 @@
             class="btn-3d w-full text-xs uppercase px-4 py-3 inline-flex items-center justify-center gap-2 mb-4 tracking-wide"
           >
             <span class="btn-icon" aria-hidden="true" data-icon-default="&#x1F3E0;" data-icon-active="&#x1F3E1;">&#x1F3E0;</span>
-            <span>Volver al MÃ³dulo</span>
+            <span>Volver al Módulo</span>
           </a>
           <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
@@ -157,10 +157,10 @@
                 Paso 1 Â· Agendamiento
               </span>
               <h2 class="bg-gradient-to-r from-amber-200 via-amber-300 to-amber-100 bg-clip-text text-3xl font-bold text-transparent drop-shadow-[0_0_14px_rgba(250,204,21,0.3)] md:text-4xl">
-                ProgramaciÃ³n de visita
+                Programación de visita
               </h2>
               <p class="mx-auto max-w-3xl text-sm text-cyan-100/75 md:text-base">
-                Visualiza la disponibilidad mensual y registra la hora de atenciÃ³n preferida por el cliente.</p>
+                Visualiza la disponibilidad mensual y registra la hora de atención preferida por el cliente.</p>
             </header>
             <div class="grid gap-6 lg:grid-cols-[1.5fr_1.5fr] xl:grid-cols-[1.4fr_1.6fr]">
               <div class="rounded-2xl border border-cyan-300/25 bg-white/5 p-6 backdrop-blur-xl" data-calendar>
@@ -187,18 +187,18 @@
                 <div class="mt-6 grid grid-cols-7 rounded-xl border border-cyan-300/15 bg-white/5 text-center text-xs uppercase tracking-[0.35em] text-cyan-100/60">
                   <span class="border-b border-cyan-300/10 px-2 py-3">Lun</span>
                   <span class="border-b border-cyan-300/10 px-2 py-3">Mar</span>
-                  <span class="border-b border-cyan-300/10 px-2 py-3">MiÃ©</span>
+                  <span class="border-b border-cyan-300/10 px-2 py-3">Mié</span>
                   <span class="border-b border-cyan-300/10 px-2 py-3">Jue</span>
                   <span class="border-b border-cyan-300/10 px-2 py-3">Vie</span>
-                  <span class="border-b border-cyan-300/10 px-2 py-3 text-amber-200/80">SÃ¡b</span>
+                  <span class="border-b border-cyan-300/10 px-2 py-3 text-amber-200/80">Sáb</span>
                   <span class="border-b border-cyan-300/10 px-2 py-3 text-amber-200/80">Dom</span>
                   <div class="calendar-grid col-span-7 grid grid-cols-7 gap-1 p-3 text-sm text-cyan-50" data-calendar-grid></div>
                 </div>
                 <p class="mt-4 text-xs text-cyan-100/70">
-                  * Los cÃ­rculos resaltados indican cupos disponibles: dos citas por dÃ­a (09:00 y 15:00) de lunes a viernes.
+                  * Los círculos resaltados indican cupos disponibles: dos citas por día (09:00 y 15:00) de lunes a viernes.
                 </p>
                 <p class="mt-2 text-sm text-cyan-100/70">
-                  Completa la informaciÃ³n para reservar la visita. El responsable del taller validarÃ¡ la cita antes de liberar recursos.
+                  Completa la información para reservar la visita. El responsable del taller validará la cita antes de liberar recursos.
                 </p>
               </div>
               <aside class="space-y-6 rounded-2xl border border-cyan-300/25 bg-white/5 p-6 backdrop-blur-xl">
@@ -238,7 +238,7 @@
                   </div>
                   <div>
                     <label class="text-xs uppercase tracking-[0.3em] text-cyan-100/60" for="agenda-notes">Notas</label>
-                    <textarea id="agenda-notes" rows="3" placeholder="DescripciÃ³n breve de la solicitud" class="mt-1 w-full rounded-lg border border-cyan-300/25 bg-[#061736]/80 px-4 py-3 text-sm text-cyan-50 focus:border-amber-300/50 focus:outline-none focus:ring-0"></textarea>
+                    <textarea id="agenda-notes" rows="3" placeholder="Descripción breve de la solicitud" class="mt-1 w-full rounded-lg border border-cyan-300/25 bg-[#061736]/80 px-4 py-3 text-sm text-cyan-50 focus:border-amber-300/50 focus:outline-none focus:ring-0"></textarea>
                   </div>
                   <button type="button" class="btn-3d w-full justify-center px-5 py-3 text-xs uppercase tracking-[0.3em]">
                     Guardar pre-agenda
@@ -254,7 +254,7 @@
             class="btn-3d inline-flex items-center gap-2 px-6 py-3 text-xs uppercase tracking-[0.3em]"
           >
             <span class="btn-icon" aria-hidden="true" data-icon-default="&#x1F3E0;" data-icon-active="&#x1F3E1;">&#x1F3E0;</span>
-            <span>Volver al MÃ³dulo</span>
+            <span>Volver al Módulo</span>
           </a>
         </div>
       </main>
@@ -372,7 +372,7 @@
             el.classList.remove("calendar-day--selected");
           });
           if (!chosenDate) {
-            selected.textContent = "Selecciona un dÃ­a disponible";
+            selected.textContent = "Selecciona un día disponible";
             return;
           }
           grid.querySelectorAll("button.calendar-day").forEach((button) => {
