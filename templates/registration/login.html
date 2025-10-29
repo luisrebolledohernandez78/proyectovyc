@@ -209,57 +209,7 @@
         transition: var(--transition-theme);
       }
 
-      /* Elemento Sol para tema claro */
-      .sun-element {
-        position: absolute;
-        top: 8%;
-        right: 12%;
-        width: 60px;
-        height: 60px;
-        background: radial-gradient(circle, 
-          rgba(255, 255, 224, 0.15) 0%,
-          rgba(255, 255, 224, 0.08) 15%,
-          rgba(255, 255, 224, 0.03) 30%, 
-          transparent 50%);
-        border-radius: 50%;
-        filter: blur(4px);
-        opacity: 0;
-        pointer-events: none;
-        transition: var(--transition-theme);
-      }
 
-      .theme-light .sun-element {
-        opacity: 0.175;
-      }
-
-      .sun-element::before {
-        content: '';
-        position: absolute;
-        inset: -10px;
-        background: conic-gradient(
-          from 45deg,
-          rgba(255, 255, 224, 0.003125) 0deg,
-          rgba(255, 255, 224, 0.005) 60deg,
-          rgba(255, 255, 224, 0.001875) 120deg,
-          rgba(255, 255, 224, 0.003125) 180deg,
-          rgba(255, 255, 224, 0.00125) 240deg,
-          rgba(255, 255, 224, 0.00375) 300deg,
-          rgba(255, 255, 224, 0.003125) 360deg
-        );
-        border-radius: 50%;
-        animation: sun-rays 30s linear infinite;
-        opacity: 0;
-        transition: var(--transition-theme);
-      }
-
-      .theme-light .sun-element::before {
-        opacity: 0.025;
-      }
-
-      @keyframes sun-rays {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
 
       /* Efecto de Amanecer - Transición oscuro a claro */
       @keyframes sunrise-transition {
@@ -601,8 +551,6 @@
       <div class="absolute inset-0 stars-layer alt-speed"></div>
       <div class="absolute inset-0 stars-layer slow-speed"></div>
       
-      <!-- Elemento Sol (tema claro) -->
-      <div class="sun-element"></div>
       <div class="relative mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-center px-6 py-16 lg:px-12">
         <div class="grid gap-16 lg:grid-cols-[1.1fr_minmax(0,1fr)] lg:items-center">
           <section class="space-y-10 lg:pr-12 xl:pr-16">
