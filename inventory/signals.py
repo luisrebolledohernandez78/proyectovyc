@@ -1,8 +1,7 @@
-from django.db.models.signals import post_delete, post_save, pre_save
+﻿from django.db.models.signals import post_delete, post_save, pre_save
 from django.dispatch import receiver
 
 from .models import InventoryItem, PartUsage
-
 
 @receiver(pre_save, sender=PartUsage)
 def partusage_store_old_qty(sender, instance: PartUsage, **kwargs):
@@ -14,7 +13,6 @@ def partusage_store_old_qty(sender, instance: PartUsage, **kwargs):
     else:
         instance._old_quantity = 0
         instance._old_item_id = None
-
 
 @receiver(post_save, sender=PartUsage)
 def partusage_adjust_stock_on_save(sender, instance: PartUsage, created, **kwargs):
@@ -52,9 +50,9 @@ def partusage_adjust_stock_on_save(sender, instance: PartUsage, created, **kwarg
                 item.stock += (-diff)
             item.save(update_fields=["stock"])
 
-
 @receiver(post_delete, sender=PartUsage)
 def partusage_return_stock_on_delete(sender, instance: PartUsage, **kwargs):
     item: InventoryItem = instance.item
     item.stock += instance.quantity
     item.save(update_fields=["stock"])
+

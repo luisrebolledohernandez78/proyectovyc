@@ -1,4 +1,4 @@
-"""
+﻿"""
 URL configuration for proyectovyc project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -68,3 +68,4 @@ urlpatterns = [
     path('api/workorders/<int:pk>/payments/', PaymentCreate.as_view(), name='api_workorder_payments'),
     path('api/workorders/<int:pk>/deliver/', WorkOrderDeliver.as_view(), name='api_workorder_deliver'),
 ]
+

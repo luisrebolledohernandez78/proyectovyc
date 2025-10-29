@@ -1,6 +1,5 @@
-from rest_framework.test import APITestCase
+﻿from rest_framework.test import APITestCase
 from django.urls import reverse
-
 
 class AppointmentSlotsAPITest(APITestCase):
     def test_get_slots_returns_list_and_structure(self):
@@ -16,3 +15,4 @@ class AppointmentSlotsAPITest(APITestCase):
             self.assertIn("date", item)
             self.assertIn("slots", item)
             self.assertIsInstance(item["slots"], list)
+

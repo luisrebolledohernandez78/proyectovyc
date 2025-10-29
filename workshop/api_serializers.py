@@ -1,11 +1,10 @@
-from rest_framework import serializers
+﻿from rest_framework import serializers
 
 from billing.models import Quote
 from core.models import Client, Technician, Vehicle
 from core.utils import clp
 from inventory.models import PartUsage
 from workshop.models import RepairAction, WorkOrder, Appointment, Diagnostic
-
 
 class WorkOrderListSerializer(serializers.ModelSerializer):
     client_id = serializers.IntegerField(read_only=True)
@@ -45,13 +44,11 @@ class WorkOrderListSerializer(serializers.ModelSerializer):
     def get_grand_total_fmt(self, obj):
         return clp(obj.grand_total())
 
-
 class ClientSummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = ["id", "name", "rut", "email", "phone", "address"]
         read_only_fields = fields
-
 
 class VehicleSummarySerializer(serializers.ModelSerializer):
     class Meta:
@@ -59,13 +56,11 @@ class VehicleSummarySerializer(serializers.ModelSerializer):
         fields = ["id", "plate", "brand", "model", "year", "vin"]
         read_only_fields = fields
 
-
 class TechnicianSummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Technician
         fields = ["id", "full_name", "specialty"]
         read_only_fields = fields
-
 
 class RepairActionDetailSerializer(serializers.ModelSerializer):
     technician_name = serializers.CharField(source="technician.full_name", read_only=True)
@@ -93,7 +88,6 @@ class RepairActionDetailSerializer(serializers.ModelSerializer):
     def get_labor_cost_fmt(self, obj):
         return clp(obj.labor_cost)
 
-
 class PartUsageDetailSerializer(serializers.ModelSerializer):
     item_name = serializers.CharField(source="item.name", read_only=True)
     sku = serializers.CharField(source="item.sku", read_only=True)
@@ -120,7 +114,6 @@ class PartUsageDetailSerializer(serializers.ModelSerializer):
 
     def get_unit_price_fmt(self, obj):
         return clp(obj.unit_price)
-
 
 class QuoteSummarySerializer(serializers.ModelSerializer):
     status_display = serializers.CharField(source="get_status_display", read_only=True)
@@ -150,7 +143,6 @@ class QuoteSummarySerializer(serializers.ModelSerializer):
 
     def get_grand_total_fmt(self, obj):
         return clp(obj.grand_total())
-
 
 class WorkOrderDetailSerializer(serializers.ModelSerializer):
     client = ClientSummarySerializer(read_only=True)
@@ -210,7 +202,6 @@ class WorkOrderDetailSerializer(serializers.ModelSerializer):
     def get_grand_total_fmt(self, obj):
         return clp(obj.grand_total())
 
-
 class RepairActionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = RepairAction
@@ -225,13 +216,11 @@ class RepairActionCreateSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["id", "created_at"]
 
-
 class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
         fields = ["id", "vehicle", "work_order", "scheduled_at", "notes", "created_at"]
         read_only_fields = ["id", "created_at"]
-
 
 class DiagnosticCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -239,14 +228,12 @@ class DiagnosticCreateSerializer(serializers.ModelSerializer):
         fields = ["id", "work_order", "details", "created_at"]
         read_only_fields = ["id", "created_at"]
 
-
-
 class AppointmentSlotSerializer(serializers.Serializer):
     date = serializers.DateField()
     slots = serializers.ListField(child=serializers.CharField())
-
 
 class DeliverySerializer(serializers.Serializer):
     delivered_at = serializers.DateTimeField(required=False)
     delivered_to = serializers.CharField(required=False, allow_blank=True)
     notes = serializers.CharField(required=False, allow_blank=True)
+

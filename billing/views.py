@@ -1,11 +1,10 @@
-from django.http import HttpResponse
+﻿from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 
 from core.utils import clp
 from .models import Quote
-
 
 def quote_pdf(request, pk):
     quote = get_object_or_404(Quote, pk=pk)
@@ -83,3 +82,4 @@ def quote_pdf(request, pk):
     pdf.showPage()
     pdf.save()
     return response
+

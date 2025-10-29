@@ -1,4 +1,4 @@
-from django.db import models
+﻿from django.db import models
 from workshop.models import WorkOrder
 
 class InventoryItem(models.Model):
@@ -20,7 +20,6 @@ class InventoryItem(models.Model):
             raise ValueError("No hay stock suficiente")
         self.stock -= qty
         self.save(update_fields=["stock"])
-
 
 class PartUsage(models.Model):
     work_order = models.ForeignKey(
@@ -47,3 +46,4 @@ class PartUsage(models.Model):
     @property
     def total(self):
         return (self.quantity or 0) * (self.unit_price or 0)
+

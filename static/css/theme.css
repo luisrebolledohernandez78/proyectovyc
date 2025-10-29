@@ -1,4 +1,4 @@
-/* ====== Paleta ====== */
+﻿/* ====== Paleta ====== */
 :root{
   --imperial-blue:#002395;
   --midnight-blue:#04091f;
@@ -160,9 +160,5 @@ body::before{
   border-radius:999px;
   border:1px solid rgba(34,211,238,.4);
 }
-
-
-
-
 
 

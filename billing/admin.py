@@ -1,10 +1,9 @@
-from django.contrib import admin
+﻿from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 
 from core.utils import clp
 from .models import Quote
-
 
 @admin.register(Quote)
 class QuoteAdmin(admin.ModelAdmin):
@@ -48,3 +47,4 @@ class QuoteAdmin(admin.ModelAdmin):
         return format_html('<a class="button" href="{}" target="_blank">Ver PDF</a>', url)
 
     pdf_link.short_description = "PDF"
+

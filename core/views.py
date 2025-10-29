@@ -1,4 +1,4 @@
-from django.contrib import messages
+﻿from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
@@ -9,7 +9,6 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 import json
-
 
 @csrf_exempt
 def login_api(request: HttpRequest):
@@ -40,7 +39,6 @@ def login_api(request: HttpRequest):
         }
     )
 
-
 @csrf_exempt
 def logout_api(request: HttpRequest):
     if request.method != "POST":
@@ -48,14 +46,12 @@ def logout_api(request: HttpRequest):
     logout(request)
     return JsonResponse({"detail": "Sesion finalizada"})
 
-
 class IntranetHomeView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = "admin/intranet_home.html"
     login_url = "login"
 
     def test_func(self):
         return self.request.user.is_superuser
-
 
 class ModulePlaceholderView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     template_name = "admin/module_placeholder.html"
@@ -77,14 +73,12 @@ class ModulePlaceholderView(LoginRequiredMixin, UserPassesTestMixin, TemplateVie
         )
         return context
 
-
 class VehicleMaintenanceView(ModulePlaceholderView):
     template_name = "admin/vehicle_maintenance.html"
     module_name = "Mantenimiento y Reparacion de Vehiculos"
     module_summary = (
         "Coordina diagnosticos, reparaciones y mantenimientos preventivos de la flota."
     )
-
 
 class VehicleMaintenanceStep1View(ModulePlaceholderView):
     template_name = "admin/vehicle_maintenance_step1.html"
@@ -93,14 +87,12 @@ class VehicleMaintenanceStep1View(ModulePlaceholderView):
         "Coordina diagnosticos, reparaciones y mantenimientos preventivos de la flota."
     )
 
-
 class ClientsModuleView(ModulePlaceholderView):
     template_name = "admin/clients_module.html"
     module_name = "Clientes"
     module_summary = (
         "Visualiza los contratos activos, historial de proyectos y datos de contacto."
     )
-
 
 class UserManagementView(LoginRequiredMixin, UserPassesTestMixin, View):
     template_name = "admin/user_management.html"
@@ -196,6 +188,6 @@ class UserManagementView(LoginRequiredMixin, UserPassesTestMixin, View):
         user.delete()
         messages.success(request, f"Usuario {username} eliminado.")
 
-
 class UserAccessView(UserManagementView):
     template_name = "admin/user_access.html"
+

@@ -1,7 +1,6 @@
-from django.db import models
+﻿from django.db import models
 
 from workshop.models import WorkOrder
-
 
 class Quote(models.Model):
     PENDING = "PEND"
@@ -40,7 +39,6 @@ class Quote(models.Model):
     def grand_total(self):
         return self.work_order.grand_total()
 
-
 class Payment(models.Model):
     CASH = "CASH"
     CARD = "CARD"
@@ -70,3 +68,4 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"Pago {self.amount} - {self.work_order.number}"
+

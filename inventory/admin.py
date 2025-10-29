@@ -1,7 +1,6 @@
-from django.contrib import admin
+﻿from django.contrib import admin
 from .models import InventoryItem, PartUsage
 from core.utils import clp
-
 
 @admin.register(InventoryItem)
 class InventoryItemAdmin(admin.ModelAdmin):

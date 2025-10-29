@@ -1,9 +1,8 @@
-from django.db import models
+﻿from django.db import models
 from django.db.models import DecimalField, ExpressionWrapper, F, Sum
 from django.utils import timezone
 
 from core.models import Client, Technician, Vehicle
-
 
 class Appointment(models.Model):
     vehicle = models.ForeignKey(
@@ -32,7 +31,6 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f"Cita {self.vehicle.plate} @ {self.scheduled_at:%Y-%m-%d %H:%M}"
-
 
 class WorkOrder(models.Model):
     OPEN = "OPEN"
@@ -111,7 +109,6 @@ class WorkOrder(models.Model):
         self.closed_at = timezone.now()
         self.save(update_fields=["status", "closed_at"])
 
-
 class Diagnostic(models.Model):
     work_order = models.OneToOneField(
         WorkOrder,
@@ -128,7 +125,6 @@ class Diagnostic(models.Model):
 
     def __str__(self):
         return f"Diagnostico {self.work_order.number}"
-
 
 class RepairAction(models.Model):
     work_order = models.ForeignKey(
@@ -159,3 +155,4 @@ class RepairAction(models.Model):
     @property
     def labor_cost(self):
         return (self.hours or 0) * (self.labor_rate or 0)
+

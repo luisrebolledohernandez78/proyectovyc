@@ -1,5 +1,4 @@
-from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
-
+﻿from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 
 def clp(value) -> str:
     """
@@ -14,3 +13,4 @@ def clp(value) -> str:
     entero = int(val.to_integral_value(rounding=ROUND_HALF_UP))
     groups = f"{entero:,}".replace(",", ".")
     return f"-${groups[1:]}" if groups.startswith("-") else f"${groups}"
+

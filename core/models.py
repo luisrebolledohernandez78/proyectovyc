@@ -1,6 +1,5 @@
-from django.core.exceptions import ValidationError
+﻿from django.core.exceptions import ValidationError
 from django.db import models
-
 
 # ------------------------------
 # Validacion sencilla de RUT (Chile)
@@ -34,12 +33,10 @@ def validar_rut(rut: str) -> bool:
         dv_calc = str(dig)
     return dv == dv_calc
 
-
 def normalizar_rut(rut: str) -> str:
     """Devuelve RUT normalizado sin puntos y con guion. Ej: 12345678-5."""
     r = rut.replace(".", "").replace("-", "").upper()
     return f"{r[:-1]}-{r[-1]}" if len(r) > 1 else rut
-
 
 class Client(models.Model):
     NATURAL = "NAT"
@@ -77,7 +74,6 @@ class Client(models.Model):
     def __str__(self):
         return f"{self.name} ({self.rut})"
 
-
 class Technician(models.Model):
     full_name = models.CharField("Nombre completo", max_length=120)
     specialty = models.CharField("Especialidad", max_length=120, blank=True, null=True)
@@ -91,7 +87,6 @@ class Technician(models.Model):
 
     def __str__(self):
         return self.full_name
-
 
 class Vehicle(models.Model):
     client = models.ForeignKey(
@@ -118,3 +113,4 @@ class Vehicle(models.Model):
 
     def __str__(self):
         return f"{self.plate} - {self.client.name}"
+

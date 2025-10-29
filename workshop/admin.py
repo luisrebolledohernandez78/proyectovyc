@@ -1,4 +1,4 @@
-from django.contrib import admin
+﻿from django.contrib import admin
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import format_html
@@ -7,19 +7,16 @@ from billing.models import Quote
 from core.utils import clp
 from .models import Appointment, Diagnostic, RepairAction, WorkOrder
 
-
 class QuoteInline(admin.StackedInline):
     model = Quote
     extra = 0
     can_delete = False
-
 
 @admin.register(Appointment)
 class AppointmentAdmin(admin.ModelAdmin):
     list_display = ("vehicle", "scheduled_at", "created_at")
     search_fields = ("vehicle__plate", "vehicle__client__name")
     autocomplete_fields = ("vehicle",)
-
 
 @admin.register(WorkOrder)
 class WorkOrderAdmin(admin.ModelAdmin):
@@ -64,13 +61,11 @@ class WorkOrderAdmin(admin.ModelAdmin):
 
     quote_pdf_link.short_description = "Cotizacion (PDF)"
 
-
 @admin.register(Diagnostic)
 class DiagnosticAdmin(admin.ModelAdmin):
     list_display = ("work_order", "created_at")
     search_fields = ("work_order__number",)
     autocomplete_fields = ("work_order",)
-
 
 @admin.register(RepairAction)
 class RepairActionAdmin(admin.ModelAdmin):
@@ -84,7 +79,6 @@ class RepairActionAdmin(admin.ModelAdmin):
 
     labor_cost_admin.short_description = "Costo mano de obra"
 
-
 def cerrar_ot(modeladmin, request, queryset):
     updated = 0
     for work_order in queryset:
@@ -95,6 +89,6 @@ def cerrar_ot(modeladmin, request, queryset):
             updated += 1
     modeladmin.message_user(request, f"Ordenes cerradas: {updated}")
 
-
 cerrar_ot.short_description = "Cerrar OT seleccionadas"
 WorkOrderAdmin.actions = [cerrar_ot]
+

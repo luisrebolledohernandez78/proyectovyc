@@ -1,9 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+﻿from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from django.views.generic import TemplateView
 
 from .models import WorkOrder
-
 
 class WorkshopHomeView(LoginRequiredMixin, TemplateView):
     """Render the workshop dashboard mirroring the clients module layout."""
@@ -34,3 +33,4 @@ class WorkshopHomeView(LoginRequiredMixin, TemplateView):
             }
         )
         return context
+

@@ -1,4 +1,4 @@
-from django.db.models import Q
+﻿from django.db.models import Q
 from django.http import Http404
 from rest_framework import generics
 
@@ -18,7 +18,6 @@ from datetime import date, timedelta
 import calendar
 from rest_framework import generics, status
 from rest_framework.parsers import MultiPartParser, FormParser
-
 
 class WorkOrderListCreate(generics.ListCreateAPIView):
     serializer_class = WorkOrderListSerializer
@@ -46,7 +45,6 @@ class WorkOrderListCreate(generics.ListCreateAPIView):
 
         return queryset
 
-
 class WorkOrderDetail(generics.RetrieveAPIView):
     serializer_class = WorkOrderDetailSerializer
     lookup_url_kwarg = "identifier"
@@ -73,11 +71,9 @@ class WorkOrderDetail(generics.RetrieveAPIView):
 
         return generics.get_object_or_404(queryset, number__iexact=identifier)
 
-
 class RepairActionCreate(generics.CreateAPIView):
     queryset = RepairAction.objects.all()
     serializer_class = RepairActionCreateSerializer
-
 
 class AppointmentSlots(generics.GenericAPIView):
     """Return available appointment slots: 2 slots per weekday (morning, afternoon)."""
@@ -103,7 +99,6 @@ class AppointmentSlots(generics.GenericAPIView):
         serializer = self.get_serializer(results, many=True)
         return Response(serializer.data)
 
-
 class AppointmentListCreate(generics.ListCreateAPIView):
     serializer_class = AppointmentSerializer
 
@@ -114,10 +109,8 @@ class AppointmentListCreate(generics.ListCreateAPIView):
             qs = qs.filter(vehicle_id=vehicle)
         return qs
 
-
 class DiagnosticCreate(generics.CreateAPIView):
     serializer_class = DiagnosticCreateSerializer
-
 
 class PaymentCreate(generics.CreateAPIView):
     # Use billing serializer
@@ -133,7 +126,6 @@ class PaymentCreate(generics.CreateAPIView):
         from billing.models import Payment
 
         return Payment.objects.all()
-
 
 class WorkOrderDeliver(generics.GenericAPIView):
     serializer_class = None
@@ -160,3 +152,4 @@ class WorkOrderDeliver(generics.GenericAPIView):
         wo.closed_at = wo.closed_at or None
         wo.save()
         return Response({"ok": True})
+

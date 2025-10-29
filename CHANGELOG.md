@@ -1,4 +1,4 @@
-# Changelog
+﻿# Changelog
 Todas las modificaciones importantes de este proyecto serán documentadas en este archivo.
 
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
@@ -43,3 +43,4 @@ y este proyecto sigue [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - Dashboard de métricas.
 - Tests automáticos (Pytest/Django).
 - Dockerización del entorno.
+
