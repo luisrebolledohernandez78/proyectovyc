@@ -1,6 +1,6 @@
 {% load static humanize %}
 <!doctype html>
-<html lang="es">
+<html lang="es" class="theme-dark">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,17 +8,119 @@
     <link rel="stylesheet" href="{% static 'css/theme.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      :root { color-scheme: dark; }
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
-        mix-blend-mode: screen;
-        opacity: 0.18;
-        filter: brightness(1.7);
+      /* Variables CSS para temas */
+      :root {
+        --transition-theme: all 4s cubic-bezier(0.4, 0, 0.2, 1);
       }
+      
+      /* Tema Oscuro (por defecto) */
+      .theme-dark {
+        --bg-primary: radial-gradient(ellipse at top right, #001b4e 0%, #001133 50%, #04091f 100%);
+        --bg-secondary: #001133;
+        --bg-tertiary: #04091f;
+        --text-primary: rgb(236, 254, 255);
+        --text-secondary: rgba(236, 254, 255, 0.9);
+        --text-muted: rgba(236, 254, 255, 0.8);
+        --accent-primary: rgb(34, 211, 238);
+        --accent-secondary: rgb(250, 204, 21);
+        --card-bg: rgba(34, 211, 238, 0.16);
+        --card-border: rgba(103, 232, 249, 0.32);
+        --form-bg: rgba(17, 24, 39, 0.9);
+        --input-bg: rgba(255, 255, 255, 0.12);
+        --input-border: rgba(34, 211, 238, 0.4);
+        --shadow-color: rgba(34, 211, 238, 0.65);
+        --sidebar-bg: linear-gradient(to bottom, rgba(7, 26, 76, 0.96), rgba(5, 20, 51, 0.94), rgba(4, 9, 31, 0.98));
+        --sidebar-border: rgba(34, 211, 238, 0.2);
+        --glow-turquoise: rgba(34, 211, 238, 0.25);
+        --glow-amber: rgba(250, 204, 21, 0.18);
+      }
+      
+      /* Tema Claro */
+      .theme-light {
+        --bg-primary: radial-gradient(ellipse at top right, #fef9e7 0%, #fef3c7 15%, #e1f5fe 35%, #06b6d4 70%, #0891b2 100%);
+        --bg-secondary: #b3e5fc;
+        --bg-tertiary: #81d4fa;
+        --text-primary: #1e3a8a;
+        --text-secondary: #1e40af;
+        --text-muted: #3b82f6;
+        --accent-primary: #0277bd;
+        --accent-secondary: #ff8f00;
+        --card-bg: rgba(255, 255, 255, 0.75);
+        --card-border: rgba(2, 119, 189, 0.15);
+        --form-bg: rgba(255, 255, 255, 0.85);
+        --input-bg: rgba(255, 255, 255, 0.75);
+        --input-border: rgba(30, 58, 138, 0.4);
+        --shadow-color: rgba(2, 119, 189, 0.2);
+        --sidebar-bg: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(240, 249, 255, 0.85), rgba(224, 242, 254, 0.9));
+        --sidebar-border: rgba(2, 119, 189, 0.15);
+        --glow-turquoise: rgba(2, 119, 189, 0.15);
+        --glow-amber: rgba(255, 143, 0, 0.12);
+      }
+
+      /* Toggle Switch Styles */
+      .theme-toggle {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        background: var(--form-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 2rem;
+        backdrop-filter: blur(20px);
+        transition: var(--transition-theme);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .toggle-switch {
+        position: relative;
+        width: 3.5rem;
+        height: 1.75rem;
+        background: var(--input-bg);
+        border: 1px solid var(--input-border);
+        border-radius: 1rem;
+        cursor: pointer;
+        transition: var(--transition-theme);
+      }
+
+      .toggle-slider {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: var(--accent-primary);
+        border-radius: 50%;
+        transition: var(--transition-theme);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        color: white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .theme-dark .toggle-slider {
+        transform: translateX(0);
+      }
+
+      .theme-light .toggle-slider {
+        transform: translateX(1.75rem);
+        background: var(--accent-secondary);
+      }
+
+      .toggle-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-secondary);
+        transition: var(--transition-theme);
+      }
+
       .btn-icon {
         display: inline-flex;
         align-items: center;
@@ -41,13 +143,25 @@
       }
     </style>
   </head>
-  <body class="min-h-screen bg-gradient-to-br from-[#001b4e] via-[#001133] to-[#04091f] text-cyan-50">
+  <body class="min-h-screen transition-all duration-[4000ms] ease-in-out" style="background: var(--bg-primary); color: var(--text-primary);">
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+      <span class="toggle-label">Noche</span>
+      <div class="toggle-switch" onclick="toggleTheme()">
+        <div class="toggle-slider">
+          <span class="theme-icon">🌙</span>
+        </div>
+      </div>
+      <span class="toggle-label">Día</span>
+    </div>
+
     <div class="relative flex min-h-screen overflow-x-hidden">
       <div class="pointer-events-none absolute inset-0 opacity-60 mix-blend-screen">
-        <div class="absolute -top-28 right-[15%] h-72 w-72 rounded-full bg-cyan-400/25 blur-[140px]"></div>
-        <div class="absolute bottom-[-22%] left-[12%] h-96 w-96 rounded-full bg-amber-300/18 blur-[180px]"></div>
+        <div class="absolute -top-28 right-[15%] h-72 w-72 rounded-full blur-[140px]" style="background: var(--glow-turquoise);"></div>
+        <div class="absolute bottom-[-22%] left-[12%] h-96 w-96 rounded-full blur-[180px]" style="background: var(--glow-amber);"></div>
       </div>
-      <aside class="sticky top-0 flex h-screen w-72 flex-shrink-0 flex-col border-r border-cyan-400/20 bg-gradient-to-b from-[#071a4c]/96 via-[#051433]/94 to-[#04091f]/98">
+      <aside class="sticky top-0 flex h-screen w-72 flex-shrink-0 flex-col transition-all duration-[4000ms]" style="border-right: 1px solid var(--sidebar-border); background: var(--sidebar-bg);">
         <div class="border-b border-cyan-400/15 px-6 py-8">
           <div class="inline-flex items-center gap-3 rounded-full border border-cyan-300/40 bg-cyan-500/10 px-4 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-cyan-100/90">
             <span class="h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(250,204,21,0.8)]"></span>
@@ -178,7 +292,67 @@
       </main>
     </div>
     <script>
+      // Función para cambiar el tema
+      function toggleTheme() {
+        const html = document.documentElement;
+        const body = document.body;
+        const themeIcon = document.querySelector('.theme-icon');
+        const isDark = html.classList.contains('theme-dark');
+        
+        // Limpiar animaciones previas
+        body.classList.remove('theme-transition-to-light', 'theme-transition-to-dark');
+        
+        if (isDark) {
+          // Transición de oscuro a claro (amanecer)
+          body.classList.add('theme-transition-to-light');
+          
+          setTimeout(() => {
+            html.classList.remove('theme-dark');
+            html.classList.add('theme-light');
+            themeIcon.textContent = '☀️';
+            localStorage.setItem('theme', 'light');
+            
+            // Limpiar la clase de animación después de la transición
+            setTimeout(() => {
+              body.classList.remove('theme-transition-to-light');
+            }, 4000);
+          }, 100);
+          
+        } else {
+          // Transición de claro a oscuro (ocaso)
+          body.classList.add('theme-transition-to-dark');
+          
+          setTimeout(() => {
+            html.classList.remove('theme-light');
+            html.classList.add('theme-dark');
+            themeIcon.textContent = '🌙';
+            localStorage.setItem('theme', 'dark');
+            
+            // Limpiar la clase de animación después de la transición
+            setTimeout(() => {
+              body.classList.remove('theme-transition-to-dark');
+            }, 4000);
+          }, 100);
+        }
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
+        // Cargar tema guardado
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const html = document.documentElement;
+        const themeIcon = document.querySelector('.theme-icon');
+        
+        if (savedTheme === 'light') {
+          html.classList.remove('theme-dark');
+          html.classList.add('theme-light');
+          themeIcon.textContent = '☀️';
+        } else {
+          html.classList.remove('theme-light');
+          html.classList.add('theme-dark');
+          themeIcon.textContent = '🌙';
+        }
+
+        // Animaciones de botones
         document.querySelectorAll(".btn-icon[data-icon-active]").forEach((icon) => {
           const trigger = icon.closest("button") || icon.closest("a");
           if (!trigger) return;

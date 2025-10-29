@@ -16,7 +16,7 @@
       
       /* Tema Oscuro (por defecto) */
       .theme-dark {
-        --bg-primary: radial-gradient(ellipse at top left, #001b4e 0%, #001133 50%, #04091f 100%);
+        --bg-primary: radial-gradient(ellipse at top right, #001b4e 0%, #001133 50%, #04091f 100%);
         --bg-secondary: #001133;
         --bg-tertiary: #04091f;
         --text-primary: rgb(236, 254, 255);
@@ -27,14 +27,14 @@
         --card-bg: rgba(34, 211, 238, 0.16);
         --card-border: rgba(103, 232, 249, 0.32);
         --module-bg: linear-gradient(155deg, rgba(13, 148, 136, 0.12) 0%, rgba(5, 20, 51, 0.78) 58%, rgba(71, 116, 210, 0.18) 100%);
-        --module-shadow: 6px 6px 0 rgba(4, 7, 18, 0.55), 0 30px 65px -45px rgba(34, 211, 238, 0.65);
-        --module-shadow-hover: 9px 9px 0 rgba(4, 7, 18, 0.6), 0 40px 80px -50px rgba(34, 211, 238, 0.75);
+        --module-shadow: -6px 6px 0 rgba(4, 7, 18, 0.55), 0 30px 65px -45px rgba(34, 211, 238, 0.65);
+        --module-shadow-hover: -9px 9px 0 rgba(4, 7, 18, 0.6), 0 40px 80px -50px rgba(34, 211, 238, 0.75);
         --shadow-color: rgba(34, 211, 238, 0.65);
       }
       
       /* Tema Claro */
       .theme-light {
-        --bg-primary: radial-gradient(ellipse at top left, #fef9e7 0%, #fef3c7 15%, #e1f5fe 35%, #06b6d4 70%, #0891b2 100%);
+        --bg-primary: radial-gradient(ellipse at top right, #fef9e7 0%, #fef3c7 15%, #e1f5fe 35%, #06b6d4 70%, #0891b2 100%);
         --bg-secondary: #b3e5fc;
         --bg-tertiary: #81d4fa;
         --text-primary: #1e3a8a;
@@ -45,8 +45,8 @@
         --card-bg: rgba(255, 255, 255, 0.8);
         --card-border: rgba(2, 119, 189, 0.15);
         --module-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.85) 0%, rgba(254, 243, 199, 0.4) 25%, rgba(225, 245, 254, 0.7) 75%, rgba(179, 229, 252, 0.6) 100%);
-        --module-shadow: 6px 6px 0 rgba(38, 50, 56, 0.12), 0 30px 65px -45px rgba(251, 191, 36, 0.25);
-        --module-shadow-hover: 9px 9px 0 rgba(38, 50, 56, 0.15), 0 40px 80px -50px rgba(251, 191, 36, 0.35);
+        --module-shadow: -6px 6px 0 rgba(38, 50, 56, 0.12), 0 30px 65px -45px rgba(251, 191, 36, 0.25);
+        --module-shadow-hover: -9px 9px 0 rgba(38, 50, 56, 0.15), 0 40px 80px -50px rgba(251, 191, 36, 0.35);
         --shadow-color: rgba(251, 191, 36, 0.2);
       }
 
@@ -140,44 +140,44 @@
       /* Efecto de Amanecer - Transición oscuro a claro */
       @keyframes sunrise-transition {
         0% {
-          background: radial-gradient(ellipse at top left, #001b4e 0%, #001133 50%, #04091f 100%);
+          background: radial-gradient(ellipse at top right, #001b4e 0%, #001133 50%, #04091f 100%);
         }
         20% {
-          background: radial-gradient(ellipse at top left, #1a1a2e 0%, #16213e 30%, #0f0f23 100%);
+          background: radial-gradient(ellipse at top right, #1a1a2e 0%, #16213e 30%, #0f0f23 100%);
         }
         40% {
-          background: radial-gradient(ellipse at top left, #2c1810 0%, #3d2914 40%, #1a1a2e 100%);
+          background: radial-gradient(ellipse at top right, #2c1810 0%, #3d2914 40%, #1a1a2e 100%);
         }
         60% {
-          background: radial-gradient(ellipse at top left, #8b4513 0%, #cd853f 30%, #4682b4 70%, #2f4f4f 100%);
+          background: radial-gradient(ellipse at top right, #8b4513 0%, #cd853f 30%, #4682b4 70%, #2f4f4f 100%);
         }
         80% {
-          background: radial-gradient(ellipse at top left, #daa520 0%, #ff8c00 20%, #87ceeb 50%, #4682b4 100%);
+          background: radial-gradient(ellipse at top right, #daa520 0%, #ff8c00 20%, #87ceeb 50%, #4682b4 100%);
         }
         100% {
-          background: radial-gradient(ellipse at top left, #fef9e7 0%, #fef3c7 15%, #e1f5fe 35%, #06b6d4 70%, #0891b2 100%);
+          background: radial-gradient(ellipse at top right, #fef9e7 0%, #fef3c7 15%, #e1f5fe 35%, #06b6d4 70%, #0891b2 100%);
         }
       }
 
       /* Efecto de Ocaso - Transición claro a oscuro */
       @keyframes sunset-transition {
         0% {
-          background: radial-gradient(ellipse at top left, #fef9e7 0%, #fef3c7 15%, #e1f5fe 35%, #06b6d4 70%, #0891b2 100%);
+          background: radial-gradient(ellipse at top right, #fef9e7 0%, #fef3c7 15%, #e1f5fe 35%, #06b6d4 70%, #0891b2 100%);
         }
         20% {
-          background: radial-gradient(ellipse at top left, #ff6b35 0%, #f7931e 30%, #4682b4 70%, #2f4f4f 100%);
+          background: radial-gradient(ellipse at top right, #ff6b35 0%, #f7931e 30%, #4682b4 70%, #2f4f4f 100%);
         }
         40% {
-          background: radial-gradient(ellipse at top left, #8b0000 0%, #cd5c5c 40%, #483d8b 80%, #2f4f4f 100%);
+          background: radial-gradient(ellipse at top right, #8b0000 0%, #cd5c5c 40%, #483d8b 80%, #2f4f4f 100%);
         }
         60% {
-          background: radial-gradient(ellipse at top left, #4b0082 0%, #663399 50%, #191970 100%);
+          background: radial-gradient(ellipse at top right, #4b0082 0%, #663399 50%, #191970 100%);
         }
         80% {
-          background: radial-gradient(ellipse at top left, #1a1a2e 0%, #16213e 60%, #0f0f23 100%);
+          background: radial-gradient(ellipse at top right, #1a1a2e 0%, #16213e 60%, #0f0f23 100%);
         }
         100% {
-          background: radial-gradient(ellipse at top left, #001b4e 0%, #001133 50%, #04091f 100%);
+          background: radial-gradient(ellipse at top right, #001b4e 0%, #001133 50%, #04091f 100%);
         }
       }
 
@@ -230,26 +230,28 @@
         height: 210px;
         width: 320px;
         flex-direction: column;
-        transition: var(--transition-theme), transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+        transition: var(--transition-theme), transform 0.15s ease-out, box-shadow 0.15s ease-out, filter 0.15s ease-out;
       }
       
       .module-card:hover {
-        transform: translate(-3px, -3px);
+        transform: translate(3px, -3px);
         box-shadow: var(--module-shadow-hover);
         filter: brightness(1.05);
+        transition: var(--transition-theme), transform 0.12s ease-out, box-shadow 0.12s ease-out, filter 0.12s ease-out;
       }
       
       .module-card:active {
-        transform: translate(2px, 2px);
+        transform: translate(-2px, 2px);
         filter: brightness(0.95);
+        transition: var(--transition-theme), transform 0.08s ease-in, box-shadow 0.08s ease-in, filter 0.08s ease-in;
       }
 
       .theme-dark .module-card:active {
-        box-shadow: 3px 3px 0 rgba(4, 7, 18, 0.55), 0 18px 45px -30px rgba(34, 211, 238, 0.55);
+        box-shadow: -3px 3px 0 rgba(4, 7, 18, 0.55), 0 18px 45px -30px rgba(34, 211, 238, 0.55);
       }
 
       .theme-light .module-card:active {
-        box-shadow: 3px 3px 0 rgba(38, 50, 56, 0.15), 0 18px 45px -30px rgba(2, 119, 189, 0.3);
+        box-shadow: -3px 3px 0 rgba(38, 50, 56, 0.15), 0 18px 45px -30px rgba(2, 119, 189, 0.3);
       }
       /* Estilos adaptativos para textos y elementos */
       .adaptive-text {
@@ -407,89 +409,7 @@
 
 
 
-      /* Estilos unificados para botones - Consistencia con login */
-      .btn-3d {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 14px 28px;
-        border: none;
-        border-radius: 12px;
-        font-family: inherit;
-        font-weight: 600;
-        text-decoration: none;
-        cursor: pointer;
-        outline: none;
-        overflow: hidden;
-        transition: var(--transition-theme), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
 
-      .btn-3d::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        background: inherit;
-        transition: inherit;
-        z-index: -1;
-      }
-
-      /* Tema Oscuro - Botones */
-      .theme-dark .btn-3d {
-        background: linear-gradient(135deg, rgba(34, 211, 238, 0.25) 0%, rgba(13, 148, 136, 0.35) 50%, rgba(59, 130, 246, 0.25) 100%);
-        border: 1px solid rgba(34, 211, 238, 0.5);
-        color: rgba(236, 254, 255, 0.95);
-        box-shadow: 
-          0 4px 20px rgba(34, 211, 238, 0.3),
-          0 0 0 1px rgba(34, 211, 238, 0.1);
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-      }
-
-      .theme-dark .btn-3d:hover {
-        background: linear-gradient(135deg, rgba(34, 211, 238, 0.35) 0%, rgba(13, 148, 136, 0.45) 50%, rgba(59, 130, 246, 0.35) 100%);
-        box-shadow: 
-          0 6px 25px rgba(34, 211, 238, 0.4),
-          0 0 0 1px rgba(34, 211, 238, 0.2);
-        transform: translateY(-2px);
-      }
-
-      .theme-dark .btn-3d:active {
-        transform: translateY(0);
-        box-shadow: 
-          0 2px 10px rgba(34, 211, 238, 0.3),
-          0 0 0 1px rgba(34, 211, 238, 0.1);
-      }
-
-      /* Tema Claro - Botones */
-      .theme-light .btn-3d {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 25%, #1e40af 75%, #1e3a8a 100%);
-        border: 1px solid #1e3a8a;
-        color: white;
-        box-shadow: 
-          0 4px 20px rgba(30, 58, 138, 0.4),
-          0 0 0 1px rgba(30, 58, 138, 0.2),
-          inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-      }
-
-      .theme-light .btn-3d:hover {
-        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 25%, #2563eb 75%, #1e40af 100%);
-        box-shadow: 
-          0 6px 25px rgba(30, 58, 138, 0.5),
-          0 0 0 1px rgba(30, 58, 138, 0.3),
-          inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        transform: translateY(-2px);
-      }
-
-      .theme-light .btn-3d:active {
-        transform: translateY(0);
-        background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 25%, #1e40af 75%, #1e3a8a 100%);
-        box-shadow: 
-          0 2px 10px rgba(30, 58, 138, 0.4),
-          0 0 0 1px rgba(30, 58, 138, 0.2),
-          inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      }
     </style>
   </head>
   <body class="min-h-screen transition-all duration-[4000ms] ease-in-out" style="color: var(--text-primary);">
