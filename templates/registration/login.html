@@ -217,10 +217,10 @@
         width: 100px;
         height: 100px;
         background: radial-gradient(circle, 
-          rgba(255, 255, 224, 0.6) 0%,
-          rgba(255, 255, 224, 0.4) 20%,
-          rgba(255, 255, 224, 0.2) 40%, 
-          rgba(255, 255, 224, 0.1) 60%,
+          rgba(255, 255, 224, 0.15) 0%,
+          rgba(255, 255, 224, 0.1) 20%,
+          rgba(255, 255, 224, 0.05) 40%, 
+          rgba(255, 255, 224, 0.025) 60%,
           transparent 80%);
         border-radius: 50%;
         filter: blur(4px);
@@ -230,7 +230,7 @@
       }
 
       .theme-light .sun-element {
-        opacity: 0.7;
+        opacity: 0.175;
       }
 
       .sun-element::before {
@@ -239,13 +239,13 @@
         inset: -20px;
         background: conic-gradient(
           from 45deg,
-          rgba(255, 255, 224, 0.05) 0deg,
-          rgba(255, 255, 224, 0.08) 60deg,
-          rgba(255, 255, 224, 0.03) 120deg,
-          rgba(255, 255, 224, 0.05) 180deg,
-          rgba(255, 255, 224, 0.02) 240deg,
-          rgba(255, 255, 224, 0.06) 300deg,
-          rgba(255, 255, 224, 0.05) 360deg
+          rgba(255, 255, 224, 0.0125) 0deg,
+          rgba(255, 255, 224, 0.02) 60deg,
+          rgba(255, 255, 224, 0.0075) 120deg,
+          rgba(255, 255, 224, 0.0125) 180deg,
+          rgba(255, 255, 224, 0.005) 240deg,
+          rgba(255, 255, 224, 0.015) 300deg,
+          rgba(255, 255, 224, 0.0125) 360deg
         );
         border-radius: 50%;
         animation: sun-rays 30s linear infinite;
@@ -254,7 +254,7 @@
       }
 
       .theme-light .sun-element::before {
-        opacity: 0.4;
+        opacity: 0.1;
       }
 
       @keyframes sun-rays {

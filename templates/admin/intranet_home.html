@@ -530,22 +530,22 @@
     
     <!-- Rayos de sol (solo modo claro) -->
     <div class="theme-light:block theme-dark:hidden fixed -top-24 -right-24 w-96 h-96 pointer-events-none transition-all duration-[4000ms]" 
-         style="background: conic-gradient(from 0deg, transparent 0deg, rgba(255, 255, 224, 0.02) 45deg, transparent 90deg, rgba(255, 255, 224, 0.015) 135deg, transparent 180deg, rgba(255, 255, 224, 0.02) 225deg, transparent 270deg, rgba(255, 255, 224, 0.015) 315deg, transparent 360deg); animation: sun-rays 30s linear infinite; filter: blur(5px);"></div>
+         style="background: conic-gradient(from 0deg, transparent 0deg, rgba(255, 255, 224, 0.005) 45deg, transparent 90deg, rgba(255, 255, 224, 0.0037) 135deg, transparent 180deg, rgba(255, 255, 224, 0.005) 225deg, transparent 270deg, rgba(255, 255, 224, 0.0037) 315deg, transparent 360deg); animation: sun-rays 30s linear infinite; filter: blur(5px);"></div>
     
     <div class="relative flex min-h-screen flex-col items-center justify-center px-6 py-12 text-center">
       <!-- Efectos de luz atmosférica -->
       <div class="pointer-events-none absolute inset-0 transition-all duration-[4000ms]" style="opacity: 0.6;">
         <!-- Sol en esquina superior derecha (modo claro) -->
         <div class="theme-light:block theme-dark:hidden absolute -top-20 -right-20 h-96 w-96 rounded-full transition-all duration-[4000ms]" 
-             style="background: radial-gradient(circle, rgba(255, 255, 224, 0.3) 0%, rgba(255, 255, 224, 0.2) 30%, rgba(255, 255, 224, 0.1) 50%, rgba(255, 255, 224, 0.05) 70%, transparent 85%); filter: blur(60px);"></div>
+             style="background: radial-gradient(circle, rgba(255, 255, 224, 0.075) 0%, rgba(255, 255, 224, 0.05) 30%, rgba(255, 255, 224, 0.025) 50%, rgba(255, 255, 224, 0.0125) 70%, transparent 85%); filter: blur(60px);"></div>
         
         <!-- Efectos modo oscuro -->
         <div class="theme-dark:block theme-light:hidden absolute -top-32 right-[25%] h-80 w-80 rounded-full blur-[180px] transition-all duration-[4000ms]" style="background: var(--accent-primary); opacity: 0.25;"></div>
         <div class="theme-dark:block theme-light:hidden absolute bottom-[-25%] left-[18%] h-96 w-96 rounded-full blur-[220px] transition-all duration-[4000ms]" style="background: var(--accent-secondary); opacity: 0.18;"></div>
         
         <!-- Efectos modo claro - luz solar difusa -->
-        <div class="theme-light:block theme-dark:hidden absolute top-[10%] right-[15%] h-72 w-72 rounded-full blur-[160px] transition-all duration-[4000ms]" style="background: rgba(255, 255, 224, 0.8); opacity: 0.08;"></div>
-        <div class="theme-light:block theme-dark:hidden absolute bottom-[20%] left-[20%] h-80 w-80 rounded-full blur-[220px] transition-all duration-[4000ms]" style="background: rgba(255, 255, 224, 0.6); opacity: 0.06;"></div>
+        <div class="theme-light:block theme-dark:hidden absolute top-[10%] right-[15%] h-72 w-72 rounded-full blur-[160px] transition-all duration-[4000ms]" style="background: rgba(255, 255, 224, 0.8); opacity: 0.02;"></div>
+        <div class="theme-light:block theme-dark:hidden absolute bottom-[20%] left-[20%] h-80 w-80 rounded-full blur-[220px] transition-all duration-[4000ms]" style="background: rgba(255, 255, 224, 0.6); opacity: 0.015;"></div>
       </div>
       <div class="relative space-y-6">
         <span class="theme-badge inline-flex items-center gap-2 rounded-full px-5 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.4em]">
