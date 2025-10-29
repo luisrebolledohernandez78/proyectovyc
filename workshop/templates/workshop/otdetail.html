@@ -1,8 +1,7 @@
-﻿{% extends "base.html" %}
+{% extends "base.html" %}
 {% load humanize %}
 {% block title %}{{ object.number }} - VyC{% endblock %}
 {% block page_title %}{{ object.number }}{% endblock %}
-
 {% block content %}
   <div class="vyc-grid">
     <section class="vyc-card">
@@ -10,13 +9,11 @@
       <p><strong>Cliente:</strong> {{ object.client }}</p>
       <p class="muted"><strong>Contacto:</strong> {{ object.client.phone|default:"Sin telefono" }}</p>
     </section>
-
     <section class="vyc-card">
       <h3>Vehiculo</h3>
       <p><strong>Patente:</strong> {{ object.vehicle.plate }}</p>
       <p class="muted"><strong>Modelo:</strong> {{ object.vehicle.model|default:"Sin modelo" }}</p>
     </section>
-
     <section class="vyc-card">
       <h3>Estado y Totales</h3>
       <p><span class="badge">{{ object.get_status_display }}</span></p>
@@ -29,5 +26,3 @@
     </section>
   </div>
 {% endblock %}
-
-
