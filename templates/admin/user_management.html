@@ -85,20 +85,20 @@
             href="{% url 'user-access' %}"
             class="btn-3d w-full text-xs uppercase px-4 py-3 inline-flex items-center justify-center gap-2 mb-4 tracking-wide"
           >
-            <span class="btn-icon" aria-hidden="true" data-icon-default="🧑‍💼" data-icon-active="🗂️">🧑‍💼</span>
+            <span class="btn-icon" aria-hidden="true" data-icon-default="&#x1F464;" data-icon-active="&#x1F465;">&#x1F464;</span>
             <span>Gestionar Usuarios</span>
           </a>
           <a
             href="{% url 'intranet-home' %}"
             class="btn-3d w-full text-xs uppercase px-4 py-3 inline-flex items-center justify-center gap-2 mb-4 tracking-wide"
           >
-            <span class="btn-icon" aria-hidden="true" data-icon-default="🏠" data-icon-active="🧭">🏠</span>
+            <span class="btn-icon" aria-hidden="true" data-icon-default="&#x1F3E0;" data-icon-active="&#x1F3E1;">&#x1F3E0;</span>
             <span>Volver al Home</span>
           </a>
           <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit" class="btn-3d w-full text-xs">
-              <span class="btn-icon" aria-hidden="true" data-icon-default="🚪" data-icon-active="🏃">🚪</span>
+              <span class="btn-icon" aria-hidden="true" data-icon-default="&#x1F6AA;" data-icon-active="&#x1F6AA;">&#x1F6AA;</span>
               <span>Salir</span>
             </button>
           </form>

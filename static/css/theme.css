@@ -5,6 +5,7 @@
   --deep-navy:#001133;
   --electric-turquoise:#22d3ee;
   --amber-flash:#facc15;
+  --amber-soft:#fde68a;
   --frosted-surface:rgba(255,255,255,.08);
   --text-white:#ffffff;
   --ink:#0b1220;
@@ -104,7 +105,7 @@ body::before{
   --btn-hover-bg:#0033cc;
   --btn-shadow-color:rgba(0,0,0,.35);
   appearance:none;
-  border:2px solid var(--amber-flash);
+  border:1px solid var(--amber-soft);
   cursor:pointer;
   display:inline-flex;
   align-items:center;
@@ -117,13 +118,14 @@ body::before{
   text-transform:uppercase;
   padding:12px 20px;
   border-radius:6px!important;
-  box-shadow:3px 3px 0 var(--btn-shadow-color);
+  box-shadow:0 0 0 1px rgba(250,204,21,.45),3px 3px 0 var(--btn-shadow-color);
   transform:translateY(0);
-  transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease, filter .2s ease;
+  transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease, filter .2s ease;
 }
 .btn-3d:hover{
   background:var(--btn-hover-bg);
-  box-shadow:4px 4px 0 var(--btn-shadow-color);
+  border-color:var(--amber-flash);
+  box-shadow:0 0 0 1.6px var(--amber-flash),4px 4px 0 var(--btn-shadow-color);
 }
 .btn-3d:active{
   transform:translate(2px,2px);
